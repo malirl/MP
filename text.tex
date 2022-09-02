@@ -33,11 +33,120 @@
 \setcounter{page}{2}
 
 
-\chapter{Chapter Name}
-\blindmathtrue
-\blindtext[5]
-\section{A section}
-\blindtext
+\chapter{Projekce 3D do 2D}
+\section{Perspektivní projekce}
+
+
+
+
+\chapter{Vykreslení 3D scény}
+\section{Stínění objektů}
+\section{Vyplňování}
+
+
+
+
+
+
+
+\chapter{Rotace}
+
+
+Otáčet bod vůči středu soustavy souřadné je jako nanášet ho na otočenou soustavu souřadnou, tedy násobit vektory udávájící osy $x$, $y$, atd. takové soustavy.
+Tyto vektory mají délku 1. Lze zapsat takto:
+
+$p_n = \begin{pmatrix}
+X_1 & Y_1 \\
+X_2 & Y_2
+\end{pmatrix}\vec{p}$\\
+
+
+\section{2D}
+
+Otočené souřadnice můžeme vyjádřit takto:
+
+
+$X_1 = \cos(-\alpha) = \cos(\alpha)\\
+X_2 = \sin(2\pi-\alpha) = -\sin(\alpha)\\
+Y_1 = \cos(\pi/2 - \alpha) = \sin(\alpha)\\
+Y_2 = \sin(\pi/2 - \alpha) = \cos(-\alpha) = \cos(\alpha)
+$\\
+
+
+
+$\begin{pmatrix}
+\cos(\alpha) & \sin(\alpha)\\
+-\sin(\alpha) & \cos(\alpha)
+\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}$
+
+
+
+\section{3D}
+
+Rotace bodu vůči ose Z ve směru hodinových ručiček:\\
+$\begin{pmatrix}
+\cos(\alpha) & \sin(\alpha) & 0\\
+-\sin(\alpha) & \cos(\alpha) & 0\\
+0 & 0 & 1
+\end{pmatrix}\begin{pmatrix}x\\y\\z\end{pmatrix}$\\
+
+Rotace bodu vůči zvolené ose:\\
+
+Máme vstup osu $o$ a úhel $\alpha$. 
+
+Mějme 2 soustavy souřadné $A$ a $B$ popsané jednotkovými vektory. Přitom $A$ je naše výchozí, na které vykreslujeme:
+
+$\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{pmatrix}$\\
+
+Matice B má tvar:
+
+$\begin{pmatrix}
+a_x& b_x& o_x\\
+a_y & b_y& o_y\\
+a_z & b_z & o_z
+\end{pmatrix}$\\
+
+3. řádek $B$ tvoří souřadnice osy $o$, takže 3. souřadnice $p_b$ je právě vzhledem k $o$.
+
+Čili je z následující rovnice zaručeno, že získáme přesně takový bod $p_b$, kde jeho 3. souřadnice je vzhledem k $o$. To potřebujeme, protože jsme zvolili matici
+rotace podle osy Z (respektive 3. osy...), kterou chceme bod násobit. Takže tato souřadnice bodu v B po rotaci bude stejná.
+
+Z rovnice $p_a = p_b B$ vyjádříme tedy $p_b$ vynasobením $Bˇ-1$: $p_b = p_a Bˇ-1$\\ %!
+
+
+Zbývající vektory $a$ a $b$ v $B$ musí být jednotkové a vzájemně kolmé. takový $a$ dostaneme třeba ignorováním $z$ následovně: $\vec{a} = \{-y, x, 0\}$, kde $x$ a $y$ jsou souřadnice $o$. $b$ je už jen vektorovým součinem $a$ a $b$.
+
+To je tedy převod relativních souřadnic ze soustavy $A$ do soustavy $B$.
+
+% Prakticky nesejde na určení výchozího směru rotace.
+
+
+
+Rotace probíhá následovně:\\
+
+Vstup: osa otáčení $o$, úhel $\alpha$ 
+
+\begin{enumerate}[label=\arabic*, font=\bfseries] % nummbered list
+	\item převedeme souřadnice z A do B
+	\item zrotujeme (například přes matici 1.1, tj. vůči 3. ose)
+	\item vykreslujeme v A, takže převedeme z B do A
+\end{enumerate}
+
+
+
+\section{Posunutí středu a osy otáčení}
+
+Pro posunutý střed v 2D platí, že vektor $\vec{XS}$, kde $S$ je střed a $X$ bod, má fakticky souřadnice bodu $\vec{p}$. K výpočtu stačí potom přičíst $S$.\\
+
+Stejně u posunuté osy v 3D, je takový vektor vlastně bod $p_a$
+V praxi, grafickém editoru, můžeme osu určit typicky dvěma body. A ten jeden z nich (třeba pro intuici první určený) je totiž tento střed $S$. Nakonec stačí opět přičíst $S$.
+
+
+
 
 
 
