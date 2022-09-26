@@ -33,20 +33,97 @@
 \setcounter{page}{2}
 
 
-\chapter{Projekce 3D do 2D}
-\section{Perspektivní projekce}
+
+\chapter{Projekce scény}
+Projekcí scény je v této práci myšleno perspektivní vidění.
+Paprsek jdoucí od promítaného bodu do oka pozorovatele se promítá na určenou rovinu v prostoru, tz. tvoří průnik s touto rovinou. Výsledný bod je přenesený na 2D soustavu souřadnou v této rovině.
+
+
+
+\section{Stínění objektů v 3D}
+\section{Zoom}
 
 
 
 
-\chapter{Vykreslení 3D scény}
-\section{Stínění objektů}
-\section{Vyplňování}
+\chapter{Rasterizace}
+
+
+Rasterizace je proces převodu vektorově definované grafiky do tzv. rastru, tedy mřížky skládající se z bodů (pixelů).
+Takový rastr je základem obrazového výstupu na digitálních zařízení.
+V následujícíh kapitolách jsou představeny algoritmy rasterizace 2 objektů: úsečky a kruhu.
+Samostatná kapitola je pak věnovaná rasterizaci Beziérových křivek.
+
+
+\section{Úsečka}
+
+
+
+Převedení vstupu\\
+Úsečka je část přímky definovaná dvěma body: $b_1$ a $b_2$. Směrnice úsečky je $a = dy/dx$. 
+Pro následující algoritmy platí, že vektor $\vec b = b_2 - b_1$ má kladnou souřadnice, protože se algoritmus posouvá o jeden dílek doprava od $b_1x$ do $b_2x$.
+Počítá se s vstupem $a\subset<0;1>$, takže úsečka svírá s osou $x$ úhel $0-45$ stupňů.
+
+Tyto podmínky umožňují zvolit efektivní algoritmy, ale zároveň vyžadují transformaci souřadnic.
+
+
+
+DDA\\
+DDA využívá zaokrouhlované hodnoty $n*a$ pro výpočet $y_{new}$, je to prostý přístup. Současně ale zbytečně používá funkci zaokrouhlování či přetypování, kterou lze pro optimalizaci nahradit podmínkou s použitím proměnné,
+protože jsou pouze 2 možnosti pro $y_{next}$: $y_{next} = y$, nebo $y_{next} = y+1$.
+
+Proměnnou vyjadřuje $error(n)=((n*a)\mod1)-1/2$, kde $n$ je krok iterace, takže $error(0) = -1/2$.
+Pokud platí zmíněná podmínka $error(n) >= 0$, platí současně $y_{next}=y+1$ a $error(n+1) = error(n) + a - 1$, jinak platí $error(n+1) = error(n) + a$.
+
+
+Bresenhamův algoritmus\\
+Další optimalizací je zbavení se desetinné čárky (tzv. float point number).
+Představme si $error(n) = 2*dx*error(n)$. Jsou 2 možnosti:
+
+
+
+
+$error(n+1)=error(n)+2*dy$
+$error(n+1)=error(n)+2*dy-2*dx$
+
+Nerovnice podmínky se nemění, protože je jako bychom ji vynásobili $2*dx$: $error(n+1)>=0*2*dx$.
 
 
 
 
 
+
+
+\section{Kruh} % Obdelník, trojúhelník, kružnice, elipsa, kvádr a koule
+
+
+
+\section{Ostatní}
+
+\section{Bezierova křivka}
+
+\section{Vyplňování} % vyplňování jednoduchých tvarů a polygonů
+
+
+Řádkovací metoda
+\\Inverzní vyplňování
+\\Flood fill
+
+
+\chapter{Analýza}
+\section{Detekce kolize}
+\section{Oblasti průniku dvou objektů a průřez}
+Sutherland–Hodgman algoritmus
+\\Weiler–Atherton clipping algoritmus
+
+\section{Obsah polygonu}
+https://mathworld.wolfram.com/PolygonArea.html
+\section{Je A v B?}
+
+
+
+
+\chapter{Zrcadlení přes střed a osu}
 
 
 \chapter{Rotace}
@@ -113,12 +190,12 @@ a_z & b_z & o_z
 3. řádek $B$ tvoří souřadnice osy $o$, takže 3. souřadnice $p_b$ je právě vzhledem k $o$.
 
 Čili je z následující rovnice zaručeno, že získáme přesně takový bod $p_b$, kde jeho 3. souřadnice je vzhledem k $o$. To potřebujeme, protože jsme zvolili matici
-rotace podle osy Z (respektive 3. osy...), kterou chceme bod násobit. Takže tato souřadnice bodu v B po rotaci bude stejná.
+rotace podle osy Z (respektive 3. osy...), kterou chceme bod násobit. Takže tato souřadnice bodu v $B$ po rotaci bude stejná.
 
-Z rovnice $p_a = p_b B$ vyjádříme tedy $p_b$ vynasobením $Bˇ-1$: $p_b = p_a Bˇ-1$\\ %!
+Z rovnice $p_a = p_b B$ vyjádříme tedy $p_b$ vynasobením $B^{-1}$: $p_b = p_a B^{-1}$\\ %!
 
 
-Zbývající vektory $a$ a $b$ v $B$ musí být jednotkové a vzájemně kolmé. takový $a$ dostaneme třeba ignorováním $z$ následovně: $\vec{a} = \{-y, x, 0\}$, kde $x$ a $y$ jsou souřadnice $o$. $b$ je už jen vektorovým součinem $a$ a $b$.
+Zbývající vektory $a$ a $b$ v $B$ musí být jednotkové a vzájemně kolmé. takový $a$ dostaneme třeba ignorováním $z$ a přehozením souřadnic následovně: $\vec{a} = \{-y, x, 0\}$, kde $x$ a $y$ jsou souřadnice $o$. $b$ je už jen vektorovým součinem $a$ a $b$.
 
 To je tedy převod relativních souřadnic ze soustavy $A$ do soustavy $B$.
 
@@ -128,7 +205,7 @@ To je tedy převod relativních souřadnic ze soustavy $A$ do soustavy $B$.
 
 Rotace probíhá následovně:\\
 
-Vstup: osa otáčení $o$, úhel $\alpha$ 
+Vstup: osa otáčení $o$, úhel $\alpha$
 
 \begin{enumerate}[label=\arabic*, font=\bfseries] % nummbered list
 	\item převedeme souřadnice z A do B
@@ -145,6 +222,17 @@ Pro posunutý střed v 2D platí, že vektor $\vec{XS}$, kde $S$ je střed a $X$
 Stejně u posunuté osy v 3D, je takový vektor vlastně bod $p_a$
 V praxi, grafickém editoru, můžeme osu určit typicky dvěma body. A ten jeden z nich (třeba pro intuici první určený) je totiž tento střed $S$. Nakonec stačí opět přičíst $S$.
 
+
+\chapter{Generování tvarů}
+
+
+
+
+
+
+
+
+\chapter{Fraktály} %vykreslení	
 
 
 
