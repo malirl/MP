@@ -1,0 +1,23 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Projekce scény}{iii}{}%
+\contentsline {section}{\numberline {1.1}Stínění objektů v 3D}{iii}{}%
+\contentsline {section}{\numberline {1.2}Zoom}{iii}{}%
+\contentsline {chapter}{\numberline {2}Rasterizace}{iv}{}%
+\contentsline {section}{\numberline {2.1}Úsečka}{iv}{}%
+\contentsline {section}{\numberline {2.2}Zrcadlení}{vi}{}%
+\contentsline {section}{\numberline {2.3}Kruh}{vi}{}%
+\contentsline {section}{\numberline {2.4}Ostatní}{vii}{}%
+\contentsline {section}{\numberline {2.5}Bezierova křivka}{vii}{}%
+\contentsline {section}{\numberline {2.6}Vyplňování}{vii}{}%
+\contentsline {chapter}{\numberline {3}Analýza}{viii}{}%
+\contentsline {section}{\numberline {3.1}Detekce kolize}{viii}{}%
+\contentsline {section}{\numberline {3.2}Oblasti průniku dvou objektů a průřez}{viii}{}%
+\contentsline {section}{\numberline {3.3}Obsah polygonu}{viii}{}%
+\contentsline {section}{\numberline {3.4}Je A v B?}{viii}{}%
+\contentsline {chapter}{\numberline {4}Zrcadlení přes střed a osu}{ix}{}%
+\contentsline {chapter}{\numberline {5}Rotace}{x}{}%
+\contentsline {section}{\numberline {5.1}2D}{x}{}%
+\contentsline {section}{\numberline {5.2}3D}{x}{}%
+\contentsline {section}{\numberline {5.3}Posunutí středu a osy otáčení}{xi}{}%
+\contentsline {chapter}{\numberline {6}Generování tvarů}{xii}{}%
+\contentsline {chapter}{\numberline {7}Fraktály}{xiii}{}%
