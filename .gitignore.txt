@@ -1,4 +1,0 @@
-*.aux
-*.toc
-*.mf
-*.idx
