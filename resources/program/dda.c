@@ -10,13 +10,13 @@ int main() {
 
    int ax = 300, ay = 200, bx = 800, by = 400;
    double a = (double)(by-ay)/(bx-ax);
-   double err = 0;
+   double err = -.5;
 
    int y = ay;
    for (int x = ax; x <= bx; x++) {
       set_pixel(x,y);
       err+=a;
-      if (err >= 0.5) {
+      if (err >= 0) {
          y++;
          err-=1;
       }
