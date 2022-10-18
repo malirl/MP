@@ -1,28 +1,43 @@
 #include <stdio.h>
 
-void init(void);
-void set_pixel(int x, int y);
-void render_frame(void);
+int x, y, dx, dy, err; 
 
-int main() {
-   init();
+typedef struct point{
+   int *x, *y;
+}point;
 
-   int ax = 300, ay = 200, bx = 800, by = 400;
-   int dy = by - ay;
-   int dx = bx - ax;
-   int err = -2*dx;
 
-   int y = ay;
-   for (int x = ax; x <= bx; x++) {
-      set_pixel(x,y);
-      err+=2*dy;
-      if (err >= 0) {
-         y++;
-         err-=2*dx;
-      }
-   }
+typedef struct res{
+   int ax, ay, dx, dy, opt;
+}res;
 
-   render_frame();
-   getchar();
-   return 0;
+
+point init_bresenham(res *input) {
+   x = 0;
+   y = 0;
+   dx = input->dx;
+   dy = input->dy;
+   err = -2*dx;
+
+   point point;
+   point.x = &x;
+   point.y = &y;
+   return point; 
 }
+
+int next_point() {
+
+   if(x > dx)
+      return 0;
+
+   x++;
+
+   if (err >= 0) {
+      y++;
+      err-=2*dx;
+   }
+   err+=2*dy;
+
+   return 1;
+}
+

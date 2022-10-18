@@ -36,9 +36,8 @@ int render_frame() {
 
 
 void set_pixel(int x, int y) {
-   pixels[x + y * WIDTH] = 0xff000000;
+   pixels[x + (HEIGHT - y) * WIDTH] = 0xff000000;
 }
-
 
 int init() {
    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -72,6 +71,5 @@ int init() {
          WIDTH, HEIGHT);
 
    pixels = malloc(WIDTH * HEIGHT * 4);
-
 }
 
