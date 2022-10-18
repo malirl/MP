@@ -9,20 +9,19 @@ typedef struct point{
 
 typedef struct res{
    int ax, ay, dx, dy, opt;
+   double a;
 }res;
 
 
-point init_bresenham(res *input) {
+void init_bresenham(res *input, point *point) {
    x = 0;
    y = 0;
    dx = input->dx;
    dy = input->dy;
-   err = -2*dx;
+   err = -dx;
 
-   point point;
-   point.x = &x;
-   point.y = &y;
-   return point; 
+   point->x = &x;
+   point->y = &y;
 }
 
 int next_point() {
@@ -31,12 +30,11 @@ int next_point() {
       return 0;
 
    x++;
-
+   err+=2*dy;
    if (err >= 0) {
       y++;
       err-=2*dx;
    }
-   err+=2*dy;
 
    return 1;
 }

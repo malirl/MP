@@ -7,6 +7,7 @@ typedef struct input{
 /* v poradi: bod A, bod B vuci A, parametr pro zpetny prevod */
 typedef struct res{
    int ax, ay, dx, dy, opt;
+   double a;
 }res;
 
 
@@ -14,10 +15,13 @@ typedef struct point{
    int *x, *y;
 }point;
 
+struct point Point;
+
 
 res convert_input(input *input);
 
-point init_bresenham(res *res);
+void init_bresenham(res *res, point *point);
+void init_dda(res *res, point *point);
 int next_point(void);
 
 void init(void);
@@ -30,30 +34,30 @@ int main() {
    init();
 
    input input;
-   input.ax = 200;
-   input.ay = 700;
+   input.ax = 50;
+   input.ay = 50;
    input.bx = 300;
-   input.by = 600;
+   input.by = 800;
 
    res res = convert_input(&input);
-   point point = init_bresenham(&res);
+   init_dda(&res, &Point);
 
    switch(res.opt) {
       case 1:
          while(next_point())
-            set_pixel(res.ax + *point.y, res.ay + *point.x);
+            set_pixel(res.ax + *Point.y, res.ay + *Point.x);
          break;
       case 2:
          while(next_point())
-            set_pixel(res.ax + *point.x, res.ay + *point.y);
+            set_pixel(res.ax + *Point.x, res.ay + *Point.y);
          break;
       case 3:
          while(next_point())
-            set_pixel(res.ax + *point.x, res.ay - *point.y);
+            set_pixel(res.ax + *Point.x, res.ay - *Point.y);
          break;
       case 4:
          while(next_point())
-            set_pixel(res.ax + *point.y, res.ay - *point.x);
+            set_pixel(res.ax + *Point.y, res.ay - *Point.x);
          break;
    }
 

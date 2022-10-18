@@ -1,28 +1,43 @@
 #include <stdio.h>
 
-void init(void);
-void set_pixel(int x, int y);
-void render_frame(void);
+int x, y, dx, dy; 
+double a, err;
+
+typedef struct point{
+   int *x, *y;
+}point;
 
 
-int main() {
-   init();
+typedef struct res{
+   int ax, ay, dx, dy, opt;
+   double a;
+}res;
 
-   int ax = 300, ay = 200, bx = 800, by = 400;
-   double a = (double)(by-ay)/(bx-ax);
-   double err = -.5;
 
-   int y = ay;
-   for (int x = ax; x <= bx; x++) {
-      set_pixel(x,y);
-      err+=a;
-      if (err >= 0) {
-         y++;
-         err-=1;
-      }
+point init_dda(res *input, point *point) {
+   x = 0;
+   y = 0;
+   dx = input->dx;
+   dy = input->dy;
+   a = input->a;
+   err = -.5;
+
+   point->x = &x;
+   point->y = &y;
+}
+
+int next_point() {
+
+   if(x > dx)
+      return 0;
+
+   x++;
+   err+=a;
+   if (err >= 0) {
+      y++;
+      err-=1;
    }
 
-   render_frame();
-   getchar();
-   return 0;
+   return 1;
 }
+
