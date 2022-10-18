@@ -40,7 +40,8 @@ int main() {
    input.by = 800;
 
    res res = convert_input(&input);
-   init_dda(&res, &Point);
+   init_bresenham(&res, &Point);
+   /* init_dda(&res, &Point); */
 
    switch(res.opt) {
       case 1:
