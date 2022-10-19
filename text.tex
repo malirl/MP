@@ -15,7 +15,7 @@
 
 \usepackage{wrapfig}
 \usepackage{enumitem} 
-\usepackage{amsmath} 
+\usepackage{amsmath, bm}
 \usepackage{index}
 \usepackage{algpseudocode}
 %\usepackage{paralist}
@@ -138,8 +138,14 @@ Využívá bod $B$ a vektor $\vec{v}$, přes který $B$ zrcadlíme. Výstupem je
 Platí, že vektor $\overrightarrow{BB_{z}}$ je kolmý na $\vec{v}$ a jeho délka je dvojnásobná vzdálenosti $B$ od $\vec{v}$.
 
 
+$\frac{1}{2} \overrightarrow{BB_{z}} = (k*x+P_x;k*y+P_y)-(b_x;b_y)$, skalární součin tedy:
+\\$(k*x+P_x-b_x;k*y+P_y-b_y)*(x;y)=0$.
+\\Úpravou rovnice vyjde $k = -\frac{x(P_x-B_x)+y(P_y-b_y)}{x^2+y^2}$, bod získám:
+$B_z = 2(k*\vec{v}+P-B) = \bm{(2(k*x+P_x-B_x);2(k*y+P_y-B_y))}$
 
 
+
+%$$
 
 
 
@@ -198,9 +204,6 @@ https://mathworld.wolfram.com/PolygonArea.html
 \section{Je A v B?}
 
 
-
-
-\chapter{Zrcadlení přes střed a osu}
 
 
 \chapter{Rotace}
@@ -300,16 +303,11 @@ Stejně u posunuté osy v 3D, je takový vektor vlastně bod $p_a$
 V praxi, grafickém editoru, můžeme osu určit typicky dvěma body. A ten jeden z nich (třeba pro intuici první určený) je totiž tento střed $S$. Nakonec stačí opět přičíst $S$.
 
 
-\chapter{Generování tvarů}
+\chapter{Generování tvarů a fraktály}
 
 
 
 
-
-
-
-
-\chapter{Fraktály} %vykreslení	
 
 
 

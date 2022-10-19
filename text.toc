@@ -14,10 +14,8 @@
 \contentsline {section}{\numberline {3.2}Oblasti průniku dvou objektů a průřez}{viii}{}%
 \contentsline {section}{\numberline {3.3}Obsah polygonu}{viii}{}%
 \contentsline {section}{\numberline {3.4}Je A v B?}{viii}{}%
-\contentsline {chapter}{\numberline {4}Zrcadlení přes střed a osu}{ix}{}%
-\contentsline {chapter}{\numberline {5}Rotace}{x}{}%
-\contentsline {section}{\numberline {5.1}2D}{x}{}%
-\contentsline {section}{\numberline {5.2}3D}{x}{}%
-\contentsline {section}{\numberline {5.3}Posunutí středu a osy otáčení}{xi}{}%
-\contentsline {chapter}{\numberline {6}Generování tvarů}{xii}{}%
-\contentsline {chapter}{\numberline {7}Fraktály}{xiii}{}%
+\contentsline {chapter}{\numberline {4}Rotace}{ix}{}%
+\contentsline {section}{\numberline {4.1}2D}{ix}{}%
+\contentsline {section}{\numberline {4.2}3D}{ix}{}%
+\contentsline {section}{\numberline {4.3}Posunutí středu a osy otáčení}{x}{}%
+\contentsline {chapter}{\numberline {5}Generování tvarů a fraktály}{xi}{}%

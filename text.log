@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.9.26)  6 OCT 2022 06:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.9.26)  9 OCT 2022 11:26
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -399,6 +399,14 @@ LaTeX Info: Redefining \Relbar on input line 971.
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
 )
+(C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/tools\bm.sty
+Package: bm 2021/04/25 v1.2e Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup4
+\symboldletters=\mathgroup5
+\symboldsymbols=\mathgroup6
+Package bm Info: No bold for \OMX/cmex/m/n, using \pmb.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 149.
+)
 (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/index\index.sty
 Package: index 2004/01/20 v4.2beta Improved index support (dmj)
 \@indexbox=\insert252
@@ -611,88 +619,85 @@ Chapter 3.
 
 ]
 Chapter 4.
+
+Underfull \hbox (badness 10000) in paragraph at lines 215--219
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--231
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 243--249
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 250--251
+
+ []
+
 [9
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 256--261
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 264--269
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 275--276
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 286--287
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 300--301
+
+ []
+
+[10]
 Chapter 5.
-
-Underfull \hbox (badness 10000) in paragraph at lines 212--216
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 223--228
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 240--246
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 247--248
-
- []
-
-[10
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 253--258
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 261--266
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 272--273
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 283--284
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 297--298
-
- []
-
-[11]
-Chapter 6.
-[12
-
-]
-Chapter 7.
-[13
+[11
 
 ] (text.aux) ) 
 Here is how much of TeX's memory you used:
- 9637 strings out of 478338
- 176111 string characters out of 2836700
- 563686 words of memory out of 3000000
- 27792 multiletter control sequences out of 15000+600000
- 478412 words of font info for 93 fonts, out of 8000000 for 9000
+ 9790 strings out of 478338
+ 178219 string characters out of 2836700
+ 566544 words of memory out of 3000000
+ 27910 multiletter control sequences out of 15000+600000
+ 484249 words of font info for 120 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,14n,92p,1003b,484s stack positions out of 10000i,1000n,20000p,200000b,80000s
 <C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmbx12.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmex10.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/malir/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/malir/AppData/Local/
-Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/malir/AppDat
-a/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/malir
-/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl12.pfb><C:/Us
-ers/malir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.p
-fb><C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
-/cmsy8.pfb>
-Output written on text.pdf (13 pages, 140100 bytes).
+amsfonts/cm/cmbsy10.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmbx12.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/malir/AppData/Local/Program
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/malir/AppData/Loca
+l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/malir/AppD
+ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/ma
+lir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C
+:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra
+/cmmib8.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmr12.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmr6.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmr8.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX
+/fonts/type1/public/amsfonts/cm/cmsl12.pfb><C:/Users/malir/AppData/Local/Progra
+ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/malir/AppData/Loc
+al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on text.pdf (11 pages, 184471 bytes).
 PDF statistics:
- 103 PDF objects out of 1000 (max. 8388607)
+ 121 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 26677 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 36917 words of extra memory for PDF output out of 42996 (max. 10000000)
 
