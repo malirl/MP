@@ -32,7 +32,7 @@ void init(void);
 void set_pixel(int x, int y);
 
 void render_frame(void);
-
+int check_events_forever(void);
 
 void mirror(pointToMirror *B) {
    int px = Input.ax, py = Input.ay, bx = B->bx, by = B->by;
@@ -94,11 +94,8 @@ int main() {
 
 
 
-
-
-
-
    render_frame();
+   check_events_forever();
 
    getchar();
    return 0;

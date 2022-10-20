@@ -11,14 +11,7 @@ SDL_Texture *screen_texture;
 
 unsigned int *pixels;
 
-
-
-int render_frame() {
-   SDL_UpdateTexture(screen_texture, NULL, pixels, WIDTH * 4);
-   SDL_RenderClear(renderer);
-   SDL_RenderCopy(renderer, screen_texture, NULL, NULL);
-   SDL_RenderPresent(renderer);
-
+int check_events() {
    SDL_Event event;
    while (SDL_PollEvent(&event))
    {
@@ -33,6 +26,33 @@ int render_frame() {
       }
    }
 }
+
+int check_events_forever() {
+   while(1) {
+      SDL_Event event;
+      while (SDL_PollEvent(&event))
+      {
+         switch (event.type) {
+            case SDL_QUIT:
+               SDL_DestroyWindow(window);
+               SDL_Quit();
+               break;
+            case SDL_WINDOWEVENT:
+               break;
+            default: {}
+         }
+      }
+   }
+}
+
+void render_frame() {
+   SDL_UpdateTexture(screen_texture, NULL, pixels, WIDTH * 4);
+   SDL_RenderClear(renderer);
+   SDL_RenderCopy(renderer, screen_texture, NULL, NULL);
+   SDL_RenderPresent(renderer);
+   check_events();
+}
+
 
 
 void set_pixel(int x, int y) {
