@@ -1,22 +1,26 @@
 #include <stdio.h>
 
-typedef struct input{
+typedef struct{
  int ax, ay, bx, by;
 }input;
 
 /* v poradi: bod A, bod B vuci A, parametr pro zpetny prevod */
-typedef struct res{
+typedef struct{
    int ax, ay, dx, dy, opt;
    double a;
 }res;
 
-
-typedef struct point{
+typedef struct{
    int *x, *y;
 }point;
 
-struct point Point;
+typedef struct{
+   point mirror;
+   int bx, by;
+}pointToMirror;
 
+point Point;
+input Input;
 
 res convert_input(input *input);
 
@@ -30,18 +34,44 @@ void set_pixel(int x, int y);
 void render_frame(void);
 
 
+void mirror(pointToMirror *B) {
+   int px = Input.ax, py = Input.ay, bx = B->bx, by = B->by;
+   int x = Input.bx-Input.ax, y = Input.by-Input.ay; 
+
+   double k = (double)(x*(bx-px)+y*(by-py))/(x*x+y*y);
+
+   int res_x = (int)2*(k*x+px)-bx+.5, res_y = (int)2*(k*y+py)-by+.5;
+
+   B->mirror.x = &res_x;
+   B->mirror.y = &res_y;
+}
+
+
+
 int main() {
    init();
 
-   input input;
-   input.ax = 50;
-   input.ay = 50;
-   input.bx = 300;
-   input.by = 800;
+   Input.ax = 100;
+   Input.ay = 300;
+   Input.bx = 400;
+   Input.by = 850;
 
-   res res = convert_input(&input);
+   res res = convert_input(&Input);
    init_bresenham(&res, &Point);
    /* init_dda(&res, &Point); */
+
+
+   /* zrcadleni */
+   pointToMirror B;
+   B.bx = 410;
+   B.by = 400;
+
+   set_pixel(B.bx,B.by);
+   mirror(&B);
+   set_pixel(*B.mirror.x,*B.mirror.y);
+   printf("%f",*B.mirror.x);
+
+
 
    switch(res.opt) {
       case 1:
@@ -61,6 +91,12 @@ int main() {
             set_pixel(res.ax + *Point.y, res.ay - *Point.x);
          break;
    }
+
+
+
+
+
+
 
    render_frame();
 
