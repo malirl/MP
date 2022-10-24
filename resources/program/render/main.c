@@ -2,6 +2,21 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 
+
+typedef struct{
+   int x, y;
+	 struct point *next;
+}point;
+
+
+typedef struct{
+	point *points;
+	char name[10];
+	int color;
+}obj;
+
+
+
 #define WIDTH 1000
 #define HEIGHT 1000
 
@@ -11,23 +26,8 @@ SDL_Texture *screen_texture;
 
 unsigned int *pixels;
 
-int check_events() {
-   SDL_Event event;
-   while (SDL_PollEvent(&event))
-   {
-      switch (event.type) {
-         case SDL_QUIT:
-            SDL_DestroyWindow(window);
-            SDL_Quit();
-            break;
-         case SDL_WINDOWEVENT:
-            break;
-         default: {}
-      }
-   }
-}
 
-int check_events_forever() {
+int resolve_window_events() {
    while(1) {
       SDL_Event event;
       while (SDL_PollEvent(&event))
@@ -45,21 +45,28 @@ int check_events_forever() {
    }
 }
 
-void render_frame() {
+void render_present() {
    SDL_UpdateTexture(screen_texture, NULL, pixels, WIDTH * 4);
    SDL_RenderClear(renderer);
    SDL_RenderCopy(renderer, screen_texture, NULL, NULL);
    SDL_RenderPresent(renderer);
-   check_events();
 }
 
 
-
-void set_pixel(int x, int y) {
-   pixels[x + (HEIGHT - y) * WIDTH] = 0xff000000;
+void render_obj(obj *obj) {
+      point *head = (point*)obj->points;
+      while(head) {
+         pixels[head->x + (HEIGHT - head->y) * WIDTH] = 0xff000000;
+         head = (point*)head->next;
+      }
+      render_present();
 }
 
-int init() {
+/* void render_scene() { */
+/* } */
+
+
+int init_render() {
    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
       fprintf(stderr, "Could not initialize sdl2: %s\n", SDL_GetError());
       return EXIT_FAILURE;
@@ -91,5 +98,7 @@ int init() {
          WIDTH, HEIGHT);
 
    pixels = malloc(WIDTH * HEIGHT * 4);
+   
+   return EXIT_SUCCESS;
 }
 
