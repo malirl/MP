@@ -3,7 +3,6 @@
 
 typedef struct{
 	point *points;
-	char name[10];
 	int color;
 }obj;
 
@@ -23,21 +22,21 @@ static double k;
 
 static void solve() {
    while(1) {
-      set_point(res_x, res_y, &current_point);
-
-      if(!head)
-         return;
-
-      add_point(&current_point);
-
       bx = head->x;
       by = head->y;
       k = (double)(x*(bx-px)+y*(by-py))/(x*x+y*y);
       res_x = (int)2*(k*x+px)-bx+.5;
       res_y = (int)2*(k*y+py)-by+.5;
 
+      set_point(res_x, res_y, &current_point);
+      
       head = (point*)head->next;
-   }
+
+      if(!head)
+         return;
+
+      add_point(&current_point);
+  }
 }
 
 

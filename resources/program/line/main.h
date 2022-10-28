@@ -10,19 +10,14 @@ typedef struct{
    double a;
 }res;
 
-
 typedef struct point{
    int x, y;
    struct point *next;
 }point;
 
-
 typedef struct{
 	point *points;
-	char name[10];
-	int color;
 }obj;
-
 
 
 res convert_input(input *input);

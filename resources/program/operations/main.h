@@ -7,8 +7,6 @@ typedef struct point{
 
 typedef struct{
 	point *points;
-	char name[10];
-	int color;
 }obj;
 
 typedef struct{

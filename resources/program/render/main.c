@@ -11,10 +11,8 @@ typedef struct{
 
 typedef struct{
 	point *points;
-	char name[10];
 	int color;
 }obj;
-
 
 
 #define WIDTH 1000

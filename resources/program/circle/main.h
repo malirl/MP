@@ -4,7 +4,6 @@ typedef struct{
    int r, sx, sy;
 }input;
 
-
 typedef struct point{
    int x, y;
    struct point *next;
@@ -12,7 +11,6 @@ typedef struct point{
 
 typedef struct{
 	point *points;
-	char name[10];
 	int color;
 }obj;
 
