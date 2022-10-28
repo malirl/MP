@@ -51,7 +51,6 @@ static void solve() {
 
 
 void circle_bresenham(input *input, point **tracked_point) {
-
    r = input->r;
    sx = input->sx;
    sy = input->sy;
@@ -62,7 +61,6 @@ void circle_bresenham(input *input, point **tracked_point) {
 
    current_point = new_point();
    *tracked_point = current_point;
-
    solve();
 }
 

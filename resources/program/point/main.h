@@ -1,14 +1,9 @@
 #include <stdio.h>
 
-typedef struct{
-   int r, sx, sy;
-}input;
-
-
 typedef struct point{
    int x, y;
    struct point *next;
-}point;
+}point, input;
 
 typedef struct{
 	point *points;
@@ -16,6 +11,5 @@ typedef struct{
 	int color;
 }obj;
 
-
-void circle_bresenham(input *input, point **point);
+void just_point(input *input, point **point);
 

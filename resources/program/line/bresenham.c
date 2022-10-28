@@ -68,10 +68,8 @@ void line_bresenham(input *input, point **tracked_point) {
    y = 0;
    err = -dx;
 
-
    current_point = new_point(); 
    *tracked_point = current_point; 
-
    solve();
 }
 
