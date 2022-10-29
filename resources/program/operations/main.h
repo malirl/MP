@@ -10,11 +10,16 @@ typedef struct{
 }obj;
 
 typedef struct{
+	/* /1* int ax, ay, bx, by; *1/ !! */
+	int ax;
+	int ay;
+	int bx;
+	int by;
+}line;
+
+typedef struct{
    obj *obj;
-   int ax;
-   int ay;
-   int bx;
-   int by;
+   line *line;
 }input;
 
 

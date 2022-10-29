@@ -1,37 +1,34 @@
 #include "controler.h"
 
 static void example() {
-
 	/* usecka */
 	input_line.ax = 100;
 	input_line.ay = 300;
 	input_line.bx = 400;
 	input_line.by = 850;
-	add_obj("line");
-	render_obj(&current_obj);
+	make_obj("line");
+	render_obj(&last_obj);
+
 
 	/* kruznice */
 	input_circle.r = 50;
-	input_circle.sx = 500; 
-	input_circle.sy = 500;
-	add_obj("circle");
-	render_obj(&current_obj);
+	input_circle.S->x = 500;
+	input_circle.S->y = 500;
+	make_obj("circle");
+	render_obj(&last_obj);
 
-	/* zrcladleni objektu pres primku definovanou dvema body */
-	input_point.x = input_circle.sx;
-	input_point.y = input_circle.sy;
-	add_obj("point");
-	input_mirror_to_line.obj = &current_obj;
-	input_mirror_to_line.ax = 100;
-	input_mirror_to_line.ay = 300;
-	input_mirror_to_line.bx = 400;
-	input_mirror_to_line.by = 850;
-	add_obj("mirror_to_line");
-	input_circle.sx = current_obj.points->x;
-	input_circle.sy = current_obj.points->y;
-	add_obj("circle");
-	render_obj(&current_obj);
 
+	/* zrcladleni kruznice pres primku */
+	input_mirror_to_line.line = &input_line;
+	input_point.x = input_circle.S->x;
+	input_point.y = input_circle.S->y;
+	make_obj("point");
+	input_mirror_to_line.obj = &last_obj;
+	make_obj("mirror_to_line");
+	input_circle.S->x = last_obj.points->x;
+	input_circle.S->y = last_obj.points->y;
+	make_obj("circle");
+	render_obj(&last_obj);
 
 }
 
@@ -43,7 +40,9 @@ int main(void) {
 			return EXIT_FAILURE;
 	}
 
+	init_data();
 	list_objs = new_obj();
+	start_obj = list_objs; 
 	/* //// */
 
 

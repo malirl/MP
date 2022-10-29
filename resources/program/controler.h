@@ -12,14 +12,14 @@ typedef struct obj{
 	/* obj *next */
 }obj;
 
-obj current_obj;
+obj last_obj;
 
 struct LIST_OBJS{
 	obj obj;
+	char *type, *name;
 	int color;
-	char name[100];
 	struct LIST_OBJS* next;
-}*list_objs;
+}*list_objs, *start_obj;
 
 
 /* inputy */
@@ -35,16 +35,12 @@ typedef struct{
 typedef struct{
 	/* /1* int r, sx, sy; *1/ !! */
 	int r;
-	int sx;
-	int sy;
+	point *S;
 }circle;
 
 typedef struct{
 	obj* obj;	
-	int ax;
-	int ay;
-	int bx;
-	int by;
+	line* line;
 }mirror_to_line;
 
 point input_point; 
@@ -67,6 +63,10 @@ void set_mirror_to_line(obj *obj, mirror_to_line *input);
 
 /* //////// */
 
+static void init_data() {
+	input_circle.S = (point*)malloc(sizeof(point));
+}
+
 static struct LIST_OBJS* new_obj(){
   return (struct LIST_OBJS*)malloc(sizeof(struct LIST_OBJS)); 
 }
@@ -77,11 +77,12 @@ static void add_obj_to_list(){
    list_objs->next = NULL;
 }
 
-static void set_obj(obj obj){
+static void set_obj_in_list(obj obj, char name[]){
 	list_objs->obj = obj; 
+	list_objs->name = name;
 }
 
-static void add_obj(char name[]){
+obj *get_obj(char name[]) {
 	obj *obj_to_set = (struct obj*)malloc(sizeof(obj));
 
 	if(strcmp(name, "line") == 0)
@@ -93,10 +94,12 @@ static void add_obj(char name[]){
 	else if(strcmp(name, "point") == 0)
 		set_point(obj_to_set, &input_point);
 
-	current_obj = *obj_to_set;
-	set_obj(current_obj);
-	add_obj_to_list();
+	return obj_to_set;
 }
 
-/* get obj */
+static void make_obj(char name[]){
+	last_obj = *get_obj(name);
+	set_obj_in_list(last_obj,name);
+	add_obj_to_list();
+}
 

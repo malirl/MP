@@ -3,16 +3,19 @@
 
 typedef struct{
 	point *points;
-	int color;
 }obj;
 
+typedef struct{
+	/* /1* int ax, ay, bx, by; *1/ !! */
+	int ax;
+	int ay;
+	int bx;
+	int by;
+}line;
 
 typedef struct{
    obj *obj;
-   int ax;
-   int ay;
-   int bx;
-   int by;
+   line *line;
 }input;
 
 
@@ -43,10 +46,10 @@ static void solve() {
 void mirror_to_line(input *input, point **tracked_point) {
    head = (point*)input->obj->points;
 
-   px = input->ax;
-   py = input->ay;
-   x = input->bx-input->ax;
-   y = input->by-input->ay;
+   px = input->line->ax;
+   py = input->line->ay;
+   x = input->line->bx-input->line->ax;
+   y = input->line->by-input->line->ay;
 
    current_point = new_point();
    *tracked_point = current_point;

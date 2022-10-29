@@ -2,7 +2,8 @@
 #include "../helpers.h"
 
 typedef struct{
-   int r, sx, sy;
+   int r;
+   point *S;
 }input;
 
 static int sx, sy, r, x, y, d; 
@@ -52,8 +53,8 @@ static void solve() {
 
 void circle_bresenham(input *input, point **tracked_point) {
    r = input->r;
-   sx = input->sx;
-   sy = input->sy;
+   sx = input->S->x;
+   sy = input->S->y;
 
    x = r;
    y = 0;
