@@ -1,7 +1,7 @@
 NAME=MP
 
 CC=gcc
-CFLAGS= -std=c99 -pedantic -Wall -Wextra -g `sdl2-config --cflags --libs`  
+CFLAGS= -std=c99 -pedantic -Wall -Wextra -g `sdl2-config --cflags --libs` -lm  
 
 all: $(NAME) clean
 
@@ -12,8 +12,8 @@ dep:
 
 $(NAME):
 	sh makeExe.sh $(CC) "$(CFLAGS)" $@
+	./$(NAME)
 
 clean:
-	rm **/*.o
-	rm *.o
+	rm $(NAME)
 

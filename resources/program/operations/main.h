@@ -20,8 +20,17 @@ typedef struct{
 typedef struct{
    obj *obj;
    line *line;
-}input;
+}input_mirror_to_line;
 
 
-void mirror_to_line(input *input, point **point);
+typedef struct{
+   double alpha;
+   point *S;
+   obj *obj;
+}input_rot2d;
+
+
+
+void mirror_to_line(input_mirror_to_line *input, point **point);
+void rot2d(input_rot2d *input, point **point);
 

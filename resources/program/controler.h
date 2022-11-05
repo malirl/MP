@@ -9,7 +9,7 @@ typedef struct{
 
 typedef struct obj{
 	point *points;
-	/* obj *next */
+	struct obj *next;
 }obj;
 
 obj last_obj;
@@ -36,17 +36,24 @@ typedef struct{
 	/* /1* int r, sx, sy; *1/ !! */
 	int r;
 	point *S;
-}circle;
+}ring;
 
 typedef struct{
 	obj* obj;	
 	line* line;
 }mirror_to_line;
 
+typedef struct{
+   double alpha;
+   point *S;
+   obj *obj;
+}rot2d;
+
 point input_point; 
 line input_line;
-circle input_circle;
+ring input_ring;
 mirror_to_line input_mirror_to_line;
+rot2d input_rot2d;
 
 /* //////// */
 
@@ -57,14 +64,15 @@ int render_obj(obj *obj);
 
 void set_point(obj *obj, point *input);
 void set_line(obj *obj, line *input);
-void set_circle(obj *obj, circle *input);
+void set_ring(obj *obj, ring *input);
 void set_mirror_to_line(obj *obj, mirror_to_line *input);
-
+void set_rot2d(obj *obj, rot2d *input);
 
 /* //////// */
 
 static void init_data() {
-	input_circle.S = (point*)malloc(sizeof(point));
+	input_ring.S = (point*)malloc(sizeof(point));
+	input_rot2d.S = (point*)malloc(sizeof(point));
 }
 
 static struct LIST_OBJS* new_obj(){
@@ -87,13 +95,14 @@ obj *get_obj(char name[]) {
 
 	if(strcmp(name, "line") == 0)
 		set_line(obj_to_set, &input_line);
-	else if(strcmp(name, "circle") == 0)
-		set_circle(obj_to_set, &input_circle);
+	else if(strcmp(name, "ring") == 0)
+		set_ring(obj_to_set, &input_ring);
 	else if(strcmp(name, "mirror_to_line") == 0)
 		set_mirror_to_line(obj_to_set, &input_mirror_to_line);
+	else if(strcmp(name, "rot2d") == 0)
+		set_rot2d(obj_to_set, &input_rot2d);
 	else if(strcmp(name, "point") == 0)
 		set_point(obj_to_set, &input_point);
-
 	return obj_to_set;
 }
 
