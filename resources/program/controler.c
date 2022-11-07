@@ -34,6 +34,14 @@ static void example() {
 	make_obj("ring");
 	render_obj(&last_obj);
 
+	/* kruh */
+	input_circle.r = 50;
+	input_circle.S->x = 500;
+	input_circle.S->y = 500;
+	make_obj("circle");
+	render_obj(&last_obj);
+
+
 
 	/* zrcladleni kruznice pres primku */
 	input_mirror_to_line.line = &input_line;
@@ -46,6 +54,7 @@ static void example() {
 	input_ring.S->y = last_obj.points->y;
 	make_obj("ring");
 	render_obj(&last_obj);
+
 
 
 }

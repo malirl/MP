@@ -16,6 +16,5 @@ typedef struct{
 }input;
 
 
-
-void circle_bresenham(input *input, point **point);
+void circle_(input *input, point **point);
 
