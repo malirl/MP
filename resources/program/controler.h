@@ -1,6 +1,10 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include "tiny-regex-c/re.h"
+
+#define OBJ_ARGS args_line,args_ring,args_circle 
 
 typedef struct{
    int x, y;
@@ -21,8 +25,24 @@ struct LIST_OBJS{
 	struct LIST_OBJS* next;
 }*list_objs, *start_obj;
 
+/* typedef char* args; */
+/* args mandatory[], opt[]; */
+/* struct input_args{ */
+/* 	int a; */
+/* 	args* man; */
+/* }OBJ_ARGS; */
+
+
+
+/* const int num_of_avaible_cmds = 6; */
+/* char* available_cmds[6] = { */
+/* 	"point","line","ring","circle","mirror_to_line","rot2d" */
+/* }; */
+
 
 /* inputy */
+/* #define _input input; */ 
+
 
 typedef struct{
 	/* /1* int ax, ay, bx, by; *1/ !! */
@@ -58,6 +78,7 @@ rot2d input_rot2d;
 
 /* //////// */
 
+
 int init_render(void);
 int resolve_window_events(void);
 int render_obj(obj *obj);
@@ -70,22 +91,34 @@ void set_circle(obj *obj, ring *input);
 void set_mirror_to_line(obj *obj, mirror_to_line *input);
 void set_rot2d(obj *obj, rot2d *input);
 
+
 /* //////// */
 
 static void init_data() {
 	input_ring.S = (point*)malloc(sizeof(point));
 	input_circle.S = (point*)malloc(sizeof(point));
 	input_rot2d.S = (point*)malloc(sizeof(point));
+
+		
+
+/* vyzadovany vstup z cmd */
+
+	/* args_line.mandatory = {"ax", "ay", "bx", "by"}; */
+	
+
+/* //////// */
+
+
 }
 
 static struct LIST_OBJS* new_obj(){
-  return (struct LIST_OBJS*)malloc(sizeof(struct LIST_OBJS)); 
+	return (struct LIST_OBJS*)malloc(sizeof(struct LIST_OBJS)); 
 }
 
 static void add_obj_to_list(){
-   list_objs->next = new_obj(); 
-   list_objs = list_objs->next;
-   list_objs->next = NULL;
+	list_objs->next = new_obj(); 
+	list_objs = list_objs->next;
+	list_objs->next = NULL;
 }
 
 static void set_obj_in_list(obj obj, char name[]){
@@ -95,6 +128,9 @@ static void set_obj_in_list(obj obj, char name[]){
 
 obj *get_obj(char name[]) {
 	obj *obj_to_set = (struct obj*)malloc(sizeof(obj));
+
+	/* char* j = "int dk = 20;"; */
+	/* *(j); */
 
 	if(strcmp(name, "line") == 0)
 		set_line(obj_to_set, &input_line);

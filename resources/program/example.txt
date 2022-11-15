@@ -1,0 +1,8 @@
+line(useckaA) point() 
+
+li
+
+line:useckaA{x:10 y:20} B{x:100 y:200}
+circle:kruhA r:10 S:x:10:y:20;
+mirror_to_line:zrcadlen obj:kruhA line:useckaA.input;
+
