@@ -2,7 +2,11 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 #include "tiny-regex-c/re.h"
+
+#include "strs.h"
+#include "log.h"
 
 #define OBJ_ARGS args_line,args_ring,args_circle 
 
