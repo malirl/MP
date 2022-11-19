@@ -87,7 +87,7 @@ void get_from_str(char* pattern, char string[], char** str_to_set,int* idx,int* 
 	for(i=0;i<match_length;++i) 
 		append_ch(searched, string[match_idx + i]);
 
-	char* result=malloc(sizeof(char*));
+	char* result;
 
 	if(closures_defined) {
 		match_idx = re_matchp(re_compile(new_pattern), searched, &match_length);
@@ -99,8 +99,12 @@ void get_from_str(char* pattern, char string[], char** str_to_set,int* idx,int* 
 		for(i=0;i<match_length;++i)
 			append_ch(res, searched[match_idx + i]);
 
+		result=(char*)malloc(sizeof(res));
 		strcpy(result,res);
-	} else strcpy(result,searched);
+	} else {
+		result=(char*)malloc(sizeof(searched));
+		strcpy(result,searched);
+	}
 
 	*str_to_set=result;
 }

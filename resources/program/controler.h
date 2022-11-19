@@ -3,12 +3,28 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+#include <math.h>
 #include "tiny-regex-c/re.h"
 
 #include "strs.h"
 #include "log.h"
 
-#define OBJ_ARGS args_line,args_ring,args_circle 
+#define INT 1
+#define TXT 2 
+
+#define LINE 1
+#define RING 2
+#define CIRCLE 3 
+#define EXAMPLE 4
+
+
+char* obj_input[][2] = {
+	{"line", "ax ay bx by"},
+	{"circle", "Sx Sy"},
+	{"ring", "Sx Sy"},
+	{NULL, ""}
+};
+
 
 typedef struct{
    int x, y;
@@ -89,6 +105,7 @@ int render_obj(obj *obj);
 
 
 void set_point(obj *obj, point *input);
+void set_example(obj *obj);
 void set_line(obj *obj, line *input);
 void set_ring(obj *obj, ring *input);
 void set_circle(obj *obj, ring *input);
@@ -98,19 +115,24 @@ void set_rot2d(obj *obj, rot2d *input);
 
 /* //////// */
 
+
+/* char */
+/* 	*args_types_line[] = {"int","int","int","int"}, */
+/* 	*args_types_ring[] = {"int","obj"}, */
+/* 	*args_types_circle[] = {"int","obj"}; */
+
+/* char** args_objs[]= { */
+/* 	&args_types_line, */
+/* 	&args_types_ring */
+/* }; */
+
+
 static void init_data() {
 	input_ring.S = (point*)malloc(sizeof(point));
 	input_circle.S = (point*)malloc(sizeof(point));
 	input_rot2d.S = (point*)malloc(sizeof(point));
 
-		
-
-/* vyzadovany vstup z cmd */
-
-	/* args_line.mandatory = {"ax", "ay", "bx", "by"}; */
 	
-
-/* //////// */
 
 
 }
@@ -133,7 +155,7 @@ static void set_obj_in_list(obj obj, char name[]){
 obj *get_obj(char name[]) {
 	obj *obj_to_set = (struct obj*)malloc(sizeof(obj));
 
-	/* char* j = "int dk = 20;"; */
+/* 	/1* char* j = "int dk = 20;"; *1/ */
 	/* *(j); */
 
 	if(strcmp(name, "line") == 0)
@@ -148,6 +170,9 @@ obj *get_obj(char name[]) {
 		set_rot2d(obj_to_set, &input_rot2d);
 	else if(strcmp(name, "point") == 0)
 		set_point(obj_to_set, &input_point);
+	else if(strcmp(name, "example") == 0)
+		set_example(obj_to_set);
+
 	return obj_to_set;
 }
 
@@ -155,5 +180,173 @@ static void make_obj(char name[]){
 	last_obj = *get_obj(name);
 	set_obj_in_list(last_obj,name);
 	add_obj_to_list();
+}
+
+/* //////// */
+
+bool get_int(char* num, int* res){
+	*res=0;
+
+	if(!num)
+		return false;
+
+	int digit;
+	int len = strlen(num); 
+	for(int i=0;i<len;++i){
+		digit=*(num+i)-'0';
+		if(digit>=0 && digit<=10)
+			*res+=((pow(10,strlen(num)-i-1)))*digit;
+		else
+			return false;
+	}
+	return true;	
+}
+
+
+
+bool set_arg(int obj,int arg,char* val,int type,char* arg_name){
+	int Z;
+
+	/* validace čísla, textu... */
+	switch(type){
+		case INT:
+			if(!get_int(val,&Z)){
+				out(ERR,1,"","%s expected an integer!",arg_name);
+				return false;
+			}
+			break;
+		case TXT:
+			break;
+	}
+
+	/* !vlastní validace (omezený zadání) */	
+
+	switch(obj){
+		case LINE:
+			switch(arg){
+				case 1:
+					input_line.ax=Z;
+					break;
+				case 2:
+					input_line.ay=Z;
+					break;
+				case 3:
+					input_line.bx=Z;
+					break;
+				case 4:
+					input_line.by=Z;
+					break;
+			}
+			break;
+	}
+
+	return true;
+
+}
+
+bool check_mandatory_args(char* str_input,char* args,int obj_id){
+	/* vyhledej v args, arg, ktery jednotlive pouzijes a odstranujes dokud neni match=-1 */
+	/* 	kdyz to pritom nenajdes, dej chybu */
+	char *pattern, *in_text, *val;
+	char args_arr[strlen(args)+1], str_input_arr[strlen(str_input)+1];
+	int idx,len;
+	get_arr(args,args_arr);
+	args=(char*)args_arr;
+	get_arr(str_input,str_input_arr);
+	str_input=(char*)str_input_arr;
+
+	char tmp[20]; //20 delka nazvu jednoho argumentu
+	int n_arg = 0;
+
+	while(1){
+		get_from_str("\\w+",args,&pattern,&idx,&len);
+
+		if(!pattern)
+			return true;
+
+		++n_arg;
+		get_from_str(pattern,str_input,&in_text,&idx,&len);
+
+		if(!in_text){
+			out(ERR,1,"missing mandatory param: ","%s",pattern);
+			return false;
+		}
+
+		memset(tmp,0,strlen(tmp));
+		get_arr(pattern,tmp);
+		replace_str_by(":(\\d+)",tmp,strlen(pattern));	
+
+		val = (char*)malloc(sizeof(char));
+
+		get_from_str(tmp,str_input,&val,&idx,&len);
+
+		if(set_arg(obj_id,n_arg,val,INT,pattern))
+			out(SUCCESS,1,"","%s assigned to '%s'",pattern,val);
+		else
+			return false;
+
+		rm_range(args_arr,0,strlen(pattern)+1);
+	}
+}
+
+
+bool process_obj_input(char *argv[],int argc,char* args,int obj_id) {
+	char str_input[100];
+	size_t n_ch = -1;
+	for(int arg=2;arg<argc;++arg){
+		for(size_t i=0;i<strlen(argv[arg]);++i) {
+			str_input[++n_ch] = *(argv[arg]+i);
+			str_input[n_ch+1] = '\0';
+		}
+		str_input[++n_ch] = ' ';
+		str_input[n_ch+1] = '\0';
+	}
+
+	return check_mandatory_args(str_input,args,obj_id);
+}
+
+
+bool set_obj(int id){
+	switch(id){
+		case EXAMPLE:
+			make_obj("example");
+			break;
+		case LINE:
+			make_obj("line");
+			break;
+	}
+	render_obj(&last_obj);
+	return true;
+}
+
+bool proc_one_obj(int argc,char *argv[]){
+	/* single object set */
+	if(argc > 1) {
+		char* selected, *main_arg = argv[1];
+		int	i=-1, obj_id;
+
+		while(1){
+			if(!(selected=obj_input[++i][0]))//takovy nazev pro obj se nenaseL
+			{
+				out(ERR,0,"unknown obj: ","'%s'",main_arg);
+				return false;
+			}
+
+			if(compare_strs(selected, main_arg)){
+				out(INFO,0,"processing object: ","%s",main_arg);
+
+				if(strcmp(main_arg, "line") == 0)
+					obj_id = LINE;
+
+				if(!process_obj_input(argv,argc,obj_input[i][1],obj_id))
+					return false;
+				break;
+			}
+		}
+		if(set_obj(obj_id))
+			out(SUCCESS,1,"render success","");
+	} else
+		set_obj(EXAMPLE);
+	return true;
 }
 
