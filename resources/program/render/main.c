@@ -1,19 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <SDL2/SDL.h>
-
 
 typedef struct{
    int x, y;
 	 struct point *next;
 }point;
 
-
-typedef struct{
+typedef struct obj{
 	point *points;
-	int color;
+	struct obj *sub,*next;
 }obj;
-
 
 #define WIDTH 1000
 #define HEIGHT 1000
@@ -51,16 +49,32 @@ void render_present() {
 }
 
 
+
 void render_obj(obj *obj) {
-      point *head = (point*)obj->points;
-      while(head) {
-         pixels[head->x + (HEIGHT - head->y) * WIDTH] = 0xff000000;
-         head = (point*)head->next;
-      }
-      render_present();
+   if(!obj)
+      return;
+
+   if(obj->points){
+      point *head=(point*)obj->points;
+      do pixels[head->x + (HEIGHT - head->y) * WIDTH] = 0xff000000;
+      while((head=(point*)head->next));
+   }
+
+   if(obj->sub)
+      render_obj(obj->sub);
+
+   if(obj->next)
+      render_obj(obj->next);
 }
 
-/* void render_scene() { */
+
+bool render(obj *obj){
+   render_obj(obj);
+   render_present();
+   return true;
+}
+
+/* void render_LIST_OBJS() { */
 /* } */
 
 
@@ -96,7 +110,7 @@ int init_render() {
          WIDTH, HEIGHT);
 
    pixels = malloc(WIDTH * HEIGHT * 4);
-   
+
    return EXIT_SUCCESS;
 }
 

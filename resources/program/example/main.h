@@ -1,17 +1,20 @@
 #include <stdio.h>
-#include <stdarg.h>
+/* #include <stdarg.h> */
 
 typedef struct point{
    int x, y;
    struct point *next;
 }point;
 
-typedef struct{
+
+typedef struct obj{
 	point *points;
-	int color;
+	struct obj *sub,*next;
 }obj;
 
-void example_(point **point);
-void out(int status,int lvl,char* msg,const char* fmt,...);
+
+
+/* void out(int status,int lvl,char* msg,const char* fmt,...); */
+void example_(obj* obj,point **point);
 
 
