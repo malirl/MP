@@ -14,6 +14,5 @@ typedef struct obj{
 
 
 /* void out(int status,int lvl,char* msg,const char* fmt,...); */
-void example_(obj* obj,point **point);
-
+void _set_polygon(obj* obj,point **point);
 

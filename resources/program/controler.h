@@ -206,6 +206,7 @@ bool get_int(char* num, int* res){
 
 
 void set_args(int obj_id,int nums[],char* strs[]){
+	/* !! */
 	switch(obj_id){
 		case LINE:
 				input_line.ax=nums[0];
