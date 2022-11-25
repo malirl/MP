@@ -10,20 +10,24 @@
 #include "log.h"
 
 #define INT 1
-#define TXT 2 
+#define STR 2 
 
+#define NONE -1
+#define EXAMPLE 0
 #define LINE 1
-#define RING 2
-#define CIRCLE 3 
-#define EXAMPLE 4
+#define CIRCLE 2
+#define RING 3
+#define POLYGON 4
+#define OBJ 5
 
+#define MAX_NUMBER_POLYGON_LINES 100
 
-char* obj_input[][2] = {
-	{"line", "ax ay bx by"},
-	{"circle", "Sx Sy r"},
-	{"ring", "Sx Sy"},
+char* obj_input[][3] = {
 	{"example", "\0"},
-	{NULL, ""}
+	{"line", "n:ax n:ay n:bx n:by"},
+	{"circle", "n:Sx n:Sy n:r"},
+	{"ring", "n:Sx n:Sy n:r"},
+	{"polygon","*line:line"}
 };
 
 
@@ -48,20 +52,6 @@ struct LIST_OBJS{
 	int color;
 	struct LIST_OBJS* next;
 }*list_objs, *start_obj;
-
-/* typedef char* args; */
-/* args mandatory[], opt[]; */
-/* struct input_args{ */
-/* 	int a; */
-/* 	args* man; */
-/* }OBJ_ARGS; */
-
-
-
-/* const int num_of_avaible_cmds = 6; */
-/* char* available_cmds[6] = { */
-/* 	"point","line","ring","circle","mirror_to_line","rot2d" */
-/* }; */
 
 
 /* inputy */
@@ -93,12 +83,18 @@ typedef struct{
    obj *obj;
 }rot2d;
 
+typedef struct{
+		int n_lines;
+   line lines[MAX_NUMBER_POLYGON_LINES];
+}polygon;
+
 point input_point; 
 line input_line;
 ring input_ring;
 circle input_circle;
 mirror_to_line input_mirror_to_line;
 rot2d input_rot2d;
+polygon input_polygon;
 
 /* //////// */
 
@@ -116,14 +112,13 @@ void set_circle(obj *obj, ring *input);
 void set_mirror_to_line(obj *obj, mirror_to_line *input);
 void set_rot2d(obj *obj, rot2d *input);
 
-
 /* //////// */
 
 
-char
-	*args_types_line[] = {"int","int","int","int"},
-	*args_types_ring[] = {"int","obj"},
-	*args_types_circle[] = {"int","obj"};
+/* char */
+/* 	*args_types_line[] = {"int","int","int","int"}, */
+/* 	*args_types_ring[] = {"int","obj"}, */
+/* 	*args_types_circle[] = {"int","obj"}; */
 
 /* char** args_objs[]= { */
 /* 	&args_types_line, */
@@ -136,6 +131,8 @@ static void init_data() {
 	input_ring.S = (point*)malloc(sizeof(point));
 	input_circle.S = (point*)malloc(sizeof(point));
 	input_rot2d.S = (point*)malloc(sizeof(point));
+
+	input_polygon.n_lines=0;
 
 }
 
@@ -177,11 +174,10 @@ obj *get_obj(char name[]) {
 	return obj_to_set;
 }
 
-static void make_obj(char name[],bool is_anonym){
+static void make_obj(char name[]){
 	last_obj = *get_obj(name);
 	set_obj_in_list(last_obj,name);
-	if(!is_anonym)
-		add_obj_to_list();
+	add_obj_to_list();
 }
 
 /* //////// */
@@ -203,6 +199,8 @@ bool get_int(char* num, int* res){
 	}
 	return true;	
 }
+
+
 
 
 void set_args(int obj_id,int nums[],char* strs[]){
@@ -234,8 +232,14 @@ bool set_arg(int obj,int arg,char* val,int type,char* arg_name){
 				return false;
 			}
 			break;
-		case TXT:
+		case STR:
 			break;
+		/* case OBJ: */
+		/* 	if(!get_obj_input(val,input_obj)){ */
+		/* 		out(ERR,1,"","%s expected an object!",arg_name); */
+		/* 		return false; */
+		/* 	} */
+			/* break; */
 	}
 
 	/* !vlastní validace (omezený zadání) */	
@@ -275,6 +279,10 @@ bool set_arg(int obj,int arg,char* val,int type,char* arg_name){
 	return true;
 }
 
+
+bool proc_obj(char *name,char *input, bool cmd);
+
+
 bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 	/* vyhledej v args, arg, ktery jednotlive pouzijes a odstranujes dokud neni match=-1 */
 	/* 	kdyz to pritom nenajdes, dej chybu */
@@ -290,39 +298,103 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 	get_arr(str_input,str_input_arr);
 	str_input=(char*)str_input_arr;
 
+	char* type;
+	int type_arg;
+
 	char tmp[20]; //20 delka nazvu jednoho argumentu
 	int n_arg = 0;
 
-	while(1){
-		get_from_str("\\w+",args,&pattern,&idx,&len);
+	bool is_loop; // pro mozny nekonecny vyskyt parametru v zadani 
 
+	int in_text_idx,in_text_len;
+
+	while(1){
+		get_from_str(":(\\w+)",args,&pattern,&idx,&len);
+
+		
 		if(!pattern)
 			return true;
 
-		++n_arg;
+
+		if(!(is_loop = (args_arr[0]=='*')  ? true : false))
+			++n_arg;
+
+
+
 		get_from_str(pattern,str_input,&in_text,&idx,&len);
 
 		if(!in_text){
-			if(cmd){
+			if(is_loop)
+				is_loop=false;
+			else if(cmd){
 				out(ERR,1,"missing mandatory param: ","%s",pattern);
 				return false;
 			}
 		} else {
+			in_text_idx = idx;
+
+
+
 			memset(tmp,0,strlen(tmp));
 			get_arr(pattern,tmp);
-			replace_str_by(":(\\d+)",tmp,strlen(pattern));	
+
+
+			get_from_str("(\\w+):\\w+",args,&type,&idx,&len);
+			in_text_len = strlen(type)+1;
+
+
+
+			if(strcmp(type,"n")==0 || strcmp(type,"str")==0)
+				replace_str_by(":([^,\\s]*)",tmp,strlen(pattern));	
+			else
+				replace_str_by(":([^\\s]*)",tmp,strlen(pattern));	
+
 
 			val = (char*)malloc(sizeof(char));
-
 			get_from_str(tmp,str_input,&val,&idx,&len);
 
-			if(set_arg(obj_id,n_arg,val,INT,pattern))
-				out(SUCCESS,1,"","%s assigned to '%s'",pattern,val);
-			else
+			if(!val){
+				out(ERR,1,"missing value for param: ","%s",pattern);
 				return false;
+			}
 
+
+			in_text_len += strlen(val);
+
+			
+			if(strcmp(type,"n")==0)
+				type_arg = INT;
+			else if(strcmp(type,"str")==0)
+				type_arg = STR;
+			else{ // objekt
+				type_arg = NONE;
+
+				if(!proc_obj(type,val,true))
+					return false;
+
+				switch(obj_id){
+					case POLYGON:
+						input_polygon.lines[input_polygon.n_lines]=input_line;
+						++input_polygon.n_lines;
+						break;
+				}
+			
+			}
+
+			if(type_arg != NONE){
+				if(set_arg(obj_id,n_arg,val,type_arg,pattern))
+					out(SUCCESS,1,"","%s assigned to '%s'",pattern,val);
+				else
+					return false;
+			}
 		}
-		rm_range(args_arr,0,strlen(pattern)+1);
+
+		if(is_loop)
+			rm_range(str_input_arr,in_text_idx,in_text_len);
+		else{
+			get_from_str("\\*?\\w+:\\w+",args,&pattern,&idx,&len);
+			rm_range(args_arr,0,len+1);
+		}
 	}
 }
 
@@ -342,85 +414,62 @@ bool proc_obj_input_cmd(char *argv[],int argc,char* args,int obj_id) {
 }
 
 
-bool set_obj(int id,bool is_anonym){
+bool set_obj(int id){
 	switch(id){
 		case EXAMPLE:
-			make_obj("example",is_anonym);
+			make_obj("example");
 			break;
 		case LINE:
-			make_obj("line",is_anonym);
+			make_obj("line");
 			break;
 		case CIRCLE:
-			make_obj("circle",is_anonym);
+			make_obj("circle");
 			break;
 	}
 	return true;
 }
 
 
-void proc_obj(char *name,char *input){
-	/* single object set */
-	char* selected;
-	int	i=-1, obj_id;
 
-	while(1){
-		if(!(selected=obj_input[++i][0]))//takovy nazev pro obj se nenaseL
-		{
-			out(ERR,1,"unknown obj: ","'%s'",name);
-			return;
-		}
+int get_obj_id_by_name(char* name){
+	int obj_id;
+	if(strcmp(name, "line") == 0)
+		obj_id = LINE;
+	else if(strcmp(name, "circle") == 0)
+		obj_id = CIRCLE;
+	else if(strcmp(name, "example") == 0)
+		obj_id = EXAMPLE;
+	else if(strcmp(name, "polygon") == 0)
+		obj_id = POLYGON;
 
-		if(compare_strs(selected, name)){
-			out(INFO,1,"processing sub object: ","%s",name);
-
-			if(strcmp(name, "line") == 0)
-				obj_id = LINE;
-			else if(strcmp(name, "circle") == 0)
-				obj_id = CIRCLE;
-			else if(strcmp(name, "example") == 0)
-				obj_id = EXAMPLE;
-
-			if(check_mandatory_args(input,obj_input[i][1],obj_id,false))
-				set_obj(obj_id,true);
-
-			return;
-		}
+	else{
+		out(ERR,1,"unknown obj: ","'%s'",name);
+		obj_id = NONE;
 	}
+	return obj_id;
 }
 
 
+bool proc_obj(char *name,char *input,bool cmd){
+	int obj_id = get_obj_id_by_name(name);
 
+	if(obj_id==NONE)
+		return false;
 
-
+	out(INFO,1,"processing sub object: ","%s",name);
+	return check_mandatory_args(input,obj_input[obj_id][1],obj_id,cmd);
+}
 
 bool proc_obj_cmd(int argc,char *argv[]){
-	/* single object set */
-	char* selected, *main_arg = argv[1];
-	int	i=-1, obj_id;
+	int obj_id = get_obj_id_by_name(argv[1]);
 
-	while(1){
-		if(!(selected=obj_input[++i][0]))//takovy nazev pro obj se nenaseL
-		{
-			out(ERR,0,"unknown obj: ","'%s'",main_arg);
-			return false;
-		}
+	if(obj_id==NONE)
+		return false;
 
-		if(compare_strs(selected, main_arg)){
-			out(INFO,0,"processing object: ","%s",main_arg);
-
-			if(strcmp(main_arg, "line") == 0)
-				obj_id = LINE;
-			else if(strcmp(main_arg, "circle") == 0)
-				obj_id = CIRCLE;
-			else if(strcmp(main_arg, "example") == 0)
-				obj_id = EXAMPLE;
-
-			if(!proc_obj_input_cmd(argv,argc,obj_input[i][1],obj_id))
-				return false;
-			break;
-		}
-	}
-	return set_obj(obj_id,false);
+	out(INFO,0,"processing object: ","%s",argv[1]);
+	if(!proc_obj_input_cmd(argv,argc,obj_input[obj_id][1],obj_id))
+		return false;
+	return set_obj(obj_id);
 }
 
 

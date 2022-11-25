@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 #define LINE 1
 #define RING 2
 #define CIRCLE 3 
@@ -12,7 +14,7 @@ typedef struct obj{
 /* static void make_obj_uniform(){} */
 
 obj* get_obj(char name[]);
-obj* proc_obj(char *name,char* input);
+bool proc_obj(char *name,char* input,bool check);
 obj* set_args(int name,int nums[],char* strs[]); 
 
 static point *current_point; 

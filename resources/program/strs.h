@@ -46,6 +46,9 @@ void replace_str_by(char* in, char out[], int index){
 
 char res[100], new_pattern[100], searched[100];
 void get_from_str(char* pattern, char string[], char** str_to_set,int* idx,int* len) {
+
+	/* strcpy(); */
+
 	memset(res, 0, 100);
 	memset(new_pattern, 0, 100);
 	memset(searched, 0, 100);
@@ -72,9 +75,18 @@ void get_from_str(char* pattern, char string[], char** str_to_set,int* idx,int* 
 
 		rm_ch(pattern, '(');	
 		rm_ch(pattern, ')');	
+
 	}
 
-	match_idx = re_matchp(re_compile(pattern), string, &match_length);
+	/* !! */	
+	char clone_pattern[strlen(pattern)];
+	clone_pattern[0]='\0';
+	for(i=0;i<(int)strlen(pattern);++i) 
+		append_ch(clone_pattern, *(pattern+i));
+	/* !! */
+
+	match_idx = re_matchp(re_compile(pattern),string, &match_length);
+
 
 	if(match_idx==-1){
 		*str_to_set = NULL;
@@ -90,17 +102,54 @@ void get_from_str(char* pattern, char string[], char** str_to_set,int* idx,int* 
 	char* result;
 
 	if(closures_defined) {
-		match_idx = re_matchp(re_compile(new_pattern), searched, &match_length);
-		if(match_idx==-1){
-			*str_to_set = NULL;
-			return;
-		}
 
-		for(i=0;i<match_length;++i)
-			append_ch(res, searched[match_idx + i]);
 
-		result=(char*)malloc(sizeof(res));
-		strcpy(result,res);
+	/* pattern pro odstraneni prvnich znaku ze zacatku textu: vem si rozmezi 0 az a-1 patternu do charu */
+	char to_remove_from_str[strlen(clone_pattern)];
+
+	replace_str_by(clone_pattern,to_remove_from_str,0);
+	rm_range(to_remove_from_str,first_closure,strlen(clone_pattern));
+
+	/* matchuj str_input s pattern pro vymaz */
+	match_idx = re_matchp(re_compile(to_remove_from_str), searched, &match_length);
+
+	/* vymaz v searched v rozmezi 0 az len */
+	rm_range(searched,0,match_length);
+
+
+
+
+
+
+
+
+
+	match_idx = re_matchp(re_compile(new_pattern), searched, &match_length);
+	if(match_idx==-1){
+		*str_to_set = NULL;
+		return;
+	}
+
+
+
+/* pro konec: */
+	if(second_closure < (int)strlen(clone_pattern)){
+		replace_str_by(clone_pattern,to_remove_from_str,0);
+		rm_range(to_remove_from_str,0,second_closure-1);
+
+		rm_range(searched,re_matchp(re_compile(to_remove_from_str), searched, &match_length),strlen(searched));
+
+	}
+
+	/* printf("\n-po vymazani ze searched: %s-\n",searched); */
+
+
+
+	for(i=0;i<match_length;++i)
+		append_ch(res, searched[match_idx + i]);
+
+	result=(char*)malloc(sizeof(res));
+	strcpy(result,res);
 	} else {
 		result=(char*)malloc(sizeof(searched));
 		strcpy(result,searched);
