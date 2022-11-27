@@ -1,19 +1,18 @@
 #include "controler.h"
-#include "test_solution.h"
+#include "dev_test.h"
 
 #define MODE int
 #define MODE_CMD 1
 #define MODE_DEV 2
 
-
-
+MODE mode;
 
 int main(int argc, char *argv[]) {
-
-	MODE mode = MODE_CMD;
-
+	
 	if(argc>1)
 		mode=MODE_CMD;
+	else
+		mode=MODE_DEV;
 	
 	out(INFO,0,"mode number: "," %d",mode);
 
@@ -47,7 +46,6 @@ int main(int argc, char *argv[]) {
 
 
 	out(INFO,0,"resolving window events...","");
-	printf("\n");
 	/* //// */
 	switch(resolve_window_events()) {
 	};

@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-#include <math.h>
-#include "tiny-regex-c/re.h"
-
-#include "strs.h"
-#include "log.h"
+#define EVERYTHING_IN
 
 #define INT 1
 #define STR 2 
@@ -20,7 +11,20 @@
 #define POLYGON 4
 #define OBJ 5
 
-#define MAX_NUMBER_POLYGON_LINES 100
+
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
+#include <math.h>
+#include "tiny-regex-c/re.h"
+#include "inputs.h"
+#include "strs.h"
+#include "log.h"
+
+
+
 
 char* obj_input[][3] = {
 	{"example", "\0"},
@@ -31,62 +35,16 @@ char* obj_input[][3] = {
 };
 
 
-typedef struct{
-   int x, y;
-	 struct point *next;
-}point;
 
 
-typedef struct obj{
-	point *points;
-	struct obj *sub;
-  struct obj *next;
-}obj;
-
-
-obj last_obj;
-
+/* //////// */
 struct LIST_OBJS{
 	obj obj;
 	char *type, *name;
 	int color;
 	struct LIST_OBJS* next;
 }*list_objs, *start_obj;
-
-
-/* inputy */
-/* #define _input input; */ 
-
-
-typedef struct{
-	/* /1* int ax, ay, bx, by; *1/ !! */
-	int ax;
-	int ay;
-	int bx;
-	int by;
-}line;
-
-typedef struct{
-	/* /1* int r, sx, sy; *1/ !! */
-	int r;
-	point *S;
-}ring, circle;
-
-typedef struct{
-	obj* obj;	
-	line* line;
-}mirror_to_line;
-
-typedef struct{
-   double alpha;
-   point *S;
-   obj *obj;
-}rot2d;
-
-typedef struct{
-		int n_lines;
-   line lines[MAX_NUMBER_POLYGON_LINES];
-}polygon;
+obj last_obj;
 
 point input_point; 
 line input_line;
@@ -95,8 +53,6 @@ circle input_circle;
 mirror_to_line input_mirror_to_line;
 rot2d input_rot2d;
 polygon input_polygon;
-
-/* //////// */
 
 
 int init_render(void);
@@ -108,10 +64,10 @@ void set_point(obj *obj, point *input);
 void set_example(obj *obj);
 void set_line(obj *obj, line *input);
 void set_ring(obj *obj, ring *input);
-void set_circle(obj *obj, ring *input);
+void set_circle(obj *obj, circle *input);
 void set_mirror_to_line(obj *obj, mirror_to_line *input);
 void set_rot2d(obj *obj, rot2d *input);
-
+void set_polygon(obj *obj, polygon *input);
 /* //////// */
 
 
@@ -170,6 +126,9 @@ obj *get_obj(char name[]) {
 		set_rot2d(obj_to_set, &input_rot2d);
 	else if(strcmp(name, "point") == 0)
 		set_point(obj_to_set, &input_point);
+	else if(strcmp(name, "polygon") == 0)
+		set_polygon(obj_to_set, &input_polygon);
+
 
 	return obj_to_set;
 }
@@ -234,12 +193,6 @@ bool set_arg(int obj,int arg,char* val,int type,char* arg_name){
 			break;
 		case STR:
 			break;
-		/* case OBJ: */
-		/* 	if(!get_obj_input(val,input_obj)){ */
-		/* 		out(ERR,1,"","%s expected an object!",arg_name); */
-		/* 		return false; */
-		/* 	} */
-			/* break; */
 	}
 
 	/* !vlastní validace (omezený zadání) */	
@@ -271,6 +224,19 @@ bool set_arg(int obj,int arg,char* val,int type,char* arg_name){
 					break;
 				case 3:
 					input_circle.r=Z;
+					break;
+			}
+			break;
+		case RING:
+			switch(arg){
+				case 1:
+				   input_ring.S->x=Z;
+					break;
+				case 2:
+				   input_ring.S->y=Z;
+					break;
+				case 3:
+					input_ring.r=Z;
 					break;
 			}
 			break;
@@ -318,7 +284,6 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 
 		if(!(is_loop = (args_arr[0]=='*')  ? true : false))
 			++n_arg;
-
 
 
 		get_from_str(pattern,str_input,&in_text,&idx,&len);
@@ -425,6 +390,12 @@ bool set_obj(int id){
 		case CIRCLE:
 			make_obj("circle");
 			break;
+		case RING:
+			make_obj("ring");
+			break;
+		case POLYGON:
+			make_obj("polygon");
+			break;
 	}
 	return true;
 }
@@ -435,6 +406,8 @@ int get_obj_id_by_name(char* name){
 	int obj_id;
 	if(strcmp(name, "line") == 0)
 		obj_id = LINE;
+	else if(strcmp(name, "ring") == 0)
+		obj_id = RING;
 	else if(strcmp(name, "circle") == 0)
 		obj_id = CIRCLE;
 	else if(strcmp(name, "example") == 0)
@@ -472,4 +445,43 @@ bool proc_obj_cmd(int argc,char *argv[]){
 	return set_obj(obj_id);
 }
 
+
+
+point* point_new() {
+  return (point*)malloc(sizeof(point));  
+}
+
+void point_add(point **prev_point) {
+   (*prev_point)->next = (struct point*)point_new(); 
+   *prev_point = (point*)(*prev_point)->next;
+}
+
+void point_set(int res_x, int res_y, point **prev_point) {
+   (*prev_point)->x = res_x;
+   (*prev_point)->y = res_y;
+   (*prev_point)->next = NULL;
+}
+
+
+struct obj* obj_new() {
+  obj* to_get=(obj*)malloc(sizeof(struct obj));  
+	to_get->sub=to_get->next=NULL;
+	to_get->points=NULL;
+  return to_get;
+}
+
+void obj_next(obj **current,obj *next){
+  (*current)->next=next; 
+	*current=next;
+}
+
+void obj_sub(obj **current,obj *sub){
+  (*current)->sub=sub; 
+	*current=sub;
+}
+
+
+void copy_line_input(line *input){
+	input_line=*input;
+}
 

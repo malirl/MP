@@ -1,26 +1,12 @@
+#define POINT_IN
+#define OBJ_IN
+#define LINE_IN
+#define LINE_CONVERTED_IN 
+
 #include <stdio.h>
+#include "../inputs.h"
 
-typedef struct{
- int ax, ay, bx, by;
-}input;
-
-/* v poradi: bod a, bod b vuci a, parametr pro zpetny prevod */
-typedef struct{
-   int ax, ay, dx, dy, opt;
-   double a;
-}res;
-
-typedef struct point{
-   int x, y;
-   struct point *next;
-}point;
-
-typedef struct{
-	point *points;
-}obj;
-
-
-res convert_input(input *input);
-void line_dda(res *res, point **point);
-void line_bresenham(res *res, point **point);
+line_converted convert_input(line *input);
+void line_dda(line_converted *res, point **point);
+void line_bresenham(line_converted *res, point **point);
 

@@ -1,20 +1,14 @@
+#define POINT_IN
+#define OBJ_IN
+
+#define WIDTH 1000
+#define HEIGHT 1000
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <SDL2/SDL.h>
-
-typedef struct{
-   int x, y;
-	 struct point *next;
-}point;
-
-typedef struct obj{
-	point *points;
-	struct obj *sub,*next;
-}obj;
-
-#define WIDTH 1000
-#define HEIGHT 1000
+#include "../inputs.h"
 
 SDL_Window *window;
 SDL_Renderer *renderer;

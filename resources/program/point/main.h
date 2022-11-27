@@ -1,13 +1,8 @@
+#define POINT_IN
+#define OBJ_IN 
+
 #include <stdio.h>
+#include "../inputs.h"
 
-typedef struct point{
-   int x, y;
-   struct point *next;
-}point, input;
-
-typedef struct{
-	point *points;
-}obj;
-
-void just_point(input *input, point **point);
+void just_point(point *input, point **point);
 

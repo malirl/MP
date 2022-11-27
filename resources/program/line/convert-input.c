@@ -1,15 +1,10 @@
 #include <stdio.h>
 
-typedef struct input{
- int ax, ay, bx, by;
-}input;
 
+#define LINE_IN
+#define LINE_CONVERTED_IN 
 
-/* v poradi: bod A, bod B vuci A, parametr pro zpetny prevod */
-typedef struct res{
-   int ax, ay, dx, dy, opt;
-   double a;
-}res;
+#include "../inputs.h"
 
 
 void swap(int *a, int *b) {
@@ -19,7 +14,7 @@ void swap(int *a, int *b) {
 }
 
 
-res convert_input(input *input) {
+line_converted convert_input(line *input) {
 
    int ax = input->ax, ay = input->ay, bx = input->bx, by = input->by; 
 
@@ -46,7 +41,7 @@ res convert_input(input *input) {
       opt = 3;
    }
 
-   res res;
+   line_converted res;
    res.ax = ax;
    res.ay = ay;
    res.dx = dx;

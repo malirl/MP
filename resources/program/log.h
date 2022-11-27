@@ -22,7 +22,7 @@ void out(int status,int lvl,char* msg,const char* fmt, ...){
 	int k;
 	char *str_format; 
 
-	str_format="\n";
+	str_format=" ";
 	char str_format_arr[strlen(str_format)+lvl*2+100];
 	get_arr(str_format,str_format_arr);
 
@@ -57,5 +57,6 @@ void out(int status,int lvl,char* msg,const char* fmt, ...){
 	vprintf(fmt,args);
 	va_end(args);
 	printf(WHITE);
+	printf("\n");
 }
 

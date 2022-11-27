@@ -1,44 +1,40 @@
-#include <stdio.h>
-#include "../helpers.h"
+#define POINT_IN
+#define RING_IN 
+#define HELPERS
 
-typedef struct{
-   int r;
-   point *S;
-}input;
+#include <stdio.h>
+#include "../inputs.h"
 
 static int sx, sy, r, x, y, d; 
-static point *current_point; 
-
 
 static void solve() {
-
-   set_point(sx + x, sy + y, &current_point);
+   point_set(sx + x, sy + y, &current_point);
 
    while(x>=y) {
       
-      add_point(&current_point);
-      set_point(sx + x, sy + y, &current_point);
+      point_add(&current_point);
+      point_set(sx + x, sy + y, &current_point);
 
-      add_point(&current_point);
-      set_point(sx + y, sy + x, &current_point);
+      point_add(&current_point);
+      point_set(sx + y, sy + x, &current_point);
 
-      add_point(&current_point);
-      set_point(sx - y, sy + x, &current_point);
+      point_add(&current_point);
+      point_set(sx - y, sy + x, &current_point);
 
-      add_point(&current_point);
-      set_point(sx - x, sy + y, &current_point);
+      point_add(&current_point);
+      point_set(sx - x, sy + y, &current_point);
 
-      add_point(&current_point);
-      set_point(sx - x, sy - y, &current_point);
+      point_add(&current_point);
+      point_set(sx - x, sy - y, &current_point);
 
-      add_point(&current_point);
-      set_point(sx + x, sy - y, &current_point);
+      point_add(&current_point);
+      point_set(sx + x, sy - y, &current_point);
 
-      add_point(&current_point);
-      set_point(sx + y, sy - x, &current_point);
+      point_add(&current_point);
+      point_set(sx + y, sy - x, &current_point);
 
-      add_point(&current_point);
-      set_point(sx - y, sy - x, &current_point);
+      point_add(&current_point);
+      point_set(sx - y, sy - x, &current_point);
 
       d += 2*y+1;
       y++;
@@ -50,8 +46,7 @@ static void solve() {
    }
 }
 
-
-void ring_bresenham(input *input, point **tracked_point) {
+void ring_bresenham(ring *input, point **tracked_point) {
    r = input->r;
    sx = input->S->x;
    sy = input->S->y;
@@ -60,7 +55,7 @@ void ring_bresenham(input *input, point **tracked_point) {
    y = 0;
    d = 0;
 
-   current_point = new_point();
+   current_point = point_new();
    *tracked_point = current_point;
    solve();
 }

@@ -1,8 +1,8 @@
 #include "main.h" 
 
-void set_line(obj *line, input *input) {
-   res res = convert_input(input);
-   line_bresenham(&res, &line->points);
-   /* line_dda(&res, &line->points); */
+void set_line(obj *obj,line *input) {
+   line_converted res = convert_input(input);
+   line_bresenham(&res, &obj->points);
+   /* line_dda(&res, &obj->points); */
 }
 

@@ -1,20 +1,9 @@
+#define POINT_IN
+#define OBJ_IN
+#define CIRCLE_IN
+
 #include <stdio.h>
+#include "../inputs.h"
 
-typedef struct point{
-   int x, y;
-   struct point *next;
-}point;
-
-typedef struct{
-	point *points;
-	int color;
-}obj;
-
-typedef struct{
-   int r;
-   point *S;
-}input;
-
-
-void circle_(input *input, point **point);
+void circle_(circle *input, point **point);
 

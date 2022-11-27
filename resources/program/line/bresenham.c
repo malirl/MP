@@ -1,16 +1,11 @@
+#define POINT_IN
+#define LINE_CONVERTED_IN 
+#define HELPERS
+
 #include <stdio.h>
-#include "../helpers.h"
-
-
-typedef struct{
-   int ax, ay, dx, dy, opt;
-   double a;
-}input;
-
+#include "../inputs.h"
 
 static int x, y, dx, dy, ax, ay, err, opt; 
-static point *current_point; 
-
 
 static void solve() {
 
@@ -39,7 +34,7 @@ static void solve() {
    }
    
 
-   set_point(ax + *res_x, ay + mark_y * *res_y, &current_point);
+   point_set(ax + *res_x, ay + mark_y * *res_y, &current_point);
 
    while(x < dx) {
 
@@ -50,14 +45,14 @@ static void solve() {
          err-=2*dx;
       }
 
-      add_point(&current_point);
-      set_point(ax + *res_x, ay + mark_y * *res_y, &current_point);
+      point_add(&current_point);
+      point_set(ax + *res_x, ay + mark_y * *res_y, &current_point);
    }
 
 }
 
 
-void line_bresenham(input *input, point **tracked_point) {
+void line_bresenham(line_converted *input, point **tracked_point) {
    dx = input->dx;
    dy = input->dy;
    ax = input->ax;
@@ -68,7 +63,7 @@ void line_bresenham(input *input, point **tracked_point) {
    y = 0;
    err = -dx;
 
-   current_point = new_point(); 
+   current_point = point_new(); 
    *tracked_point = current_point; 
    solve();
 }
