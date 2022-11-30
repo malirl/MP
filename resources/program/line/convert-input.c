@@ -14,7 +14,7 @@ void swap(int *a, int *b) {
 }
 
 
-line_converted convert_input(line *input) {
+line_converted convert_input_line(line *input) {
 
    int ax = input->ax, ay = input->ay, bx = input->bx, by = input->by; 
 

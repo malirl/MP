@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include "../inputs.h"
 
-line_converted convert_input(line *input);
+line_converted convert_input_line(line *input);
 void line_dda(line_converted *res, point **point);
 void line_bresenham(line_converted *res, point **point);
 

@@ -85,6 +85,13 @@ typedef struct{
 }line_converted;
 #endif
 
+#ifdef POLYGON_CONVERTED_IN 
+#define POLYGON_MAX_NUMBER_LINES 100
+typedef struct{
+	int n_lines;
+	line lines[POLYGON_MAX_NUMBER_LINES];
+}polygon_converted;
+#endif
 
 
 #ifdef LINE_COPY_IN 

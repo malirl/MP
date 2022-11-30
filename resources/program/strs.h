@@ -44,14 +44,14 @@ void replace_str_by(char* in, char out[], int index){
 	}
 }
 
-char res[100], new_pattern[100], searched[100];
+char res[1000], new_pattern[1000], searched[1000];
 void get_from_str(char* pattern, char string[], char** str_to_set,int* idx,int* len) {
 
 	/* strcpy(); */
 
-	memset(res, 0, 100);
-	memset(new_pattern, 0, 100);
-	memset(searched, 0, 100);
+	memset(res, 0, 1000);
+	memset(new_pattern, 0, 1000);
+	memset(searched, 0, 1000);
 	*idx = *len = -1;	
 
 	int match_idx, match_length, i, first_closure = (int)(strchr(pattern, '(') - pattern),

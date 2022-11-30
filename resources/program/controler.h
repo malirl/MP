@@ -29,7 +29,7 @@
 
 
 
-char* obj_input[][3] = {
+char* obj_input[][6] = {
 	{"example", "\0"},
 	{"line", "n:ax n:ay n:bx n:by"},
 	{"circle", "n:Sx n:Sy n:r"},
@@ -71,7 +71,7 @@ void set_ring(obj *obj, ring *input);
 void set_circle(obj *obj, circle *input);
 void set_mirror_to_line(obj *obj, mirror_to_line *input);
 void set_rot2d(obj *obj, rot2d *input);
-void set_polygon(obj *obj, polygon *input);
+bool set_polygon(obj *obj, polygon *input);
 /* //////// */
 
 
@@ -115,7 +115,8 @@ obj *get_obj(char name[]) {
 	obj *obj_to_set = (struct obj*)malloc(sizeof(obj));
 	obj_to_set->sub=obj_to_set->next=NULL;
 	obj_to_set->points=NULL;
-
+	bool is_set_success=true;
+	
 	if(strcmp(name, "example") == 0)
 		set_example(obj_to_set);
 	else if(strcmp(name, "line") == 0)
@@ -131,16 +132,24 @@ obj *get_obj(char name[]) {
 	else if(strcmp(name, "point") == 0)
 		set_point(obj_to_set, &input_point);
 	else if(strcmp(name, "polygon") == 0)
-		set_polygon(obj_to_set, &input_polygon);
+		is_set_success=set_polygon(obj_to_set, &input_polygon);
 
+	if(!is_set_success){
+		out(ERR,0,"validation failed","");
+		return false;
+	}
 
 	return obj_to_set;
 }
 
-static void make_obj(char name[]){
-	last_obj = *get_obj(name);
+static bool make_obj(char name[]){
+	obj *obj = get_obj(name);
+	if(!obj)
+		return false;
+	last_obj = *obj;
 	set_obj_in_list(last_obj,name);
 	add_obj_to_list();
+	return true;
 }
 
 /* //////// */
@@ -170,10 +179,10 @@ void set_args(int obj_id,int nums[],char* strs[]){
 	/* !! */
 	switch(obj_id){
 		case LINE:
-				input_line.ax=nums[0];
-				input_line.ay=nums[1];
-				input_line.bx=nums[2];
-				input_line.by=nums[3];
+			input_line.ax=nums[0];
+			input_line.ay=nums[1];
+			input_line.bx=nums[2];
+			input_line.by=nums[3];
 			break;
 		case CIRCLE:
 			break;
@@ -191,7 +200,7 @@ bool set_arg(int obj,int arg,char* val,int type,char* arg_name){
 	switch(type){
 		case INT:
 			if(!get_int(val,&Z)){
-				out(ERR,1,"","%s expected an integer!",arg_name);
+				out(ERR,1,"","%s expected an integer! obtained value: '%s'",arg_name,val);
 				return false;
 			}
 			break;
@@ -230,10 +239,10 @@ bool set_arg(int obj,int arg,char* val,int type,char* arg_name){
 		case CIRCLE:
 			switch(arg){
 				case 1:
-				   input_circle.S->x=Z;
+					input_circle.S->x=Z;
 					break;
 				case 2:
-				   input_circle.S->y=Z;
+					input_circle.S->y=Z;
 					break;
 				case 3:
 					input_circle.r=Z;
@@ -243,10 +252,10 @@ bool set_arg(int obj,int arg,char* val,int type,char* arg_name){
 		case RING:
 			switch(arg){
 				case 1:
-				   input_ring.S->x=Z;
+					input_ring.S->x=Z;
 					break;
 				case 2:
-				   input_ring.S->y=Z;
+					input_ring.S->y=Z;
 					break;
 				case 3:
 					input_ring.r=Z;
@@ -290,7 +299,7 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 	while(1){
 		get_from_str(":(\\w+)",args,&pattern,&idx,&len);
 
-		
+
 		if(!pattern)
 			return true;
 
@@ -339,7 +348,7 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 
 			in_text_len += strlen(val);
 
-			
+
 			if(strcmp(type,"n")==0)
 				type_arg = INT;
 			else if(strcmp(type,"str")==0)
@@ -356,7 +365,7 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 						++input_polygon.n_points;
 						break;
 				}
-			
+
 			}
 
 			if(type_arg != NONE){
@@ -378,7 +387,7 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 
 
 bool proc_obj_input_cmd(char *argv[],int argc,char* args,int obj_id) {
-	char str_input[100];
+	char str_input[1000];
 	size_t n_ch = -1;
 	for(int arg=2;arg<argc;++arg){
 		for(size_t i=0;i<strlen(argv[arg]);++i) {
@@ -393,24 +402,27 @@ bool proc_obj_input_cmd(char *argv[],int argc,char* args,int obj_id) {
 
 
 bool set_obj(int id){
+	char* obj_name;
 	switch(id){
 		case EXAMPLE:
-			make_obj("example");
+			obj_name="example";
 			break;
 		case LINE:
-			make_obj("line");
+			obj_name="line";
 			break;
 		case CIRCLE:
-			make_obj("circle");
+			obj_name="circle";
 			break;
 		case RING:
-			make_obj("ring");
+			obj_name="ring";
 			break;
 		case POLYGON:
-			make_obj("polygon");
+			obj_name="polygon";
 			break;
 	}
-	return true;
+
+	out(INFO,0,"processing obj: ","%s",obj_name);
+	return make_obj(obj_name);
 }
 
 
@@ -445,7 +457,7 @@ bool proc_obj(char *name,char *input,bool cmd){
 	if(obj_id==NONE)
 		return false;
 
-	out(INFO,1,"processing sub object: ","%s",name);
+	out(INFO,1,"processing input: ","%s",name);
 	return check_mandatory_args(input,obj_input[obj_id][1],obj_id,cmd);
 }
 
@@ -455,7 +467,7 @@ bool proc_obj_cmd(int argc,char *argv[]){
 	if(obj_id==NONE)
 		return false;
 
-	out(INFO,0,"processing object: ","%s",argv[1]);
+	out(INFO,0,"processing input: ","%s",argv[1]);
 	if(!proc_obj_input_cmd(argv,argc,obj_input[obj_id][1],obj_id))
 		return false;
 	return set_obj(obj_id);
@@ -464,35 +476,35 @@ bool proc_obj_cmd(int argc,char *argv[]){
 
 
 point* point_new() {
-  return (point*)malloc(sizeof(point));  
+	return (point*)malloc(sizeof(point));  
 }
 
 void point_add(point **prev_point) {
-   (*prev_point)->next = (struct point*)point_new(); 
-   *prev_point = (point*)(*prev_point)->next;
+	(*prev_point)->next = (struct point*)point_new(); 
+	*prev_point = (point*)(*prev_point)->next;
 }
 
 void point_set(int res_x, int res_y, point **prev_point) {
-   (*prev_point)->x = res_x;
-   (*prev_point)->y = res_y;
-   (*prev_point)->next = NULL;
+	(*prev_point)->x = res_x;
+	(*prev_point)->y = res_y;
+	(*prev_point)->next = NULL;
 }
 
 
 struct obj* obj_new() {
-  obj* to_get=(obj*)malloc(sizeof(struct obj));  
+	obj* to_get=(obj*)malloc(sizeof(struct obj));  
 	to_get->sub=to_get->next=NULL;
 	to_get->points=NULL;
-  return to_get;
+	return to_get;
 }
 
 void obj_next(obj **current,obj *next){
-  (*current)->next=next; 
+	(*current)->next=next; 
 	*current=next;
 }
 
 void obj_sub(obj **current,obj *sub){
-  (*current)->sub=sub; 
+	(*current)->sub=sub; 
 	*current=sub;
 }
 

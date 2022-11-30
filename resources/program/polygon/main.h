@@ -1,13 +1,18 @@
 #include <stdio.h>
+#include <stdbool.h>
+
 /* #include <stdarg.h> */
 
 #define POINT_IN
 #define OBJ_IN
 #define LINE_IN
 #define POLYGON_IN
+#define POLYGON_CONVERTED_IN
 
 #include "../inputs.h"
 
-/* void out(int status,int lvl,char* msg,const char* fmt,...); */
-void _set_polygon(polygon *input,obj* obj);
+
+polygon_converted convert_polygon_input(polygon *input);
+bool valid_polygon(polygon_converted *input);
+void _set_polygon(polygon_converted *input,obj* obj);
 
