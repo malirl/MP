@@ -9,7 +9,10 @@
 #define CIRCLE 2
 #define RING 3
 #define POLYGON 4
+#define POINT 5
+
 #define OBJ 5
+
 
 
 #include <stdio.h>
@@ -31,7 +34,8 @@ char* obj_input[][3] = {
 	{"line", "n:ax n:ay n:bx n:by"},
 	{"circle", "n:Sx n:Sy n:r"},
 	{"ring", "n:Sx n:Sy n:r"},
-	{"polygon","*line:line"}
+	{"polygon","*point:point"},
+	{"point", "n:x n:y"},
 };
 
 
@@ -88,7 +92,7 @@ static void init_data() {
 	input_circle.S = (point*)malloc(sizeof(point));
 	input_rot2d.S = (point*)malloc(sizeof(point));
 
-	input_polygon.n_lines=0;
+	input_polygon.n_points=0;
 
 }
 
@@ -195,9 +199,18 @@ bool set_arg(int obj,int arg,char* val,int type,char* arg_name){
 			break;
 	}
 
-	/* !vlastní validace (omezený zadání) */	
 
 	switch(obj){
+		case POINT:
+			switch(arg){
+				case 1:
+					input_point.x=Z;
+					break;
+				case 2:
+					input_point.y=Z;
+					break;
+			}
+			break;
 		case LINE:
 			switch(arg){
 				case 1:
@@ -339,8 +352,8 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 
 				switch(obj_id){
 					case POLYGON:
-						input_polygon.lines[input_polygon.n_lines]=input_line;
-						++input_polygon.n_lines;
+						input_polygon.points[input_polygon.n_points]=input_point;
+						++input_polygon.n_points;
 						break;
 				}
 			
@@ -414,6 +427,9 @@ int get_obj_id_by_name(char* name){
 		obj_id = EXAMPLE;
 	else if(strcmp(name, "polygon") == 0)
 		obj_id = POLYGON;
+	else if(strcmp(name, "point") == 0)
+		obj_id = POINT;
+
 
 	else{
 		out(ERR,1,"unknown obj: ","'%s'",name);
@@ -483,5 +499,10 @@ void obj_sub(obj **current,obj *sub){
 
 void copy_line_input(line *input){
 	input_line=*input;
+}
+
+
+void copy_point_input(point *input){
+	input_point=*input;
 }
 

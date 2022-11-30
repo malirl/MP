@@ -1,0 +1,3 @@
+	/* !vlastní validace (omezený zadání) */
+
+

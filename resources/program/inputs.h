@@ -69,10 +69,10 @@ typedef struct{
 #endif
 
 #ifdef POLYGON_IN
-#define MAX_NUMBER_POLYGON_LINES 100
+#define POLYGON_MAX_NUMBER_POINTS 100
 typedef struct{
-		int n_lines;
-   line lines[MAX_NUMBER_POLYGON_LINES];
+	int n_points;
+	point points[POLYGON_MAX_NUMBER_POINTS];
 }polygon;
 #endif
 
@@ -80,15 +80,22 @@ typedef struct{
 
 #ifdef LINE_CONVERTED_IN
 typedef struct{
-   int ax, ay, dx, dy, opt;
-   double a;
+	int ax, ay, dx, dy, opt;
+	double a;
 }line_converted;
 #endif
 
 
 
-#ifdef COPY_LINE_IN
+#ifdef LINE_COPY_IN 
+static line input_line;
 void copy_line_input(line *input);
+#endif
+
+
+#ifdef POINT_COPY_IN 
+static point input_point;
+void copy_point_input(point *input);
 #endif
 
 
