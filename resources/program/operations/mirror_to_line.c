@@ -32,11 +32,10 @@ static void solve() {
 
 void _mirror_to_line(mirror_to_line *input, point **tracked_point) {
    head = (point*)input->obj->points;
-
-   px = input->line->ax;
-   py = input->line->ay;
-   x = input->line->bx-input->line->ax;
-   y = input->line->by-input->line->ay;
+   px = input->line->A.x;
+   py = input->line->A.y;
+   x = input->line->B.x-input->line->A.x;
+   y = input->line->B.y-input->line->A.y;
 
    current_point = point_new();
    *tracked_point = current_point;

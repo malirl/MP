@@ -12,7 +12,7 @@
 
 #ifdef POINT_IN
 typedef struct{
-   int x, y;
+   int x, y, z;
 	 struct point *next;
 }point;
 #endif
@@ -32,10 +32,11 @@ typedef struct obj{
 
 #ifdef LINE_IN
 typedef struct{
-	int ax;
-	int ay;
-	int bx;
-	int by;
+	point A, B;
+	/* int ax; */
+	/* int ay; */
+	/* int bx; */
+	/* int by; */
 }line;
 #endif
 

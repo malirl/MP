@@ -11,8 +11,6 @@
 #define POLYGON 4
 #define POINT 5
 
-#define OBJ 5
-
 
 
 #include <stdio.h>
@@ -31,7 +29,8 @@
 
 char* obj_input[][6] = {
 	{"example", "\0"},
-	{"line", "n:ax n:ay n:bx n:by"},
+	/* {"line", "n:ax n:ay n:bx n:by"}, */
+	{"line", "point:A point:B"},
 	{"circle", "n:Sx n:Sy n:r"},
 	{"ring", "n:Sx n:Sy n:r"},
 	{"polygon","*point:point"},
@@ -129,8 +128,9 @@ obj *get_obj(char name[]) {
 		set_mirror_to_line(obj_to_set, &input_mirror_to_line);
 	else if(strcmp(name, "rot2d") == 0)
 		set_rot2d(obj_to_set, &input_rot2d);
-	else if(strcmp(name, "point") == 0)
+	else if(strcmp(name, "point") == 0){
 		set_point(obj_to_set, &input_point);
+	}
 	else if(strcmp(name, "polygon") == 0)
 		is_set_success=set_polygon(obj_to_set, &input_polygon);
 
@@ -179,10 +179,10 @@ void set_args(int obj_id,int nums[],char* strs[]){
 	/* !! */
 	switch(obj_id){
 		case LINE:
-			input_line.ax=nums[0];
-			input_line.ay=nums[1];
-			input_line.bx=nums[2];
-			input_line.by=nums[3];
+			input_line.A.x=nums[0];
+			input_line.A.y=nums[1];
+			input_line.B.x=nums[2];
+			input_line.B.y=nums[3];
 			break;
 		case CIRCLE:
 			break;
@@ -223,16 +223,16 @@ bool set_arg(int obj,int arg,char* val,int type,char* arg_name){
 		case LINE:
 			switch(arg){
 				case 1:
-					input_line.ax=Z;
+					input_line.A.x=Z;
 					break;
 				case 2:
-					input_line.ay=Z;
+					input_line.A.y=Z;
 					break;
 				case 3:
-					input_line.bx=Z;
+					input_line.B.x=Z;
 					break;
 				case 4:
-					input_line.by=Z;
+					input_line.B.y=Z;
 					break;
 			}
 			break;
@@ -326,11 +326,10 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 			get_arr(pattern,tmp);
 
 
-			get_from_str("(\\w+):\\w+",args,&type,&idx,&len);
+			get_from_str("(\\w+):",args,&type,&idx,&len);
 			in_text_len = strlen(type)+1;
 
-
-
+			
 			if(strcmp(type,"n")==0 || strcmp(type,"str")==0)
 				replace_str_by(":([^,\\s]*)",tmp,strlen(pattern));	
 			else
@@ -344,7 +343,6 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 				out(ERR,1,"missing value for param: ","%s",pattern);
 				return false;
 			}
-
 
 			in_text_len += strlen(val);
 
@@ -364,8 +362,13 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 						input_polygon.points[input_polygon.n_points]=input_point;
 						++input_polygon.n_points;
 						break;
+					case LINE:
+						if(n_arg==1)
+							input_line.B=input_point;
+						else
+							input_line.A=input_point;
+						break;
 				}
-
 			}
 
 			if(type_arg != NONE){
@@ -419,6 +422,10 @@ bool set_obj(int id){
 		case POLYGON:
 			obj_name="polygon";
 			break;
+		case POINT:
+			obj_name="point";
+			break;
+
 	}
 
 	out(INFO,0,"processing obj: ","%s",obj_name);

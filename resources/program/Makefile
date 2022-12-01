@@ -34,5 +34,7 @@ test:
 	#"primka"
 	./MP line ay:100 by:200 ax:113 bx:12 
 	#"polygon"
-	./MP polygon line:ax:50,ay:20,bx:30,by:50 line:ax:100,ay:200,bx:300,by:400 line:ax:200,bx:300,by:678,ay:34
+	./MP polygon point:x:100,y:200 point:x:700,y:200 point:x:200,y:300 point:x:340,y:650 point:x:200,y:800 point:x:190,y:800
+	#strany se protínají, polygon se nevytvoří
+	./MP polygon point:x:100,y:200 point:x:700,y:200 point:x:200,y:300 point:x:340,y:650 point:x:200,y:800 point:x:230,y:830
 

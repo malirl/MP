@@ -3,10 +3,10 @@ const double pi = 22.0 / 7.0;
 static void test_solution(){
 
    /* usecka */
-   input_line.ax = 100;
-   input_line.ay = 300;
-   input_line.bx = 400;
-   input_line.by = 850;
+   input_line.A.x = 100;
+   input_line.A.y = 300;
+   input_line.B.x = 400;
+   input_line.B.y = 850;
    make_obj("line");
    render(&last_obj);
 

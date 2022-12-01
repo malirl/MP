@@ -1,11 +1,12 @@
 #define POINT_IN 
 #define LINE_IN
 #define POLYGON_IN
+#define POINT_COPY_IN 
+#define LINE_COPY_IN 
 #define POLYGON_CONVERTED_IN 
 
 #include <stdio.h>
 #include "../inputs.h"
-
 
 
 polygon_converted convert_polygon_input(polygon *input) {
@@ -13,18 +14,26 @@ polygon_converted convert_polygon_input(polygon *input) {
     polygon_converted res;
 
     for(int i=0;i+1<n_lines;++i){
-        res.lines[i].ax=input->points[i].x;
-        res.lines[i].ay=input->points[i].y;
+        input_point.x=input->points[i].x;
+        input_point.y=input->points[i].y;
+        input_line.A=input_point;
 
-        res.lines[i].bx=input->points[i+1].x;
-        res.lines[i].by=input->points[i+1].y;
+        input_point.x=input->points[i+1].x;
+        input_point.y=input->points[i+1].y;
+        input_line.B=input_point;
+
+        res.lines[i]=input_line;
     }
 
-    res.lines[n_lines-1].ax=input->points[n_lines-1].x;
-    res.lines[n_lines-1].ay=input->points[n_lines-1].y;
+    input_point.x=input->points[n_lines-1].x;
+    input_point.y=input->points[n_lines-1].y;
+    input_line.A=input_point;
 
-    res.lines[n_lines-1].bx=input->points[0].x;
-    res.lines[n_lines-1].by=input->points[0].y;
+    input_point.x=input->points[0].x;
+    input_point.y=input->points[0].y;
+    input_line.B=input_point;
+
+    res.lines[n_lines-1]=input_line;
 
     res.n_lines=n_lines;
     return res;

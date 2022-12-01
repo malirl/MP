@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-
+#define POINT_IN
 #define LINE_IN
 #define LINE_CONVERTED_IN 
 
@@ -15,8 +15,10 @@ void swap(int *a, int *b) {
 
 
 line_converted convert_input_line(line *input) {
-
-   int ax = input->ax, ay = input->ay, bx = input->bx, by = input->by; 
+   int ax = input->A.x,
+       ay = input->A.y,
+       bx = input->B.x,
+       by = input->B.y; 
 
    if(ax>bx) {
       swap(&ax, &bx);

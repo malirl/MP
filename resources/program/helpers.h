@@ -15,10 +15,10 @@ typedef struct{
 
 
 static int is_lines_parallel(line *a, line *b){
-    double Ax=a->ax, Ay=a->ay, 
-           Bx=a->bx, By=a->by,
-           Cx=b->ax, Cy=b->ay,
-           Dx=b->bx, Dy=b->by;
+    double Ax=a->A.x, Ay=a->A.y, 
+           Bx=a->B.y, By=a->B.y,
+           Cx=b->A.x, Cy=b->A.y,
+           Dx=b->B.x, Dy=b->B.y;
 
     double a1=Bx-Ax,a2=By-Ay,
            b1=Dx-Cx,b2=Dy-Cy;
@@ -39,10 +39,11 @@ static intersect* line_intersection(line *a, line *b,bool edges_counted){
       return NULL;
 
    /* predpoklada se, ze Ax + a1*t = Bx, kdyz t=1, tedy a1 je Bx-Ax, atd. u dalsich souradnic vektoru */
-   double Ax=a->ax, Ay=a->ay, 
-          Bx=a->bx, By=a->by,
-          Cx=b->ax, Cy=b->ay,
-          Dx=b->bx, Dy=b->by;
+    double Ax=a->A.x, Ay=a->A.y, 
+           Bx=a->B.y, By=a->B.y,
+           Cx=b->A.x, Cy=b->A.y,
+           Dx=b->B.x, Dy=b->B.y;
+
    double a1=Bx-Ax,a2=By-Ay,
           b1=Dx-Cx,b2=Dy-Cy;
    double t,k;
