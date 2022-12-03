@@ -10,6 +10,25 @@
 #endif
 
 
+#ifdef SCENE 
+typedef struct{
+	int width, height;
+	int shiftX, shiftY;
+}scene;
+void init_scene(scene*);
+
+#define STATE_QUIT -1
+#define STATE_NOTHING 0
+
+#define ACTION_RIGHT 1
+#define ACTION_LEFT 2
+#define ACTION_UP 3
+#define ACTION_DOWN 4
+#define ACTION_ZOOM_MINUS 5
+#define ACTION_ZOOM_PLUS 6
+#endif
+
+
 #ifdef POINT_IN
 typedef struct{
    int x, y, z;
@@ -27,16 +46,9 @@ typedef struct obj{
 #endif
 
 
-
-
-
 #ifdef LINE_IN
 typedef struct{
 	point A, B;
-	/* int ax; */
-	/* int ay; */
-	/* int bx; */
-	/* int by; */
 }line;
 #endif
 

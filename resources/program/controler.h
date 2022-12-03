@@ -3,6 +3,8 @@
 #define INT 1
 #define STR 2 
 
+#define SCENE
+
 #define NONE -1
 #define EXAMPLE 0
 #define LINE 1
@@ -21,9 +23,9 @@
 #include <math.h>
 #include "tiny-regex-c/re.h"
 #include "inputs.h"
+#include "scene.h"  
 #include "strs.h"
 #include "log.h"
-
 
 
 
@@ -58,7 +60,9 @@ rot2d input_rot2d;
 polygon input_polygon;
 
 
-int init_render(void);
+void copy_scene_render(scene scene);
+int init_render();
+void stop_render();
 int resolve_window_events(void);
 bool render(obj *obj);
 

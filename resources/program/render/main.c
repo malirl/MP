@@ -1,8 +1,7 @@
 #define POINT_IN
 #define OBJ_IN
 
-#define WIDTH 1000
-#define HEIGHT 1000
+#define SCENE
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,36 +12,74 @@
 SDL_Window *window;
 SDL_Renderer *renderer;
 SDL_Texture *screen_texture;
+SDL_Event event;
 
 unsigned int *pixels;
 
+static scene scene_;
 
 int resolve_window_events() {
    while(1) {
-      SDL_Event event;
-      while (SDL_PollEvent(&event))
-      {
+      while(SDL_PollEvent(&event)){
          switch (event.type) {
             case SDL_QUIT:
                SDL_DestroyWindow(window);
                SDL_Quit();
+               return STATE_QUIT;
                break;
             case SDL_WINDOWEVENT:
                break;
-            default: {}
+            case SDL_KEYDOWN:
+               switch(event.key.keysym.sym){
+                  case SDLK_q:
+                     return STATE_QUIT;
+                  case SDLK_RIGHT:
+                     return ACTION_RIGHT;
+                  case SDLK_LEFT:
+                     return ACTION_LEFT;
+                  case SDLK_UP:
+                     return ACTION_UP;
+                  case SDLK_DOWN:
+                     return ACTION_DOWN;
+               }
+               break;
+            case SDL_MOUSEWHEEL:
+               if(event.wheel.y > 0)
+                  return ACTION_ZOOM_PLUS; 
+               else if(event.wheel.y < 0) 
+                  return ACTION_ZOOM_MINUS; 
+
+               break;
+            default:
+               return STATE_NOTHING;
          }
       }
    }
 }
 
 void render_present() {
-   SDL_UpdateTexture(screen_texture, NULL, pixels, WIDTH * 4);
+   SDL_UpdateTexture(screen_texture, NULL, pixels, scene_.width * 4);
    SDL_RenderClear(renderer);
    SDL_RenderCopy(renderer, screen_texture, NULL, NULL);
    SDL_RenderPresent(renderer);
 }
 
 
+/* void render_scene(){ */
+/* } */
+
+void copy_scene_render(scene scene_to_set){
+   scene_=scene_to_set;
+}
+
+
+void clear_scene(){
+   for(int x=0;x<scene_.width;++x){
+      for(int y=0;y<scene_.height;++y){
+         pixels[x + (scene_.height - y) * scene_.width] = 0x00000000;
+      }
+   }
+}
 
 void render_obj(obj *obj) {
    if(!obj)
@@ -50,7 +87,14 @@ void render_obj(obj *obj) {
 
    if(obj->points){
       point *head=(point*)obj->points;
-      do pixels[head->x + (HEIGHT - head->y) * WIDTH] = 0xff000000;
+      int x,y;
+      do{
+         x=head->x+scene_.shiftX;
+         y=head->y+scene_.shiftY;
+ 
+         if(x>0 && x<scene_.width && y>0 && y<scene_.height)
+            pixels[x + (scene_.height - y) * scene_.width] = 0xff000000;
+      }
       while((head=(point*)head->next));
    }
 
@@ -63,6 +107,14 @@ void render_obj(obj *obj) {
 
 
 bool render(obj *obj){
+
+   screen_texture = SDL_CreateTexture(renderer,
+         SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING,
+         scene_.width, scene_.height);
+
+   pixels = malloc(scene_.width * scene_.height * 4);
+
+   clear_scene();
    render_obj(obj);
    render_present();
    return true;
@@ -72,15 +124,23 @@ bool render(obj *obj){
 /* } */
 
 
+void stop_render(){
+   /* if(screen_texture) */
+   /*    SDL_DestroyTexture(screen_texture); */
+   if(window)
+      SDL_DestroyWindow(window);
+   SDL_Quit();
+}
+
 int init_render() {
    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
       fprintf(stderr, "Could not initialize sdl2: %s\n", SDL_GetError());
       return EXIT_FAILURE;
    }
 
-   window = SDL_CreateWindow("",
+   window = SDL_CreateWindow("MP",
          SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-         WIDTH, HEIGHT,
+         scene_.width, scene_.height,
          SDL_WINDOW_SHOWN);
 
 
@@ -101,9 +161,9 @@ int init_render() {
 
    screen_texture = SDL_CreateTexture(renderer,
          SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING,
-         WIDTH, HEIGHT);
+         scene_.width, scene_.height);
 
-   pixels = malloc(WIDTH * HEIGHT * 4);
+   pixels = malloc(scene_.width * scene_.height * 4);
 
    return EXIT_SUCCESS;
 }
