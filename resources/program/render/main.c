@@ -1,7 +1,6 @@
 #define POINT_IN
 #define OBJ_IN
-
-#define SCENE
+#define SCENE_STATES
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,15 +15,21 @@ SDL_Event event;
 
 unsigned int *pixels;
 
-static scene scene_;
+int width, height, shiftX, shiftY;
+
+void stop_render(){
+   /* if(screen_texture) */
+   /*    SDL_DestroyTexture(screen_texture); */
+   /* SDL_DestroyWindow(window); */
+   SDL_Quit();
+}
 
 int resolve_window_events() {
    while(1) {
       while(SDL_PollEvent(&event)){
          switch (event.type) {
             case SDL_QUIT:
-               SDL_DestroyWindow(window);
-               SDL_Quit();
+               stop_render();
                return STATE_QUIT;
                break;
             case SDL_WINDOWEVENT:
@@ -32,6 +37,7 @@ int resolve_window_events() {
             case SDL_KEYDOWN:
                switch(event.key.keysym.sym){
                   case SDLK_q:
+                     stop_render();
                      return STATE_QUIT;
                   case SDLK_RIGHT:
                      return ACTION_RIGHT;
@@ -58,7 +64,7 @@ int resolve_window_events() {
 }
 
 void render_present() {
-   SDL_UpdateTexture(screen_texture, NULL, pixels, scene_.width * 4);
+   SDL_UpdateTexture(screen_texture, NULL, pixels, width * 4);
    SDL_RenderClear(renderer);
    SDL_RenderCopy(renderer, screen_texture, NULL, NULL);
    SDL_RenderPresent(renderer);
@@ -68,69 +74,63 @@ void render_present() {
 /* void render_scene(){ */
 /* } */
 
-void copy_scene_render(scene scene_to_set){
-   scene_=scene_to_set;
+void set_resolution(int width_,int height_){
+   width=width_;
+   height=height_;
 }
 
+void shift(int x, int y){
+   shiftX=x;
+   shiftY=y;
+}
 
 void clear_scene(){
-   for(int x=0;x<scene_.width;++x){
-      for(int y=0;y<scene_.height;++y){
-         pixels[x + (scene_.height - y) * scene_.width] = 0x00000000;
+   for(int x=0;x<width;++x){
+      for(int y=0;y<=height;++y){
+         pixels[x + (height - y) * width] = 0x00000000;
       }
    }
 }
 
-void render_obj(obj *obj) {
-   if(!obj)
-      return;
 
-   if(obj->points){
-      point *head=(point*)obj->points;
-      int x,y;
-      do{
-         x=head->x+scene_.shiftX;
-         y=head->y+scene_.shiftY;
- 
-         if(x>0 && x<scene_.width && y>0 && y<scene_.height)
-            pixels[x + (scene_.height - y) * scene_.width] = 0xff000000;
-      }
-      while((head=(point*)head->next));
-   }
 
-   if(obj->sub)
-      render_obj(obj->sub);
-
-   if(obj->next)
-      render_obj(obj->next);
+void render_scene(point *head) {
+   int x,y;
+   do{
+      x=head->x+shiftX;
+      y=head->y+shiftY;
+      if(x>=0 && x<width && y>=0 && y<=height)
+         pixels[x + (height - y) * width] = 0xff000000;
+   }while((head=(point*)head->next));
 }
 
 
-bool render(obj *obj){
 
-   screen_texture = SDL_CreateTexture(renderer,
-         SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING,
-         scene_.width, scene_.height);
-
-   pixels = malloc(scene_.width * scene_.height * 4);
-
-   clear_scene();
-   render_obj(obj);
+bool render(point *points){
+   if(points)
+      render_scene(points);
    render_present();
    return true;
+}
+
+
+void re_render(point *points,bool zoom){
+   if(zoom){
+      screen_texture = SDL_CreateTexture(renderer,
+            SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING,
+            width, height);
+
+      pixels = malloc(width * height * 4);
+   }else
+      clear_scene();
+   render(points);
 }
 
 /* void render_LIST_OBJS() { */
 /* } */
 
 
-void stop_render(){
-   /* if(screen_texture) */
-   /*    SDL_DestroyTexture(screen_texture); */
-   if(window)
-      SDL_DestroyWindow(window);
-   SDL_Quit();
-}
+
 
 int init_render() {
    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -140,7 +140,7 @@ int init_render() {
 
    window = SDL_CreateWindow("MP",
          SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-         scene_.width, scene_.height,
+         width, height,
          SDL_WINDOW_SHOWN);
 
 
@@ -161,9 +161,9 @@ int init_render() {
 
    screen_texture = SDL_CreateTexture(renderer,
          SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING,
-         scene_.width, scene_.height);
+         width, height);
 
-   pixels = malloc(scene_.width * scene_.height * 4);
+   pixels = malloc(width * height * 4);
 
    return EXIT_SUCCESS;
 }

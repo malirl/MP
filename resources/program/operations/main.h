@@ -5,8 +5,10 @@
 #define LINE_IN 
 #define MIRROR_TO_LINE_IN 
 #define ROT2D_IN
+#define ROT3D_IN
 #include "../inputs.h"
 
 void _mirror_to_line(mirror_to_line *input, point **point);
 void _rot2d(rot2d *input, point **point);
+void _rot3d(rot3d *input, point **point);
 

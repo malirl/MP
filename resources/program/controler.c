@@ -16,25 +16,25 @@ int main(int argc, char *argv[]) {
 		mode=MODE_CMD;
 	else
 		mode=MODE_DEV;
-	
+
 	out(INFO,0,"mode number: "," %d",mode);
 
 	init_data();
 	start_obj = list_objs = new_obj();
 
-	init_scene(&scene_);
-	copy_scene_render(scene_);
-	
+
 	/* //// */
 	switch(mode){
 		case MODE_CMD:
+			init_scene(&scene_);
 			if(proc_obj_cmd(argc,argv)){
+				set_resolution(scene_.width,scene_.height);
 				switch(init_render()) {
 					case EXIT_FAILURE:
 						out(ERR,0,"initialization render failed","");
 						return EXIT_FAILURE;
 				}
-				if(render(&last_obj))
+				if(render(scene_.points))
 					out(SUCCESS,0,"creation and render succeeded","");
 				else{
 					out(ERR,0,"object render failed","");
@@ -46,7 +46,16 @@ int main(int argc, char *argv[]) {
 			}
 			break;
 		case MODE_DEV:
+			init_scene(&scene_);
+			set_resolution(scene_.width,scene_.height);
+			init_render();
 			test_solution();
+			while(1){
+				switch(resolve_window_events()) {
+					case STATE_QUIT:
+						return EXIT_SUCCESS;
+				}
+			}
 			break;
 	}
 
@@ -54,6 +63,7 @@ int main(int argc, char *argv[]) {
 	out(INFO,0,"resolving window events...","");
 	/* //// */
 
+	double angle_shift=3.14/8;
 
 	while(running){
 		switch(resolve_window_events()) {
@@ -61,16 +71,44 @@ int main(int argc, char *argv[]) {
 				running=false;
 				break;
 			case ACTION_RIGHT:
-				scene_.shiftX-=20;
+				if(scene_.space==_3D){
+					scene_.alpha+=angle_shift;
+					change_O_pos(0,angle_shift);
+				}else{
+					scene_.shiftX-=20;
+					shift(scene_.shiftX,scene_.shiftY);
+				}
+				re_render(scene_.points,false);
 				break;
 			case ACTION_LEFT:
-				scene_.shiftX+=20;
+				if(scene_.space==_3D){
+					scene_.alpha-=angle_shift;
+					change_O_pos(0,-angle_shift);
+				}else{
+					scene_.shiftX+=20;
+					shift(scene_.shiftX,scene_.shiftY);
+				}
+				re_render(scene_.points,false);
 				break;
 			case ACTION_UP:
-				scene_.shiftY-=20;
+				if(scene_.space==_3D){
+					scene_.sigma=+10;
+					change_O_pos(angle_shift,0);
+				}else{
+					scene_.shiftY-=20;
+					shift(scene_.shiftX,scene_.shiftY);
+				}
+				re_render(scene_.points,false);
 				break;
 			case ACTION_DOWN:
-				scene_.shiftY+=20;
+				if(scene_.space==_3D){
+					scene_.sigma-=10;
+					change_O_pos(-angle_shift,0);
+				}else{
+					scene_.shiftY+=20;
+					shift(scene_.shiftX,scene_.shiftY);
+				}
+				re_render(scene_.points,false);
 				break;
 			case ACTION_ZOOM_PLUS:
 				if(scene_.width-50>200){
@@ -79,6 +117,11 @@ int main(int argc, char *argv[]) {
 
 					scene_.shiftX-=25;
 					scene_.shiftY-=25;
+
+
+					shift(scene_.shiftX,scene_.shiftY);
+					set_resolution(scene_.width,scene_.height);
+					re_render(scene_.points,true);
 				}
 				break;
 			case ACTION_ZOOM_MINUS:
@@ -88,15 +131,16 @@ int main(int argc, char *argv[]) {
 
 					scene_.shiftX+=25;
 					scene_.shiftY+=25;
+
+					shift(scene_.shiftX,scene_.shiftY);
+					set_resolution(scene_.width,scene_.height);
+					re_render(scene_.points,true);
 				}
 				break;
 			default:
 				break;
 		};
-		copy_scene_render(scene_);
-		render(&last_obj);
 	}
-	stop_render();
 	return EXIT_SUCCESS;
 }
 

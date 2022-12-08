@@ -15,5 +15,5 @@ typedef struct obj{
 
 /* void out(int status,int lvl,char* msg,const char* fmt,...); */
 void example_(obj* obj,point **point);
-
+void cube_example(point **point,obj* cube);
 

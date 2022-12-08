@@ -1,22 +1,49 @@
 #ifdef EVERYTHING_IN
 #define POINT_IN
 #define OBJ_IN
+#define SCENE_IN
 #define LINE_IN
 #define RING_IN
 #define CIRCLE_IN
 #define MIRROR_TO_LINE_IN
 #define ROT2D_IN
+#define ROT3D_IN 
 #define POLYGON_IN 
 #endif
 
 
-#ifdef SCENE 
+#ifdef POINT_IN
+typedef struct{
+   double x, y, z;
+	 struct point *next;
+}point;
+#endif
+
+#ifdef OBJ_IN
+typedef struct obj{
+	point *points;
+	int edges[100];
+	int n_edges;
+	struct obj *sub;
+  struct obj *next;
+	/* bool fill; */
+}obj;
+#endif
+
+#ifdef SCENE_IN 
 typedef struct{
 	int width, height;
 	int shiftX, shiftY;
+	int space;	
+	double alpha,sigma,distance;
+	point P,Pabs,focus,X,Y,Z;
+	point *points;
 }scene;
 void init_scene(scene*);
+#define SCENE_STATES
+#endif
 
+#ifdef SCENE_STATES
 #define STATE_QUIT -1
 #define STATE_NOTHING 0
 
@@ -26,23 +53,9 @@ void init_scene(scene*);
 #define ACTION_DOWN 4
 #define ACTION_ZOOM_MINUS 5
 #define ACTION_ZOOM_PLUS 6
-#endif
 
-
-#ifdef POINT_IN
-typedef struct{
-   int x, y, z;
-	 struct point *next;
-}point;
-#endif
-
-
-#ifdef OBJ_IN
-typedef struct obj{
-	point *points;
-	struct obj *sub;
-  struct obj *next;
-}obj;
+#define _2D 1
+#define _3D 2
 #endif
 
 
@@ -80,6 +93,15 @@ typedef struct{
    obj *obj;
 }rot2d;
 #endif
+
+#ifdef ROT3D_IN
+typedef struct{
+   double alpha;
+	int x,y,z;
+   point *O; // osa O jako vektor velikosti 1
+}rot3d;
+#endif
+
 
 #ifdef POLYGON_IN
 #define POLYGON_MAX_NUMBER_POINTS 100
@@ -119,10 +141,27 @@ void copy_point_input(point *input);
 #endif
 
 
+
+#ifdef POINT_D
+typedef struct{
+   double x, y, z;
+}point_d;
+#endif
+
+
+#ifdef HELPERS_3D 
+#define POINT_NEW
+#define POINT_ADD
+#define POINT3D_SET
+
+static point *current_point;
+#endif
+
+
 #ifdef HELPERS
 #define POINT_NEW
-#define POINT_SET
 #define POINT_ADD
+#define POINT_SET
 
 static point *current_point;
 #endif
@@ -132,8 +171,13 @@ point* point_new();
 #endif
 
 #ifdef POINT_SET
-void point_set(int res_x, int res_y, point **prev_point);
+void point_set(int x,int y, point **prev_point);
 #endif
+
+#ifdef POINT3D_SET
+void point3d_set(int x,int y,int z, point **prev_point);
+#endif
+
 
 #ifdef POINT_ADD
 void point_add(point **prev_point);
@@ -153,6 +197,8 @@ void point_add(point **prev_point);
 
 #define PROC_OBJ
 #define SET_ARG
+
+#define OBJ_ADD_EDGE
 
 static obj *current_obj;
 #endif
@@ -180,5 +226,9 @@ void obj_next(obj **current,obj *next);
 
 #ifdef OBJ_SUB 
 void obj_sub(obj **current,obj *sub);
+#endif
+
+#ifdef OBJ_ADD_EDGE
+void obj_add_edge(obj *obj,int p1,int p2);
 #endif
 
