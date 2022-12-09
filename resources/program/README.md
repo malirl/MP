@@ -10,6 +10,7 @@ cd resources/program && sudo make MP
 
 ###Dostupné objekty
 - example
+- cube-example
 - line 
 - ring
 - circle
@@ -19,6 +20,11 @@ cd resources/program && sudo make MP
 
 
 ##Ukázka vstupu:
+```sh
+./MP line B:x:900,y:900 A:y:100,x:150
+```
+
+
 ###nekompletni zadani 
 ```sh
  ./MP line by:200 ax:113 bx:12 

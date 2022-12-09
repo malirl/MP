@@ -12,7 +12,6 @@
 #define POINT 5
 #define CUBE_EXAMPLE 6
 
-
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -24,7 +23,6 @@
 #include "scene.h"  
 #include "strs.h"
 #include "log.h"
-
 
 
 point* point_new() {
@@ -77,7 +75,7 @@ char* obj_input[][6] = {
 	{"ring", "n:Sx n:Sy n:r", "2d"},
 	{"polygon","*point:point", "2d"},
 	{"point", "n:x n:y", "2d"},
-	{"cube-example", "", "3d"},
+	{"cube-example", "\0", "3d"},
 };
 
 
@@ -126,19 +124,6 @@ void set_rot2d(obj *obj, rot2d *input);
 void set_rot3d(obj *obj, rot3d *input);
 bool set_polygon(obj *obj, polygon *input);
 /* //////// */
-
-
-/* char */
-/* 	*args_types_line[] = {"int","int","int","int"}, */
-/* 	*args_types_ring[] = {"int","obj"}, */
-/* 	*args_types_circle[] = {"int","obj"}; */
-
-/* char** args_objs[]= { */
-/* 	&args_types_line, */
-/* 	&args_types_ring */
-/* }; */
-
-
 
 point *point_scene;
 
@@ -195,9 +180,8 @@ obj *get_obj(char name[]) {
 
 	if(!is_set_success){
 		out(ERR,0,"validation failed","");
-		return false;
+		return NULL;
 	}
-
 	return obj_to_set;
 }
 
@@ -269,7 +253,7 @@ point* get_last_point_address(point *head){
 	return last_point;
 }
 
-void add_obj_points_scene(obj *obj,bool space,bool first);
+void add_obj_points_scene(obj *obj,bool space);
 
 
 void fill(obj *obj){
@@ -315,26 +299,21 @@ void change_O_pos(double alpha, double sigma){
 		if(head->obj.points){
 			points_3d_to_2d(&head->obj);
 			fill(&head->obj);
-			add_obj_points_scene(&head->obj,true,true);
+			scene_.points=point_scene=point_new();
+			add_obj_points_scene(&head->obj,true);
 		}
 		head=head->next;
 	}
 }
 
-void add_obj_points_scene(obj *obj,bool space,bool first){
+void add_obj_points_scene(obj *obj,bool space){
 	if(!obj)
 		return;
 
 	point *head=(space) ? tmp.buff_points_for3d : (point*)obj->points;
 	if(head){
 		double x,y;
-
-		/* po pridani prvniho objektu */
-		if(first)
-			scene_.points=point_scene=point_new();
-		else
-			point_add(&point_scene);
-
+		point_add(&point_scene);
 		do{
 			x=head->x;
 			y=head->y;
@@ -349,12 +328,11 @@ void add_obj_points_scene(obj *obj,bool space,bool first){
 	}
 
 	if(obj->sub)
-		add_obj_points_scene(obj->sub,space,false);
+		add_obj_points_scene(obj->sub,space);
 
 	if(obj->next)
-		add_obj_points_scene(obj->next,space,false);
+		add_obj_points_scene(obj->next,space);
 }
-
 
 static bool make_obj(char name[]){
 	obj *obj = get_obj(name);
@@ -650,6 +628,8 @@ bool set_obj(int id){
 
 int get_obj_id_by_name(char* name){
 	int obj_id;
+
+
 	if(strcmp(name, "line") == 0)
 		obj_id = LINE;
 	else if(strcmp(name, "ring") == 0)
@@ -679,7 +659,6 @@ bool proc_obj(char *name,char *input,bool cmd){
 
 	if(obj_id==NONE)
 		return false;
-
 
 	out(INFO,1,"processing input: ","%s",name);
 	return check_mandatory_args(input,obj_input[obj_id][1],obj_id,cmd);
@@ -713,8 +692,8 @@ bool proc_obj_cmd(int argc,char *argv[]){
 		points_3d_to_2d(&last_obj);
 		fill(&last_obj);
 	}	
-	add_obj_points_scene(&last_obj,(scene_.space==_3D),true);
-
+	scene_.points=point_scene=point_new();
+	add_obj_points_scene(&last_obj,(scene_.space==_3D));
 
 	return true;	
 }

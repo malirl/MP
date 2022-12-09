@@ -64,6 +64,11 @@ int main(int argc, char *argv[]) {
 	/* //// */
 
 	double angle_shift=3.14/8;
+	while(resolve_window_events()){
+
+	}
+		
+
 
 	while(running){
 		switch(resolve_window_events()) {

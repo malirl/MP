@@ -22,10 +22,8 @@ typedef struct{
 #ifdef OBJ_IN
 typedef struct obj{
 	point *points;
-	int edges[100];
-	int n_edges;
-	struct obj *sub;
-  struct obj *next;
+	int n_edges,edges[100];
+	struct obj *next, *sub;
 	/* bool fill; */
 }obj;
 #endif

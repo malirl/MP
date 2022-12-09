@@ -8,7 +8,6 @@
 #include <stdbool.h>
 #include "../inputs.h"
 
-
 static void solve() {
 
    current_obj->n_edges=0;
@@ -28,14 +27,6 @@ static void solve() {
    obj_add_edge(current_obj,2,6);
    obj_add_edge(current_obj,3,7);
    obj_add_edge(current_obj,4,8);
-
-
-   /* current_obj->edges[0]=1; */
-   /* current_obj->edges[1]=2; */
-
-   /* current_obj->edges[0]=1; */
-   /* current_obj->edges[1]=2; */
-
 
    point3d_set(-a,a,-a,&current_point);
 
@@ -59,8 +50,6 @@ static void solve() {
 
    point_add(&current_point);
    point3d_set(-a,-a,a,&current_point);
-
-
 }
 
 void cube_example(point **tracked_point,obj *obj){
