@@ -11,13 +11,16 @@
 \usepackage{svg}
 \usepackage{float}
 
-
-
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{caption}
 \usepackage{wrapfig}
+\usepackage{subfigure}
 \usepackage{enumitem} 
 \usepackage{amsmath, bm}
 \usepackage{index}
 \usepackage{algpseudocode}
+
 %\usepackage{paralist}
 %\usepackage{parskip}
 %\usepackage[doublespacing]{setspace}
@@ -189,18 +192,268 @@ Jiný algoritmus se může zakládat na výběru z 3 sousedících pixelů podle
 
 
 Řádkovací metoda
-\\Inverzní vyplňování
-\\Flood fill
+
+
+\begin{figure}[H]
+  \centering
+  \includesvg[width=1\textwidth]{fig2}
+  \caption{Vyplňování řádkováním ze shora dolů. Červené vrcholy nevedou na žádnou další úsečku, zelené vedou na 2 úsečky a modré vedou na druhou přiléhající úsečku.}
+\end{figure}
+
+
+
+\begin{algorithm}
+\caption{Řádkovací metoda}
+\begin{algorithmic}
+
+
+\Function{solve}{$x$, $y$}
+\State $row \gets \text{maxY(points)}$
+\State $points[], init[],arr\_a[],lines\_points[] \gets []$
+%cecko rozumi points[-1], ale musí se ošetřit případ point[len(points)+1], takže se přidá první bod na konec
+\State $points[] \gets [points[...],points[0]]$
+\For{$i = 0$; $i = \text{len(init)}$; $i++$}
+  \For{$b\_idx = 1$; $b\_idx < \text{len(init[i])}$; $b\_idx++$}
+   \State $b\_val \gets $init[$i][$b\_idx]
+    \For{$b\_tmp = 0$; $b\_tmp < \text{len(tmp)}$; $b\_tmp++$}
+	\If{b\_val$=tmp[b\_tmp]$}
+	 \State $found \gets \text{true}$
+	  %je `y' dalšího bodu < `y' bodu b_val?
+	  \If{$y(points[b\_val-1])<y(points[b\_val])$}
+	  	 %=>tmp[b_tmp]=idx dalšího bodu
+		 %=>arr_a[b_tmp]='dx/dy' mezi body b_val a dalšího bodu
+	  	\State $tmp[b\_tmp] \gets b\_val-1$
+	  	\State $arr\_a[b\_tmp] \gets get\_dx(b\_val,b\_val-1)$
+	\ElsIf{$y(points[b\_val+1])<y(points[b\_val])$}
+	  	\State $tmp[b\_tmp] \gets b\_val+1$
+	  	\State $arr\_a[b\_tmp] \gets get\_dx(b\_val,b\_val+1)$
+	%není=>smaž tmp[b_tmp],arr_a[b_tmp],lines_points[b_tmp]
+	\ElsIf{$y(points[b\_val+1])==y(points[b\_val]) || y(points[b\_val+1])=y(points[b\_val])$}
+		\State \text{remove(tmp[b\_tmp],arr\_a[b\_tmp],lines\_points[b\_tmp])}
+	\Else
+		\State \text{remove(tmp[b\_tmp],arr\_a[b\_tmp],lines\_points[b\_tmp])}
+		\State \text{remove(tmp[b\_tmp],arr\_a[b\_tmp],lines\_points[b\_tmp])}
+	  \EndIf
+		 \State \text{break}
+	\EndIf
+\EndFor
+\If{$!found$}
+		\\\Comment{jsou zde 2 nové (neuvažované) úsečky. každá s tímto bodem}
+%pridej `a' obou useckech v kterych je tento bod a pridej za pole, proste pridej do danych poli
+	
+	  	
+	  	\State $tmp.add(b\_val+1,b\_val-1)$
+	  	\State $arr\_a.add(get\_dx(b\_val,b\_val+1),get\_dx(b\_val,b\_val-1))$
+	  	
+	  	\State $new\_x \gets x(points[b\_val])$
+	  	\State $lines\_poins.add(new\_x, new\_x)$
+\EndIf
+\EndFor
+
+
+\For{$y = 0$; $y < \text{init[i][0]}$; $y++$}
+	\State $row \gets row-1$
+
+\For{$k = 0$; $k < \text{len(lines\_points)}$; $k+=2$}
+	\State $A_x \gets lines\_points[k] \gets lines\_points[k] + arr\_a[k]$
+	\State $B_x \gets lines\_points[k+1] \gets lines\_points[k+1] + arr\_a[k+1]$
+	\For{$x = A_x$; $x < B_x$; $x++$}
+	\\\Comment{přidej bod [x,row]}
+	\EndFor	
+\EndFor
+
+
+\EndFor
+
+
+\EndFor
+\EndFunction
+
+\Function{get\_dx}{$A\_idx$, $B\_idx$}
+    \State $pointA \gets points[A\_idx]$
+    \State $pointB \gets points[B\_idx]$
+    \State \textbf{return} $\frac{x(pointB)-x(pointA)}{y(pointB)-y(pointA)}$
+\EndFunction
+
+
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
+
+
+
+
+Vyplňování rozbitím do trojúhelníků
+
+Metoda rozbije libovolný konkávní polygon do trojúhelníků, které už stačí vyplnit úspornou metodou vyplňování trojúhelníka.
+Algoritmus omezuju na vstup konkávního polygonu, protože konvexní polygon vyžaduje odlišný přístup - zejména ověření úhlu, který hrany svírají (konkávní/konvexní?). Podoba algoritmu by v intencích původní myšlenky nutně zahrnovala komplexnější přístup.
+
+
+
+
+%jak se vyplňuje trojúhelník?
+
+\begin{algorithm}
+\ContinuedFloat
+\caption{Solve}
+\begin{algorithmic}
+\caption{Vyplňování rozbitím do trojúhelníků}
+\State $points[] \gets []$
+
+\Function{solve}{}
+\State $nB \gets len(points)$
+\State $b\_i \gets 0$
+\State $C \gets 0$
+
+\While{$nB > 3$}
+
+\State $A \gets C$
+
+\While{$!arr[(++b\_i)\%len(points)]$}
+\EndWhile
+
+\State $B \gets b\_i$
+
+\State $arr[B] \gets false$
+
+\While{$!arr[(++b\_i)\%len(points)]$}
+\EndWhile
+
+\State $C \gets b\_i$
+
+\State $nB \gets nB-1$
+
+\State $fillTriangle(A,B,C)$
+
+\EndWhile
+
+%zbývá vyplnit poslední trojúhelník. body A a C jsou uloženy v proměných, ale zbývající 3. bod B není známý..ten bude dál ve směru procházení od C
+\State $B \gets C$
+\While{$!arr[(++C\%len(points))]$}
+\EndWhile
+\State $fillTriangle(A,B,C)$
+\EndFunction
+
+\Function{get\_dx}{$A\_idx$, $B\_idx$}
+    \State $pointA \gets points[A\_idx]$
+    \State $pointB \gets points[B\_idx]$
+    \State \textbf{return} $\frac{x(pointB)-x(pointA)}{y(pointB)-y(pointA)}$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\begin{algorithmic}
+\ContinuedFloat
+\caption{Vyplnění trojúhelníka}
+\Function{fillTriangle}{A,B,C}
+
+\State $a \gets minY(A,B,C)$
+\State $b \gets middleY(A,B,C)$
+\State $c \gets maxY(A,B,C)$
+
+\State $a_1 \gets get\_dx(B,C)$ %C-B
+\State $a_2 \gets get\_dx(A,B)$ %B-A
+\State $a_3 \gets get\_dx(A,C)$ %C-A
+
+\State $fP \gets x(C)$
+\State $sP \gets x(C)$
+
+\State $y \gets y(C)$
+
+\For{$y\_p = y(c)$; $y < y(b)$; $y--$}
+	% a1-a3
+	\State $fP \gets fP+a_1$
+	\State $sP \gets sP+a_3$
+	
+	\State $x \gets fP$
+	\While{$++x<sP$}
+	\\\Comment{přidej bod [x,y\_p]}
+	\EndWhile	
+\EndFor
+
+
+
+\For{$y\_p = y(c)$; $y < y(b)$; $y--$}
+	% a2-a3
+	\State $fP \gets fP+a_2$
+	\State $sP \gets sP+a_3$
+
+	
+\EndFor
+
+
+
+\EndFunction
+
+
+
+
+
+\end{algorithmic}
+\end{algorithm}
+
+
+
+
+
+Flood fill
+
+
 
 
 \chapter{Analýza}
+\section{Bod v polygonu}
+Pokud je polygon otevřený, žádný bod by správně neměl ležet v polygonu. V takovém případě stačí buď ověřit, zda je polygon úplný a neprůnikuje se. Prakticky v programu k tomu nedojde, přesto je možné obě věci obejít tv. winding číslem. Bod leží mimo polygon, pokud je 0, jinak leží uvnitř.
+
+
+\section{Konvexní/konkávní}
+ \begin{figure}[H]
+  \centering
+  \includesvg[width=1\textwidth]{fig6}
+  \caption{Identifikace konvexního/konkávního polygonu}
+\end{figure}
 \section{Detekce kolize}
 \section{Oblasti průniku dvou objektů a průřez}
+
+Pro jasnost uvádím, že polygon A je polygon, který průnikuje polygon B. Výsledný průnik (polygon) označuju C.
+
 Sutherland–Hodgman algoritmus
-\\Weiler–Atherton clipping algoritmus
+
+
+Pokud pomyslně prodloužíme hrany A, můžeme dělit strany této hrany na stranu, kde se nachází zbytek A a tedy i na stranu, v které se nenachází ani jeden vrchol A. Jakýkoli bod na  druhé straně polygonu není určitě uvnitř A, takže ho nepoužijeme pro C. Pokud je tomu naopak, bod necháme. Postup se totiž opakuje pro každou další stranu A, tz. že na konci zbydou pouze body (vrcholy B), které uvnitř A leží. Mezi body se navíc při procházení zjištuje, jestli průnikují B, v takovém případě se přidává navíc i bod jako průsečík hran. Algoritmus je omezen pouze na konvexní A. V opačném případě nemusí fungovat koncept (nebo by nutně vyžadoval zbytečně náročnou modifikaci), protože bychom mohli vyloučit body, které jinak v polygonu leží. Současně B je nutně konvexní. V opačném případě může dojít k překrytí (tz. overlaping) hran C - v tomto případě by vzniklo výsledků víc jako víc polygonů/samostatných průnikových oblastí. Problém řeší Vattiho algoritmus, který zaznamenává body při vstupu B do A končí při výstupu B z A. Potom přidá body na A mezi $I_{vstup}$ a $I_{vystup}$ ve směru procházení, kterým procházíme vrcholy B.
+
+%grafika - oba algoritmy
+%algoritmus - vatti
+%dalsi - 
+%Weiler–Atherton clipping algoritmus
+%Greiner–Hormann clipping algorithm
+
+
+
+\begin{figure}[H]
+  \centering
+  \includesvg[width=1\textwidth]{fig7}
+  \caption{Vatti clipping algoritmus}
+\end{figure}
+
+
 
 \section{Obsah polygonu}
-https://mathworld.wolfram.com/PolygonArea.html
+
+Obsah polygonu si lze
+$S_i = (x_1-x_2)*\frac{y_1+y_2}{2}$
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{fig8.png}
+  \caption{Vatti clipping algoritmus}
+\end{figure}
+
+
 \section{Je A v B?}
 
 
@@ -306,10 +559,21 @@ V praxi, grafickém editoru, můžeme osu určit typicky dvěma body. A ten jede
 \chapter{Generování tvarů a fraktály}
 
 
+\begin{figure}[H]
+  \centering
+  \subfigure[Caption for first figure]{\includesvg[width=0.3\textwidth]{fig3}}
+  \hfill
+  \subfigure[Caption for second figure]{\includesvg[width=0.3\textwidth]{fig4}}
+    \hfill
+  \subfigure[Caption for second figure]{\includesvg[width=0.3\textwidth]{fig5}}
+  \caption{Schémata generování polygonu}
+  \centering
+\end{figure}
+ 
 
 
 
-
+ 
 
 
 

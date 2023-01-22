@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.9.26)  29 OCT 2022 21:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.9.26)  11 JAN 2023 19:46
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -314,26 +314,91 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks26
 \@floatcapt=\box55
 )
+(C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/algorithms\algorithm.st
+y
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+ (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks27
+\c@algorithm=\count293
+)
+(C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/algorithmicx\algorithmi
+cx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count294
+\c@ALG@rem=\count295
+\c@ALG@nested=\count296
+\ALG@tlm=\skip50
+\ALG@thistlm=\skip51
+\c@ALG@Lnr=\count297
+\c@ALG@blocknr=\count298
+\c@ALG@storecount=\count299
+\c@ALG@tmpcounter=\count300
+\ALG@tmplength=\skip52
+) (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+Package: caption 2022/03/01 v3.6b Customizing captions (AR)
+
+(C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+Package: caption3 2022/03/17 v2.3b caption3 kernel (AR)
+\caption@tempdima=\dimen155
+\captionmargin=\dimen156
+\caption@leftmargin=\dimen157
+\caption@rightmargin=\dimen158
+\caption@width=\dimen159
+\caption@indent=\dimen160
+\caption@parindent=\dimen161
+\caption@hangindent=\dimen162
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count301
+\c@continuedfloat=\count302
+Package caption Info: float package is loaded.
+)
 (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/wrapfig\wrapfig.sty
-\wrapoverhang=\dimen155
-\WF@size=\dimen156
-\c@WF@wrappedlines=\count293
+\wrapoverhang=\dimen163
+\WF@size=\dimen164
+\c@WF@wrappedlines=\count303
 \WF@box=\box56
-\WF@everypar=\toks27
+\WF@everypar=\toks28
 Package: wrapfig 2003/01/31  v 3.6
+)
+(C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/subfigure\subfigure.sty
+Package: subfigure 2002/07/30 v2.1.4 subfigure package
+\subfigtopskip=\skip53
+\subfigcapskip=\skip54
+\subfigcaptopadj=\dimen165
+\subfigbottomskip=\skip55
+\subfigcapmargin=\dimen166
+\subfiglabelskip=\skip56
+\c@subfigure=\count304
+\c@lofdepth=\count305
+\c@subtable=\count306
+\c@lotdepth=\count307
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+
+(C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/subfigure\subfigure.cfg
+)
+\subfig@top=\skip57
+\subfig@bottom=\skip58
 )
 (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
 Package: enumitem 2019/06/20 v3.9 Customized lists
-\labelindent=\skip50
-\enit@outerparindent=\dimen157
-\enit@toks=\toks28
+\labelindent=\skip59
+\enit@outerparindent=\dimen167
+\enit@toks=\toks29
 \enit@inbox=\box57
-\enit@count@id=\count294
-\enitdp@description=\count295
+\enit@count@id=\count308
+\enitdp@description=\count309
 )
 (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
 Package: amsmath 2022/04/08 v2.17n AMS math features
-\@mathmargin=\skip51
+\@mathmargin=\skip60
 
 For additional information on amsmath, use the `?' option.
 (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
@@ -341,24 +406,24 @@ Package: amstext 2021/08/26 v2.01 AMS text
 
 (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks29
-\ex@=\dimen158
+\@emptytoks=\toks30
+\ex@=\dimen168
 ))
 (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen159
+\pmbraise@=\dimen169
 )
 (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count296
+\inf@bad=\count310
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count297
-\leftroot@=\count298
+\uproot@=\count311
+\leftroot@=\count312
 LaTeX Info: Redefining \overline on input line 399.
 LaTeX Info: Redefining \colon on input line 410.
-\classnum@=\count299
-\DOTSCASE@=\count300
+\classnum@=\count313
+\DOTSCASE@=\count314
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
@@ -368,34 +433,34 @@ LaTeX Info: Redefining \big on input line 722.
 LaTeX Info: Redefining \Big on input line 723.
 LaTeX Info: Redefining \bigg on input line 724.
 LaTeX Info: Redefining \Bigg on input line 725.
-\big@size=\dimen160
+\big@size=\dimen170
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count301
+\macc@depth=\count315
 LaTeX Info: Redefining \bmod on input line 905.
 LaTeX Info: Redefining \pmod on input line 910.
 LaTeX Info: Redefining \smash on input line 940.
 LaTeX Info: Redefining \relbar on input line 970.
 LaTeX Info: Redefining \Relbar on input line 971.
-\c@MaxMatrixCols=\count302
+\c@MaxMatrixCols=\count316
 \dotsspace@=\muskip16
-\c@parentequation=\count303
-\dspbrk@lvl=\count304
-\tag@help=\toks30
-\row@=\count305
-\column@=\count306
-\maxfields@=\count307
-\andhelp@=\toks31
-\eqnshift@=\dimen161
-\alignsep@=\dimen162
-\tagshift@=\dimen163
-\tagwidth@=\dimen164
-\totwidth@=\dimen165
-\lineht@=\dimen166
-\@envbody=\toks32
-\multlinegap=\skip52
-\multlinetaggap=\skip53
-\mathdisplay@stack=\toks33
+\c@parentequation=\count317
+\dspbrk@lvl=\count318
+\tag@help=\toks31
+\row@=\count319
+\column@=\count320
+\maxfields@=\count321
+\andhelp@=\toks32
+\eqnshift@=\dimen171
+\alignsep@=\dimen172
+\tagshift@=\dimen173
+\tagwidth@=\dimen174
+\totwidth@=\dimen175
+\lineht@=\dimen176
+\@envbody=\toks33
+\multlinegap=\skip61
+\multlinetaggap=\skip62
+\mathdisplay@stack=\toks34
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
 )
@@ -410,7 +475,7 @@ LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 149.
 (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/index\index.sty
 Package: index 2004/01/20 v4.2beta Improved index support (dmj)
 \@indexbox=\insert252
-\indexproofstyle=\toks34
+\indexproofstyle=\toks35
 
 
 LaTeX Warning: Command \markboth  has changed.
@@ -424,67 +489,49 @@ LaTeX Warning: Command \markright  has changed.
 (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/algorithmicx\algpseudoc
 ode.sty
 Package: algpseudocode 
- (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
-Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
-)
-(C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/algorithmicx\algorithmi
-cx.sty
-Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
-Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count308
-\c@ALG@rem=\count309
-\c@ALG@nested=\count310
-\ALG@tlm=\skip54
-\ALG@thistlm=\skip55
-\c@ALG@Lnr=\count311
-\c@ALG@blocknr=\count312
-\c@ALG@storecount=\count313
-\c@ALG@tmpcounter=\count314
-\ALG@tmplength=\skip56
-)
 Document Style - pseudocode environments for use with the `algorithmicx' style
 )
-\idxtitle@default=\toks35
+\idxtitle@default=\toks36
 \tf@default=\write4
 \openout4 = `text.idx'.
 
-Package index Info: Writing index file text.idx on input line 25.
+Package index Info: Writing index file text.idx on input line 28.
 
 (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2022-07-01 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count315
+\l__color_backend_stack_int=\count322
 \l__pdf_internal_box=\box60
 ) (text.aux)
 \openout1 = `text.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Info: Redefining \microtypecontext on input line 33.
-Package microtype Info: Applying patch `item' on input line 33.
-Package microtype Info: Applying patch `toc' on input line 33.
-Package microtype Info: Applying patch `eqnum' on input line 33.
-Package microtype Info: Applying patch `footnote' on input line 33.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Info: Redefining \microtypecontext on input line 36.
+Package microtype Info: Applying patch `item' on input line 36.
+Package microtype Info: Applying patch `toc' on input line 36.
+Package microtype Info: Applying patch `eqnum' on input line 36.
+Package microtype Info: Applying patch `footnote' on input line 36.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 33.
+LaTeX Info: Redefining \showhyphens on input line 36.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -496,17 +543,17 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count316
-\scratchdimen=\dimen167
+\scratchcounter=\count323
+\scratchdimen=\dimen177
 \scratchbox=\box61
-\nofMPsegments=\count317
-\nofMParguments=\count318
-\everyMPshowfont=\toks36
-\MPscratchCnt=\count319
-\MPscratchDim=\dimen168
-\MPnumerator=\count320
-\makeMPintoPDFobject=\count321
-\everyMPtoPDFconversion=\toks37
+\nofMPsegments=\count324
+\nofMParguments=\count325
+\everyMPshowfont=\toks37
+\MPscratchCnt=\count326
+\MPscratchDim=\dimen178
+\MPnumerator=\count327
+\makeMPintoPDFobject=\count328
+\everyMPtoPDFconversion=\toks38
 )
 (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
@@ -517,11 +564,21 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 (C:\Users\malir\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
-)) [1
+))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfigure package is loaded.
+Package caption Info: wrapfig package is loaded.
+Package caption Info: End \AtBeginDocument code.
+ [1
 
 
 {C:/Users/malir/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-(text.toc)
+(text.toc
+Overfull \hbox (0.71802pt too wide) detected at line 22
+ []\OT1/cmr/m/n/12 xvii
+ []
+
+)
 \tf@toc=\write5
 \openout5 = `text.toc'.
 
@@ -534,12 +591,12 @@ Chapter 1.
 ]
 Chapter 2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--80
+Underfull \hbox (badness 10000) in paragraph at lines 82--83
 
  []
 
 Package svg Info: Last page of `./svg-inkscape/fig1_svg-tex.pdf' is 7 on input 
-line 83.
+line 86.
 (svg-inkscape/fig1_svg-tex.pdf_tex
 <./svg-inkscape/fig1_svg-tex.pdf, id=17, page=1, 150.5634pt x 263.48529pt>
 File: ./svg-inkscape/fig1_svg-tex.pdf Graphic file (type pdf)
@@ -613,91 +670,398 @@ ion: multiple pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig1_svg-tex.pdf): PDF inclus
 ion: multiple pdfs with page group included in a single page
->] [6] [7]
+>] [6]
+Package svg Info: Last page of `./svg-inkscape/fig2_svg-tex.pdf' is 1 on input 
+line 199.
+ (svg-inkscape/fig2_svg-tex.pdf_tex
+<./svg-inkscape/fig2_svg-tex.pdf, id=47, page=1, 184.52792pt x 83.5622pt>
+File: ./svg-inkscape/fig2_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig2_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/fig2_svg-tex.pdf , page1 used on input 
+line 56.
+(pdftex.def)             Requested size: 390.0pt x 176.63458pt.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 231--232
+[] \OT1/cmr/bx/n/12 (+20) else if $\OML/cmm/m/it/12 y\OT1/cmr/m/n/12 (+20) (\OM
+L/cmm/m/it/12 points\OT1/cmr/m/n/12 (+20) [\OML/cmm/m/it/12 b[]val \OT1/cmr/m/n
+/12 (+20) + 1]) ==
+ []
+
+
+LaTeX Warning: Float too large for page by 170.42812pt on input line 280.
+
+[7 <./svg-inkscape/fig2_svg-tex.pdf>] [8] [9] [10]
 Chapter 3.
-[8
+Package svg Info: Last page of `./svg-inkscape/fig6_svg-tex.pdf' is 8 on input 
+line 416.
+(svg-inkscape/fig6_svg-tex.pdf_tex
+<./svg-inkscape/fig6_svg-tex.pdf, id=65, page=1, 269.18034pt x 250.93771pt>
+File: ./svg-inkscape/fig6_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig6_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/fig6_svg-tex.pdf , page1 used on input 
+line 56.
+(pdftex.def)             Requested size: 390.0pt x 363.59763pt.
+<./svg-inkscape/fig6_svg-tex.pdf, id=66, page=2, 269.18034pt x 250.93771pt>
+File: ./svg-inkscape/fig6_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig6_svg-tex.pdf, page 2>
+Package pdftex.def Info: ./svg-inkscape/fig6_svg-tex.pdf , page2 used on input 
+line 58.
+(pdftex.def)             Requested size: 390.0pt x 363.59763pt.
+<./svg-inkscape/fig6_svg-tex.pdf, id=67, page=3, 269.18034pt x 250.93771pt>
+File: ./svg-inkscape/fig6_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig6_svg-tex.pdf, page 3>
+Package pdftex.def Info: ./svg-inkscape/fig6_svg-tex.pdf , page3 used on input 
+line 60.
+(pdftex.def)             Requested size: 390.0pt x 363.59763pt.
+<./svg-inkscape/fig6_svg-tex.pdf, id=68, page=4, 269.18034pt x 250.93771pt>
+File: ./svg-inkscape/fig6_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig6_svg-tex.pdf, page 4>
+Package pdftex.def Info: ./svg-inkscape/fig6_svg-tex.pdf , page4 used on input 
+line 62.
+(pdftex.def)             Requested size: 390.0pt x 363.59763pt.
+<./svg-inkscape/fig6_svg-tex.pdf, id=69, page=5, 269.18034pt x 250.93771pt>
+File: ./svg-inkscape/fig6_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig6_svg-tex.pdf, page 5>
+Package pdftex.def Info: ./svg-inkscape/fig6_svg-tex.pdf , page5 used on input 
+line 64.
+(pdftex.def)             Requested size: 390.0pt x 363.59763pt.
+<./svg-inkscape/fig6_svg-tex.pdf, id=70, page=6, 269.18034pt x 250.93771pt>
+File: ./svg-inkscape/fig6_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig6_svg-tex.pdf, page 6>
+Package pdftex.def Info: ./svg-inkscape/fig6_svg-tex.pdf , page6 used on input 
+line 66.
+(pdftex.def)             Requested size: 390.0pt x 363.59763pt.
+<./svg-inkscape/fig6_svg-tex.pdf, id=71, page=7, 269.18034pt x 250.93771pt>
+File: ./svg-inkscape/fig6_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig6_svg-tex.pdf, page 7>
+Package pdftex.def Info: ./svg-inkscape/fig6_svg-tex.pdf , page7 used on input 
+line 68.
+(pdftex.def)             Requested size: 390.0pt x 363.59763pt.
+<./svg-inkscape/fig6_svg-tex.pdf, id=72, page=8, 269.18034pt x 250.93771pt>
+File: ./svg-inkscape/fig6_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig6_svg-tex.pdf, page 8>
+Package pdftex.def Info: ./svg-inkscape/fig6_svg-tex.pdf , page8 used on input 
+line 70.
+(pdftex.def)             Requested size: 390.0pt x 363.59763pt.
+)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [11
 
 ]
+[12 <./svg-inkscape/fig6_svg-tex.pdf> <./svg-inkscape/fig6_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig6_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig6_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig6_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig6_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig6_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig6_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig6_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig6_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig6_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig6_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig6_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig6_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig6_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+>]
+Package svg Info: Last page of `./svg-inkscape/fig7_svg-tex.pdf' is 14 on input
+ line 439.
+ (svg-inkscape/fig7_svg-tex.pdf_tex
+<./svg-inkscape/fig7_svg-tex.pdf, id=82, page=1, 206.46397pt x 216.15129pt>
+File: ./svg-inkscape/fig7_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig7_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/fig7_svg-tex.pdf , page1 used on input 
+line 56.
+(pdftex.def)             Requested size: 390.0pt x 408.34996pt.
+<./svg-inkscape/fig7_svg-tex.pdf, id=83, page=2, 206.46397pt x 216.15129pt>
+File: ./svg-inkscape/fig7_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig7_svg-tex.pdf, page 2>
+Package pdftex.def Info: ./svg-inkscape/fig7_svg-tex.pdf , page2 used on input 
+line 58.
+(pdftex.def)             Requested size: 390.0pt x 408.34996pt.
+<./svg-inkscape/fig7_svg-tex.pdf, id=84, page=3, 206.46397pt x 216.15129pt>
+File: ./svg-inkscape/fig7_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig7_svg-tex.pdf, page 3>
+Package pdftex.def Info: ./svg-inkscape/fig7_svg-tex.pdf , page3 used on input 
+line 60.
+(pdftex.def)             Requested size: 390.0pt x 408.34996pt.
+<./svg-inkscape/fig7_svg-tex.pdf, id=85, page=4, 206.46397pt x 216.15129pt>
+File: ./svg-inkscape/fig7_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig7_svg-tex.pdf, page 4>
+Package pdftex.def Info: ./svg-inkscape/fig7_svg-tex.pdf , page4 used on input 
+line 62.
+(pdftex.def)             Requested size: 390.0pt x 408.34996pt.
+<./svg-inkscape/fig7_svg-tex.pdf, id=86, page=5, 206.46397pt x 216.15129pt>
+File: ./svg-inkscape/fig7_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig7_svg-tex.pdf, page 5>
+Package pdftex.def Info: ./svg-inkscape/fig7_svg-tex.pdf , page5 used on input 
+line 64.
+(pdftex.def)             Requested size: 390.0pt x 408.34996pt.
+<./svg-inkscape/fig7_svg-tex.pdf, id=87, page=6, 206.46397pt x 216.15129pt>
+File: ./svg-inkscape/fig7_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig7_svg-tex.pdf, page 6>
+Package pdftex.def Info: ./svg-inkscape/fig7_svg-tex.pdf , page6 used on input 
+line 66.
+(pdftex.def)             Requested size: 390.0pt x 408.34996pt.
+<./svg-inkscape/fig7_svg-tex.pdf, id=88, page=7, 206.46397pt x 216.15129pt>
+File: ./svg-inkscape/fig7_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig7_svg-tex.pdf, page 7>
+Package pdftex.def Info: ./svg-inkscape/fig7_svg-tex.pdf , page7 used on input 
+line 68.
+(pdftex.def)             Requested size: 390.0pt x 408.34996pt.
+<./svg-inkscape/fig7_svg-tex.pdf, id=89, page=8, 206.46397pt x 216.15129pt>
+File: ./svg-inkscape/fig7_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig7_svg-tex.pdf, page 8>
+Package pdftex.def Info: ./svg-inkscape/fig7_svg-tex.pdf , page8 used on input 
+line 70.
+(pdftex.def)             Requested size: 390.0pt x 408.34996pt.
+<./svg-inkscape/fig7_svg-tex.pdf, id=90, page=9, 206.46397pt x 216.15129pt>
+File: ./svg-inkscape/fig7_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig7_svg-tex.pdf, page 9>
+Package pdftex.def Info: ./svg-inkscape/fig7_svg-tex.pdf , page9 used on input 
+line 72.
+(pdftex.def)             Requested size: 390.0pt x 408.34996pt.
+<./svg-inkscape/fig7_svg-tex.pdf, id=91, page=10, 206.46397pt x 216.15129pt>
+File: ./svg-inkscape/fig7_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig7_svg-tex.pdf, page 10>
+Package pdftex.def Info: ./svg-inkscape/fig7_svg-tex.pdf , page10 used on input
+ line 74.
+(pdftex.def)             Requested size: 390.0pt x 408.34996pt.
+<./svg-inkscape/fig7_svg-tex.pdf, id=92, page=11, 206.46397pt x 216.15129pt>
+File: ./svg-inkscape/fig7_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig7_svg-tex.pdf, page 11>
+Package pdftex.def Info: ./svg-inkscape/fig7_svg-tex.pdf , page11 used on input
+ line 76.
+(pdftex.def)             Requested size: 390.0pt x 408.34996pt.
+<./svg-inkscape/fig7_svg-tex.pdf, id=93, page=12, 206.46397pt x 216.15129pt>
+File: ./svg-inkscape/fig7_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig7_svg-tex.pdf, page 12>
+Package pdftex.def Info: ./svg-inkscape/fig7_svg-tex.pdf , page12 used on input
+ line 78.
+(pdftex.def)             Requested size: 390.0pt x 408.34996pt.
+<./svg-inkscape/fig7_svg-tex.pdf, id=94, page=13, 206.46397pt x 216.15129pt>
+File: ./svg-inkscape/fig7_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig7_svg-tex.pdf, page 13>
+Package pdftex.def Info: ./svg-inkscape/fig7_svg-tex.pdf , page13 used on input
+ line 80.
+(pdftex.def)             Requested size: 390.0pt x 408.34996pt.
+<./svg-inkscape/fig7_svg-tex.pdf, id=95, page=14, 206.46397pt x 216.15129pt>
+File: ./svg-inkscape/fig7_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig7_svg-tex.pdf, page 14>
+Package pdftex.def Info: ./svg-inkscape/fig7_svg-tex.pdf , page14 used on input
+ line 82.
+(pdftex.def)             Requested size: 390.0pt x 408.34996pt.
+)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13]
+<./resources/infografika/fig8.png, id=100, 532.389pt x 385.1991pt>
+File: ./resources/infografika/fig8.png Graphic file (type png)
+<use ./resources/infografika/fig8.png>
+Package pdftex.def Info: ./resources/infografika/fig8.png  used on input line 4
+52.
+(pdftex.def)             Requested size: 390.0pt x 282.18045pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [14 <./svg-inkscape/fig7_svg-tex.pdf> <./svg-inkscape/fig7_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig7_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig7_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig7_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig7_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig7_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig7_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig7_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig7_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig7_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig7_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig7_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig7_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig7_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig7_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig7_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig7_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig7_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig7_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig7_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig7_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig7_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig7_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig7_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig7_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig7_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+>] [15 <./resources/infografika/fig8.png>]
 Chapter 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 215--219
+Underfull \hbox (badness 10000) in paragraph at lines 468--472
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 226--231
+Underfull \hbox (badness 10000) in paragraph at lines 479--484
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 243--249
+Underfull \hbox (badness 10000) in paragraph at lines 496--502
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 250--251
+Underfull \hbox (badness 10000) in paragraph at lines 503--504
 
  []
 
-[9
+[16
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 256--261
+Underfull \hbox (badness 10000) in paragraph at lines 509--514
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 264--269
+Underfull \hbox (badness 10000) in paragraph at lines 517--522
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 275--276
+Underfull \hbox (badness 10000) in paragraph at lines 528--529
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 286--287
+Underfull \hbox (badness 10000) in paragraph at lines 539--540
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 300--301
+Underfull \hbox (badness 10000) in paragraph at lines 553--554
 
  []
 
-[10]
+[17]
 Chapter 5.
-[11
+Package svg Info: Last page of `./svg-inkscape/fig3_svg-tex.pdf' is 1 on input 
+line 564.
+(svg-inkscape/fig3_svg-tex.pdf_tex
+<./svg-inkscape/fig3_svg-tex.pdf, id=119, page=1, 350.81062pt x 350.81062pt>
+File: ./svg-inkscape/fig3_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig3_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/fig3_svg-tex.pdf , page1 used on input 
+line 56.
+(pdftex.def)             Requested size: 117.00119pt x 116.99902pt.
+)
+Package svg Info: Last page of `./svg-inkscape/fig4_svg-tex.pdf' is 1 on input 
+line 566.
+ (svg-inkscape/fig4_svg-tex.pdf_tex
+<./svg-inkscape/fig4_svg-tex.pdf, id=121, page=1, 362.10281pt x 256.70906pt>
+File: ./svg-inkscape/fig4_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig4_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/fig4_svg-tex.pdf , page1 used on input 
+line 56.
+(pdftex.def)             Requested size: 117.00119pt x 82.94373pt.
+)
+Package svg Info: Last page of `./svg-inkscape/fig5_svg-tex.pdf' is 2 on input 
+line 568.
 
-] (text.aux) ) 
+(svg-inkscape/fig5_svg-tex.pdf_tex
+<./svg-inkscape/fig5_svg-tex.pdf, id=123, page=1, 255.70782pt x 295.47891pt>
+File: ./svg-inkscape/fig5_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig5_svg-tex.pdf, page 1>
+Package pdftex.def Info: ./svg-inkscape/fig5_svg-tex.pdf , page1 used on input 
+line 56.
+(pdftex.def)             Requested size: 117.00119pt x 135.20056pt.
+<./svg-inkscape/fig5_svg-tex.pdf, id=124, page=2, 255.70782pt x 295.47891pt>
+File: ./svg-inkscape/fig5_svg-tex.pdf Graphic file (type pdf)
+<use ./svg-inkscape/fig5_svg-tex.pdf, page 2>
+Package pdftex.def Info: ./svg-inkscape/fig5_svg-tex.pdf , page2 used on input 
+line 58.
+(pdftex.def)             Requested size: 117.00119pt x 135.20056pt.
+) [18
+
+ <./svg-inkscape/fig3_svg-tex.pdf> <./svg-inkscape/fig4_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig4_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig5_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig5_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+> <./svg-inkscape/fig5_svg-tex.pdf
+
+pdfTeX warning: pdflatex.exe (file ./svg-inkscape/fig5_svg-tex.pdf): PDF inclus
+ion: multiple pdfs with page group included in a single page
+>] (text.aux) ) 
 Here is how much of TeX's memory you used:
- 9790 strings out of 478338
- 178219 string characters out of 2836700
- 566544 words of memory out of 3000000
- 27910 multiletter control sequences out of 15000+600000
- 484249 words of font info for 120 fonts, out of 8000000 for 9000
+ 11531 strings out of 478338
+ 215140 string characters out of 2836700
+ 611983 words of memory out of 3000000
+ 29595 multiletter control sequences out of 15000+600000
+ 484878 words of font info for 127 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 94i,14n,92p,1003b,484s stack positions out of 10000i,1000n,20000p,200000b,80000s
-<C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmbsy10.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/typ
-e1/public/amsfonts/cm/cmbx12.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/
-fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/malir/AppData/Local/Program
-s/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/malir/AppData/Loca
-l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/malir/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/ma
-lir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C
-:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra
-/cmmib8.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
-sfonts/cm/cmr12.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmr6.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/
-type1/public/amsfonts/cm/cmr8.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX
-/fonts/type1/public/amsfonts/cm/cmsl12.pfb><C:/Users/malir/AppData/Local/Progra
-ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/malir/AppData/Loc
-al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on text.pdf (11 pages, 184474 bytes).
+ 94i,16n,92p,1271b,546s stack positions out of 10000i,1000n,20000p,200000b,80000s
+<C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/type1/public
+/amsfonts/cm/cmbsy10.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmbx12.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX
+/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/malir/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/malir/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/malir/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users
+/malir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><
+C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmm
+ib10.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
+nts/cmextra/cmmib8.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmr10.pfb><C:/Users/malir/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/malir/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/malir/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/malir/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl12.pfb><C:/Users/malir/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/User
+s/malir/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+
+Output written on text.pdf (18 pages, 308211 bytes).
 PDF statistics:
- 121 PDF objects out of 1000 (max. 8388607)
+ 199 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 36917 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 39135 words of extra memory for PDF output out of 42996 (max. 10000000)
 

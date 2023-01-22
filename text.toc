@@ -9,13 +9,15 @@
 \contentsline {section}{\numberline {2.4}Ostatní}{vii}{}%
 \contentsline {section}{\numberline {2.5}Bezierova křivka}{vii}{}%
 \contentsline {section}{\numberline {2.6}Vyplňování}{vii}{}%
-\contentsline {chapter}{\numberline {3}Analýza}{viii}{}%
-\contentsline {section}{\numberline {3.1}Detekce kolize}{viii}{}%
-\contentsline {section}{\numberline {3.2}Oblasti průniku dvou objektů a průřez}{viii}{}%
-\contentsline {section}{\numberline {3.3}Obsah polygonu}{viii}{}%
-\contentsline {section}{\numberline {3.4}Je A v B?}{viii}{}%
-\contentsline {chapter}{\numberline {4}Rotace}{ix}{}%
-\contentsline {section}{\numberline {4.1}2D}{ix}{}%
-\contentsline {section}{\numberline {4.2}3D}{ix}{}%
-\contentsline {section}{\numberline {4.3}Posunutí středu a osy otáčení}{x}{}%
-\contentsline {chapter}{\numberline {5}Generování tvarů a fraktály}{xi}{}%
+\contentsline {chapter}{\numberline {3}Analýza}{xi}{}%
+\contentsline {section}{\numberline {3.1}Bod v polygonu}{xi}{}%
+\contentsline {section}{\numberline {3.2}Konvexní/konkávní}{xii}{}%
+\contentsline {section}{\numberline {3.3}Detekce kolize}{xii}{}%
+\contentsline {section}{\numberline {3.4}Oblasti průniku dvou objektů a průřez}{xii}{}%
+\contentsline {section}{\numberline {3.5}Obsah polygonu}{xiv}{}%
+\contentsline {section}{\numberline {3.6}Je A v B?}{xv}{}%
+\contentsline {chapter}{\numberline {4}Rotace}{xvi}{}%
+\contentsline {section}{\numberline {4.1}2D}{xvi}{}%
+\contentsline {section}{\numberline {4.2}3D}{xvi}{}%
+\contentsline {section}{\numberline {4.3}Posunutí středu a osy otáčení}{xvii}{}%
+\contentsline {chapter}{\numberline {5}Generování tvarů a fraktály}{xviii}{}%
