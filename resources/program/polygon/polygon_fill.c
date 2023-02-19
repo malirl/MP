@@ -166,10 +166,12 @@ static void solve(){
                     insert_double(lines_points,insert_pos,points[b_val].x,arr_size);
                     ++arr_size;
                 }
-                found=false;
             }
+                found=false;
+
         }
         b_idx+=init[i];
+
 
         for(;row>=converted_points[b_idx].point->y;--row){
             for(int k=0; k<arr_size;k+=2){
