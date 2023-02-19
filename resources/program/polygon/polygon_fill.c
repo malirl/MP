@@ -79,7 +79,7 @@ static void solve(){
     int init[n_points],tmp[n_points];
     double arr_a[n_points], lines_points[n_points]; 
     double Ax, Bx;
-    bool found=false;
+    bool found;
     int b_val;
 
 
@@ -113,6 +113,7 @@ static void solve(){
             b_val=converted_points[b_idx+n_points_in_row].pos;
             next=(b_val+1)%n_points;
             prev=(b_val==0) ? n_points-1 : b_val-1;
+            found=false;
 
             for(b_tmp=0;b_tmp<arr_size;++b_tmp){
                 if(b_val==tmp[b_tmp]){
@@ -167,8 +168,6 @@ static void solve(){
                     ++arr_size;
                 }
             }
-                found=false;
-
         }
         b_idx+=init[i];
 
