@@ -11,6 +11,7 @@
 #define POLYGON 4
 #define POINT 5
 #define CUBE_EXAMPLE 6
+#define POLYGON_FILL 7
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -76,6 +77,7 @@ char* obj_input[][6] = {
 	{"polygon","*point:point", "2d"},
 	{"point", "n:x n:y", "2d"},
 	{"cube-example", "\0", "3d"},
+	{"polygon-fill", "*point:point", "2d"}
 };
 
 
@@ -95,11 +97,21 @@ circle input_circle;
 mirror_to_line input_mirror_to_line;
 rot2d input_rot2d;
 rot3d input_rot3d;
-polygon input_polygon;
+polygon input_polygon, input_polygon_fill;
 
 void copy_line_input(line *input){
 	input_line=*input;
 }
+
+/* void create_line_input(int x1,int x2,int y1,int y2){ */
+/* 	input_point.x=x1; */
+/* 	input_point.y=y1; */
+/* 	input_line.A=input_point; */
+
+/* 	input_point.x=x2; */
+/* 	input_point.y=y2; */
+/* 	input_line.B=input_point; */
+/* } */
 
 void copy_point_input(point *input){
 	input_point=*input;
@@ -123,6 +135,7 @@ void set_mirror_to_line(obj *obj, mirror_to_line *input);
 void set_rot2d(obj *obj, rot2d *input);
 void set_rot3d(obj *obj, rot3d *input);
 bool set_polygon(obj *obj, polygon *input);
+bool set_polygon_fill(obj *obj, polygon *input);
 /* //////// */
 
 point *point_scene;
@@ -133,6 +146,7 @@ static void init_data() {
 	input_rot2d.S = (point*)malloc(sizeof(point));
 	input_rot3d.O = (point*)malloc(sizeof(point));
 	input_polygon.n_points=0;
+	input_polygon_fill.n_points=0;
 }
 
 static struct LIST_OBJS* new_obj(){
@@ -155,7 +169,7 @@ obj *get_obj(char name[]) {
 	obj_to_set->sub=obj_to_set->next=NULL;
 	obj_to_set->points=NULL;
 	bool is_set_success=true;
-	
+
 	if(strcmp(name, "example") == 0)
 		set_example(obj_to_set);
 	else if(strcmp(name, "line") == 0)
@@ -174,8 +188,11 @@ obj *get_obj(char name[]) {
 		set_point(obj_to_set, &input_point);
 	else if(strcmp(name, "polygon") == 0)
 		is_set_success=set_polygon(obj_to_set, &input_polygon);
+	else if(strcmp(name, "polygon-fill") == 0)
+		is_set_success=set_polygon_fill(obj_to_set, &input_polygon);
 	else if(strcmp(name, "cube-example") == 0)
 		set_cube_example(obj_to_set);
+
 
 
 	if(!is_set_success){
@@ -192,8 +209,8 @@ int round_double(double num){
 }
 
 struct{
-		point *tmp, *buff_points_for3d;
-		line *lines;
+	point *tmp, *buff_points_for3d;
+	line *lines;
 }tmp;
 
 void points_3d_to_2d(obj *obj){
@@ -237,7 +254,7 @@ void rot_in_polar(double a,double b,point* to_rot){
 	to_rot->x=x*cos(b)+z*sin(b);
 	to_rot->y=-x*sin(a)*sin(b)+z*sin(a)*cos(b)+y*cos(a);
 	to_rot->z=-x*cos(a)*sin(b)+z*cos(a)*cos(b)-y*sin(a);
-/* https://www.wolframalpha.com/input?i2d=true&i=%7B%7B1%2C0%2C0%7D%2C%7B0%2Ccos%5C%2840%29a%5C%2841%29%2Csin%5C%2840%29a%5C%2841%29%7D%2C%7B0%2C-sin%5C%2840%29a%5C%2841%29%2Ccos%5C%2840%29a%5C%2841%29%7D%7D%7B%7Bcos%5C%2840%29b%5C%2841%29%2C0%2Csin%5C%2840%29b%5C%2841%29%7D%2C%7B0%2C1%2C0%7D%2C%7B-sin%5C%2840%29b%5C%2841%29%2C0%2Ccos%5C%2840%29b%5C%2841%29%7D%7D%7B%7Bx%7D%2C%7By%7D%2C%7Bz%7D%7D */	
+	/* https://www.wolframalpha.com/input?i2d=true&i=%7B%7B1%2C0%2C0%7D%2C%7B0%2Ccos%5C%2840%29a%5C%2841%29%2Csin%5C%2840%29a%5C%2841%29%7D%2C%7B0%2C-sin%5C%2840%29a%5C%2841%29%2Ccos%5C%2840%29a%5C%2841%29%7D%7D%7B%7Bcos%5C%2840%29b%5C%2841%29%2C0%2Csin%5C%2840%29b%5C%2841%29%7D%2C%7B0%2C1%2C0%7D%2C%7B-sin%5C%2840%29b%5C%2841%29%2C0%2Ccos%5C%2840%29b%5C%2841%29%7D%7D%7B%7Bx%7D%2C%7By%7D%2C%7Bz%7D%7D */	
 }
 
 
@@ -314,6 +331,7 @@ void add_obj_points_scene(obj *obj,bool space){
 	if(head){
 		double x,y;
 		point_add(&point_scene);
+
 		do{
 			x=head->x;
 			y=head->y;
@@ -550,6 +568,7 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 
 				switch(obj_id){
 					case POLYGON:
+					case POLYGON_FILL:
 						input_polygon.points[input_polygon.n_points]=input_point;
 						++input_polygon.n_points;
 						break;
@@ -613,6 +632,9 @@ bool set_obj(int id){
 		case POLYGON:
 			obj_name="polygon";
 			break;
+		case POLYGON_FILL:
+			obj_name="polygon-fill";
+			break;
 		case POINT:
 			obj_name="point";
 			break;
@@ -644,6 +666,8 @@ int get_obj_id_by_name(char* name){
 		obj_id = POINT;
 	else if(strcmp(name, "cube-example") == 0)
 		obj_id = CUBE_EXAMPLE;
+	else if(strcmp(name, "polygon-fill") == 0)
+		obj_id = POLYGON_FILL;
 
 
 	else{

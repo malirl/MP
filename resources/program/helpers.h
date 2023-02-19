@@ -67,5 +67,8 @@ static intersect* line_intersection(line *a, line *b,bool edges_counted){
    return res;
 }
 
+
+
+
 #endif
 

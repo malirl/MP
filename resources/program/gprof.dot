@@ -1,0 +1,29 @@
+digraph "callgraph" {
+subgraph "cluster0" { label="libc.so.6";
+  F562f2de945f0 [label="(below main)\n371 164"];
+}
+subgraph "cluster1" { label="MP";
+  F562f2b88ae30 [label="get_obj\n371 164"];
+  F562f2b88b890 [label="set_line\n370 850"];
+  F562f2b88c290 [label="line_bresenham\n370 489"];
+  F562f2b8a8ae0 [label="main\n371 164"];
+  F562f2b8aa020 [label="proc_obj_cmd\n371 164"];
+  F562f2b8acfe0 [label="set_obj\n371 164"];
+  F562f2b8ad480 [label="point_new\n216 290"];
+  F562f2b8b0f00 [label="solve\n370 153"];
+  F562f2b8b1390 [label="point_add\n276 798"];
+  F562f2b8ba250 [label="make_obj\n371 164"];
+}
+  F562f2b88ae30 -> F562f2b88b890 [weight=2];
+  F562f2b88b890 -> F562f2b88c290 [weight=2];
+  F562f2b88c290 -> F562f2b8b0f00 [weight=2];
+  F562f2b8a8ae0 -> F562f2b8aa020 [weight=2];
+  F562f2b8aa020 -> F562f2b8acfe0 [weight=2];
+  F562f2b8acfe0 -> F562f2b8ba250 [weight=2];
+  F562f2b8b0f00 -> F562f2b8b1390 [weight=2];
+  F562f2b8b1390 -> F562f2b8ad480 [weight=2];
+  F562f2b8ba250 -> F562f2b88ae30 [weight=2];
+  F562f2de945f0 -> F562f2b8a8ae0 [weight=2];
+  S562f2b8ad480 [shape=point,label=""];
+  F562f2b8ad480 -> S562f2b8ad480 [label="203 833\n1 779 x",weight=12];
+}

@@ -1,7 +1,7 @@
 NAME=MP
 
 CC=gcc
-CFLAGS= -std=c99 -pedantic -Wall -Wextra -I -g `sdl2-config --cflags --libs` -lm 
+CFLAGS=-pg -std=c99 -pedantic -Wall -Wextra -I -g `sdl2-config --cflags --libs` -lm 
 
 all: clean $(NAME) run
 

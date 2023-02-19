@@ -130,6 +130,7 @@ typedef struct{
 #ifdef LINE_COPY_IN 
 static line input_line;
 void copy_line_input(line *input);
+/* void create_line_input(int x1,int x2,int y1,int y2); */
 #endif
 
 

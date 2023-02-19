@@ -11,7 +11,6 @@ MODE mode;
 
 
 int main(int argc, char *argv[]) {
-	
 	if(argc>1)
 		mode=MODE_CMD;
 	else
@@ -47,9 +46,10 @@ int main(int argc, char *argv[]) {
 			break;
 		case MODE_DEV:
 			init_scene(&scene_);
+			test_solution();
 			set_resolution(scene_.width,scene_.height);
 			init_render();
-			test_solution();
+			render(scene_.points);
 			while(1){
 				switch(resolve_window_events()) {
 					case STATE_QUIT:
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
 	while(resolve_window_events()){
 
 	}
-		
+
 
 
 	while(running){

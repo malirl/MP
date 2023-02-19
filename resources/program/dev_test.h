@@ -1,15 +1,14 @@
 const double pi = 22.0 / 7.0;
 
 static void test_solution(){
-
    /* usecka */
    input_line.A.x = 100;
    input_line.A.y = 300;
    input_line.B.x = 400;
    input_line.B.y = 850;
    make_obj("line");
-	 add_obj_points_scene(&last_obj,false);
-
+   add_obj_points_scene(&last_obj,false);
+return;
    /* 2D rotace */
    input_rot2d.obj = &last_obj;
    input_rot2d.alpha = pi/2;
@@ -23,6 +22,7 @@ static void test_solution(){
    input_point.y = 250;
    make_obj("point");
 	 add_obj_points_scene(&last_obj,false);
+
 
    /* kruznice */
    input_ring.r = 50;
@@ -55,17 +55,16 @@ static void test_solution(){
    /* 3D rotace */
    /* input_rot3d.obj = &last_obj; */
 
-   input_rot3d.alpha = pi/1.2;
+   /* input_rot3d.alpha = pi/1.2; */
 
-   input_rot3d.O->x = 0; 
-   input_rot3d.O->y = 0; 
-   input_rot3d.O->z = 1; 
-   make_obj("rot3d");
+   /* input_rot3d.O->x = 0; */ 
+   /* input_rot3d.O->y = 0; */ 
+   /* input_rot3d.O->z = 1; */ 
+   /* make_obj("rot3d"); */
    /* render(&last_obj); */
 
 
 
 
-   render(scene_.points);
 }
 
