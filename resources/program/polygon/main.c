@@ -1,6 +1,7 @@
 #include "main.h"
 
 bool set_polygon(obj *obj,polygon *input) {
+
    polygon_converted res = convert_polygon_input(input);
    if(valid_polygon(&res)){
       _set_polygon(&res,obj);
@@ -19,6 +20,11 @@ bool set_polygon_fill(obj *obj,polygon *input) {
       return true;
    } else
       return false;
+}
+
+
+void set_polygon_rnd(polygon *output,polygon_rnd *input) {
+		_set_polygon_rnd(input, output);
 }
 
 /* void (obj *polygon) { */

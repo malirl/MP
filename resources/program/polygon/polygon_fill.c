@@ -171,17 +171,23 @@ static void solve(){
         }
         b_idx+=init[i];
 
-
         for(;row>=converted_points[b_idx].point->y;--row){
             for(int k=0; k<arr_size;k+=2){
                 Ax=lines_points[k]+=arr_a[k];
                 Bx=lines_points[k+1]+=arr_a[k+1];
 
+
+                /* dochazi k postupne odchylce od realne hodnoty v zavislosti na presnosti arr_a[k] */
+                /* nakonec vzdy bude potreba cislo zaokrouhlit, ale pro neovlivneni vysledku postupnym pricitanim uz tak nepresne hodnoty by stacilo cislo prevest racionalni cislo na podil dvou cisel */  
+
+
+
                 if(Ax>Bx){
                     printf("\n!! Ax:%f Bx:%f",Ax,Bx);
                 }
 
-                for(double x=Ax;x<Bx;++x){
+                /* nebo zjistit chybovost a tu pouzit v rovnici zde */
+                for(double x=Ax;x<=Bx;++x){
                     point_add(&current_point);
                     point_set(x,row,&current_point);
                 }

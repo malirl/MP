@@ -11,6 +11,8 @@ MODE mode;
 
 
 int main(int argc, char *argv[]) {
+
+
 	if(argc>1)
 		mode=MODE_CMD;
 	else

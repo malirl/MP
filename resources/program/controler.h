@@ -1,5 +1,6 @@
 #define EVERYTHING_IN
 
+
 #define INT 1
 #define STR 2 
 
@@ -12,6 +13,7 @@
 #define POINT 5
 #define CUBE_EXAMPLE 6
 #define POLYGON_FILL 7
+#define POLYGON_RND 8
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -68,16 +70,17 @@ void obj_sub(obj **current,obj *sub){
 }
 
 
-char* obj_input[][6] = {
+char* obj_input[][7] = {
 	{"example", "\0", "2d"},
 	/* {"line", "n:ax n:ay n:bx n:by", "2d"}, */
 	{"line", "point:A point:B", "2d"},
 	{"circle", "n:Sx n:Sy n:r", "2d"},
 	{"ring", "n:Sx n:Sy n:r", "2d"},
-	{"polygon","*point:point", "2d"},
+	{"polygon","point:point* polygon-rnd:polygon-rnd*", "2d"},
 	{"point", "n:x n:y", "2d"},
 	{"cube-example", "\0", "3d"},
-	{"polygon-fill", "*point:point", "2d"}
+	{"polygon-fill", "point:point* polygon-rnd:polygon-rnd*", "2d"},
+	{"polygon-rnd", "n:n", "2d"}
 };
 
 
@@ -98,6 +101,10 @@ mirror_to_line input_mirror_to_line;
 rot2d input_rot2d;
 rot3d input_rot3d;
 polygon input_polygon, input_polygon_fill;
+polygon_rnd input_polygon_rnd;
+
+/* pro objekty, které "nevykreslují" přímo, ale vrací výstup pro vstup nadobjektů*/
+polygon output_polygon_rnd;
 
 void copy_line_input(line *input){
 	input_line=*input;
@@ -136,6 +143,8 @@ void set_rot2d(obj *obj, rot2d *input);
 void set_rot3d(obj *obj, rot3d *input);
 bool set_polygon(obj *obj, polygon *input);
 bool set_polygon_fill(obj *obj, polygon *input);
+void set_polygon_rnd(polygon *output,polygon_rnd *input);
+
 /* //////// */
 
 point *point_scene;
@@ -190,6 +199,8 @@ obj *get_obj(char name[]) {
 		is_set_success=set_polygon(obj_to_set, &input_polygon);
 	else if(strcmp(name, "polygon-fill") == 0)
 		is_set_success=set_polygon_fill(obj_to_set, &input_polygon);
+	else if(strcmp(name, "polygon-rnd") == 0)
+		set_polygon_rnd(&output_polygon_rnd, &input_polygon_rnd);
 	else if(strcmp(name, "cube-example") == 0)
 		set_cube_example(obj_to_set);
 
@@ -471,6 +482,9 @@ bool set_arg(int obj,int arg,char* val,int type,char* arg_name){
 					break;
 			}
 			break;
+		case POLYGON_RND:
+			input_polygon_rnd.n_points=Z;
+			break;
 	}
 
 	return true;
@@ -491,6 +505,7 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 	char args_arr[strlen(args)+1], str_input_arr[strlen(str_input)+1];
 	int idx,len;
 	get_arr(args,args_arr);
+
 	args=(char*)args_arr;
 	get_arr(str_input,str_input_arr);
 	str_input=(char*)str_input_arr;
@@ -505,18 +520,25 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 
 	int in_text_idx,in_text_len;
 
+		/* printf("\ntext: %s",str_input); */
 	while(1){
-		get_from_str(":(\\w+)",args,&pattern,&idx,&len);
-
+		get_from_str(":([\\w-]+)",args,&pattern,&idx,&len);
 
 		if(!pattern)
 			return true;
 
+		/* for(int i=0;i<strlen(args_arr);++i) */
+		/* 	printf("args_arr: %c\n",args_arr[i]); */
 
-		if(!(is_loop = (args_arr[0]=='*')  ? true : false))
+		/* printf("\n"); */
+		/* return true; */
+		/* printf("\n%c",args_arr[n_arg]); */
+		/* printf("\nmandatory: %c", args_arr[idx+len]); */
+
+		if(!(is_loop = (args_arr[idx+len]=='*')  ? true : false))
 			++n_arg;
 
-
+		/* printf("\nargs: %s", args); */
 		get_from_str(pattern,str_input,&in_text,&idx,&len);
 
 		if(!in_text){
@@ -530,20 +552,20 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 			in_text_idx = idx;
 
 
-
 			memset(tmp,0,strlen(tmp));
 			get_arr(pattern,tmp);
 
 
-			get_from_str("(\\w+):",args,&type,&idx,&len);
+			get_from_str("([\\w-]+):",args,&type,&idx,&len);
 			in_text_len = strlen(type)+1;
 
 
 			if(strcmp(type,"n")==0 || strcmp(type,"str")==0)
-				replace_str_by(":([^,\\s]*)",tmp,strlen(pattern));	
+				replace_str_by(":([^,\\s\\*]*)",tmp,strlen(pattern));	
 			else
-				replace_str_by(":([^\\s]*)",tmp,strlen(pattern));	
+				replace_str_by(":([^\\s\\*]*)",tmp,strlen(pattern));	
 
+			/* printf("\npattern: %s",pattern); */
 
 			val = (char*)malloc(sizeof(char));
 			get_from_str(tmp,str_input,&val,&idx,&len);
@@ -555,7 +577,6 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 
 			in_text_len += strlen(val);
 
-
 			if(strcmp(type,"n")==0)
 				type_arg = INT;
 			else if(strcmp(type,"str")==0)
@@ -566,11 +587,21 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 				if(!proc_obj(type,val,true))
 					return false;
 
+				/* zpracování objektu */
+				get_obj(type);
+
+				/* přiřazení vstupu ze zpracovaného objektu */
 				switch(obj_id){
 					case POLYGON:
 					case POLYGON_FILL:
-						input_polygon.points[input_polygon.n_points]=input_point;
-						++input_polygon.n_points;
+						/* printf("\ntype:%s",type); */
+						if(strcmp(type,"point")==0){
+							input_polygon.points[input_polygon.n_points]=input_point;
+							++input_polygon.n_points;
+						}else{ //polygon_rnd
+							input_polygon.n_points=output_polygon_rnd.n_points;
+							memcpy(input_polygon.points,output_polygon_rnd.points,(sizeof(point))*input_polygon_rnd.n_points);
+						}
 						break;
 					case LINE:
 						if(n_arg==1)
@@ -590,12 +621,13 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 		}
 
 		if(is_loop)
-			rm_range(str_input_arr,in_text_idx,in_text_len);
+			rm_range(str_input_arr,in_text_idx,in_text_len+in_text_idx+1);
 		else{
-			get_from_str("\\*?\\w+:\\w+",args,&pattern,&idx,&len);
-			rm_range(args_arr,0,len+1);
+			get_from_str("\\w+:\\w+\\*?",args,&pattern,&idx,&len);
+			rm_range(args_arr,idx,len+1);
 		}
 	}
+
 }
 
 
@@ -610,6 +642,7 @@ bool proc_obj_input_cmd(char *argv[],int argc,char* args,int obj_id) {
 		str_input[++n_ch] = ' ';
 		str_input[n_ch+1] = '\0';
 	}
+
 	return check_mandatory_args(str_input,args,obj_id,true);
 }
 
@@ -640,6 +673,7 @@ bool set_obj(int id){
 			break;
 		case CUBE_EXAMPLE:
 			obj_name="cube-example";
+			break;
 	}
 
 	out(INFO,0,"processing obj: ","%s",obj_name);
@@ -668,6 +702,9 @@ int get_obj_id_by_name(char* name){
 		obj_id = CUBE_EXAMPLE;
 	else if(strcmp(name, "polygon-fill") == 0)
 		obj_id = POLYGON_FILL;
+	else if(strcmp(name, "polygon-rnd") == 0)
+		obj_id = POLYGON_RND;
+
 
 
 	else{
@@ -677,7 +714,7 @@ int get_obj_id_by_name(char* name){
 	return obj_id;
 }
 
-
+// nastavuje hodnoty v inputech
 bool proc_obj(char *name,char *input,bool cmd){
 	int obj_id = get_obj_id_by_name(name);
 
@@ -688,6 +725,7 @@ bool proc_obj(char *name,char *input,bool cmd){
 	return check_mandatory_args(input,obj_input[obj_id][1],obj_id,cmd);
 }
 
+// nastavuje hodnoty v inputech a vytvari objekty
 bool proc_obj_cmd(int argc,char *argv[]){
 	int obj_id = get_obj_id_by_name(argv[1]);
 
@@ -703,6 +741,22 @@ bool proc_obj_cmd(int argc,char *argv[]){
 	out(INFO,0,"processing input: ","%s",argv[1]);
 	if(!proc_obj_input_cmd(argv,argc,obj_input[obj_id][1],obj_id))
 		return false;
+
+	/* vypiš prosté inputy pro objekty vykreslovaci, které můžou být složeny z dalších objektů*/
+	char* primitive_cmd=argv[1];
+	switch(obj_id){
+		case LINE:
+			strfcat(primitive_cmd, " A:x:%d,y:%d B:x:%d,y:%d",(int)input_line.A.x,(int)input_line.A.y,(int)input_line.B.x,(int)input_line.B.y);
+			break;
+		case POLYGON:
+		case POLYGON_FILL:
+			for(int i=0;i<input_polygon.n_points;++i)
+				strfcat(primitive_cmd, " point:x:%d,y:%d",(int)input_polygon.points[i].x,(int)input_polygon.points[i].y);
+			break;
+	}
+	out(INFO,0,"->","%s",primitive_cmd);
+	/* */ 
+
 	if(!set_obj(obj_id))
 		return false;
 

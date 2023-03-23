@@ -26,6 +26,7 @@ bool valid_polygon(polygon_converted *input){
 
     if(n_lines<3){
         out(ERR,0,"too few points!","");
+        return false;
     }
 
     for(int k=0;k<n_lines;++k){

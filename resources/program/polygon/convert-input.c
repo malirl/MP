@@ -11,7 +11,11 @@
 
 polygon_converted convert_polygon_input(polygon *input) {
     int n_lines=input->n_points;
-    polygon_converted res;
+    polygon_converted res = {0};
+
+    /* hnus */
+    if(n_lines==0)
+        return res;
 
     for(int i=0;i+1<n_lines;++i){
         input_point.x=input->points[i].x;

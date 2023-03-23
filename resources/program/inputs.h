@@ -107,6 +107,9 @@ typedef struct{
 	int n_points;
 	point points[POLYGON_MAX_NUMBER_POINTS];
 }polygon;
+typedef struct{
+	int n_points;
+}polygon_rnd;
 #endif
 
 

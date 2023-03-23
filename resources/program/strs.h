@@ -157,4 +157,20 @@ void get_from_str(char* pattern, char string[], char** str_to_set,int* idx,int* 
 
 	*str_to_set=result;
 }
+/* strfcat() is a function that is similar to the strcat() function, but it is safer and it is able to handle the format of the string. */ 
+int strfcat(char *dest, const char *format, ...)
+{
+	va_list args;
+	int len;
+
+	va_start(args, format);
+	len = vsnprintf(dest + strlen(dest), 0, format, args);
+	va_end(args);
+
+	va_start(args, format);
+	vsnprintf(dest + strlen(dest), len + 1, format, args);
+	va_end(args);
+
+	return len;
+}
 
