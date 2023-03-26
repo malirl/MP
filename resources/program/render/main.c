@@ -13,23 +13,29 @@ SDL_Renderer *renderer;
 SDL_Texture *screen_texture;
 SDL_Event event;
 
+SDL_Rect src_rect;
+SDL_Rect dst_rect;
+
 unsigned int *pixels;
 
-int width, height, shiftX, shiftY;
+int width, height, shiftX=0, shiftY=0;
 
 void stop_render(){
-   /* if(screen_texture) */
-   /*    SDL_DestroyTexture(screen_texture); */
-   /* SDL_DestroyWindow(window); */
+   SDL_DestroyTexture(screen_texture);
+   screen_texture = NULL;
+   SDL_DestroyRenderer(renderer);
+   renderer = NULL;
+   SDL_DestroyWindow(window);
+   window = NULL;
    SDL_Quit();
+   free(pixels);
 }
 
 int resolve_window_events() {
-   while(1) {
+      /* SDL_Delay(1000/60); */
       while(SDL_PollEvent(&event)){
          switch (event.type) {
             case SDL_QUIT:
-               stop_render();
                return STATE_QUIT;
                break;
             case SDL_WINDOWEVENT:
@@ -37,7 +43,6 @@ int resolve_window_events() {
             case SDL_KEYDOWN:
                switch(event.key.keysym.sym){
                   case SDLK_q:
-                     stop_render();
                      return STATE_QUIT;
                   case SDLK_RIGHT:
                      return ACTION_RIGHT;
@@ -52,15 +57,13 @@ int resolve_window_events() {
             case SDL_MOUSEWHEEL:
                if(event.wheel.y > 0)
                   return ACTION_ZOOM_PLUS; 
-               else if(event.wheel.y < 0) 
-                  return ACTION_ZOOM_MINUS; 
-
+               return ACTION_ZOOM_MINUS; 
                break;
             default:
                return STATE_NOTHING;
          }
       }
-   }
+      return STATE_NOTHING;
 }
 
 void render_present() {
@@ -70,6 +73,9 @@ void render_present() {
    SDL_RenderPresent(renderer);
 }
 
+void refresh(){
+   render_present();
+}
 
 /* void render_scene(){ */
 /* } */
@@ -92,8 +98,6 @@ void clear_scene(){
    }
 }
 
-
-
 void render_scene(point *head) {
    int x,y;
    do{
@@ -104,32 +108,37 @@ void render_scene(point *head) {
    }while((head=(point*)head->next));
 }
 
-
-
 bool render(point *points){
-   if(points)
+   if(points){
+      clear_scene();
       render_scene(points);
-   render_present();
-   return true;
+      render_present();
+      return true;
+   }
+   return false;
 }
-
 
 void re_render(point *points,bool zoom){
    if(zoom){
+      /* src_rect.x = 0; */
+      /* src_rect.y = 0; */
+      /* src_rect.w = width; */
+      /* src_rect.h = height; */
+      /* dst_rect.x = 0; */
+      /* dst_rect.y = 0; */
+      /* dst_rect.w = width; */
+      /* dst_rect.h = height; */
+
+      /* SDL_DestroyTexture(screen_texture); */
       screen_texture = SDL_CreateTexture(renderer,
             SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING,
             width, height);
-
-      pixels = malloc(width * height * 4);
-   }else
-      clear_scene();
+   }
    render(points);
 }
 
 /* void render_LIST_OBJS() { */
 /* } */
-
-
 
 
 int init_render() {
@@ -142,8 +151,6 @@ int init_render() {
          SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
          width, height,
          SDL_WINDOW_SHOWN);
-
-
    if(window == NULL) {
       fprintf(stderr,"SDL_CreateWindow Error: %s\n", SDL_GetError());
       return EXIT_FAILURE;
@@ -152,7 +159,6 @@ int init_render() {
    renderer = SDL_CreateRenderer(window, -1,
          SDL_RENDERER_ACCELERATED |
          SDL_RENDERER_PRESENTVSYNC);
-
    if(renderer == NULL) {
       SDL_DestroyWindow(window);
       fprintf(stderr, "SD1000L_CreateRenderer Error: %s\n", SDL_GetError());
@@ -162,8 +168,14 @@ int init_render() {
    screen_texture = SDL_CreateTexture(renderer,
          SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING,
          width, height);
+   if(screen_texture==NULL) {
+      /* SDL_DestroyWindow(window); */
+      fprintf(stderr, "SDLCreateStructure Error: %s\n", SDL_GetError());
+      return EXIT_FAILURE;
+   }
 
-   pixels = malloc(width * height * 4);
+   SDL_RenderSetLogicalSize(renderer, width, height);
+   pixels = malloc(width*height*4*sizeof(unsigned int));
 
    return EXIT_SUCCESS;
 }

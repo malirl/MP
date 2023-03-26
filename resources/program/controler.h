@@ -131,6 +131,8 @@ int init_render();
 int resolve_window_events(void);
 bool render(point *points);
 void re_render(point *points,bool zoom);
+void refresh();
+void stop_render();
 
 void set_point(obj *obj, point *input);
 void set_example(obj *obj);
@@ -394,7 +396,7 @@ bool get_int(char* num, int* res){
 }
 
 
-
+/* volané pouze z řešených objektů, například polygon */
 void set_args(int obj_id,int nums[],char* strs[]){
 	/* !! */
 	switch(obj_id){
@@ -621,7 +623,7 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 		}
 
 		if(is_loop)
-			rm_range(str_input_arr,in_text_idx,in_text_len+in_text_idx+1);
+			rm_range(str_input_arr,in_text_idx,in_text_len+1);
 		else{
 			get_from_str("\\w+:\\w+\\*?",args,&pattern,&idx,&len);
 			rm_range(args_arr,idx,len+1);
@@ -739,9 +741,12 @@ bool proc_obj_cmd(int argc,char *argv[]){
 
 
 	out(INFO,0,"processing input: ","%s",argv[1]);
-	if(!proc_obj_input_cmd(argv,argc,obj_input[obj_id][1],obj_id))
+	if(!proc_obj_input_cmd(argv,argc,obj_input[obj_id][1],obj_id)){
+		out(ERR,0,"processing input failed","");
 		return false;
+	}
 
+	out(SUCCESS,0,"input OK","");
 	/* vypiš prosté inputy pro objekty vykreslovaci, které můžou být složeny z dalších objektů*/
 	char* primitive_cmd=argv[1];
 	switch(obj_id){

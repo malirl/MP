@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
 					return EXIT_FAILURE;
 				}
 			}else{
-				out(ERR,0,"object creation failed","");
+				out(ERR,0,"creation failed","");
 				return EXIT_FAILURE;
 			}
 			break;
@@ -55,6 +55,7 @@ int main(int argc, char *argv[]) {
 			while(1){
 				switch(resolve_window_events()) {
 					case STATE_QUIT:
+						stop_render();
 						return EXIT_SUCCESS;
 				}
 			}
@@ -66,15 +67,11 @@ int main(int argc, char *argv[]) {
 	/* //// */
 
 	double angle_shift=3.14/8;
-	while(resolve_window_events()){
-
-	}
-
-
 
 	while(running){
-		switch(resolve_window_events()) {
+		switch(resolve_window_events()){
 			case STATE_QUIT:
+				stop_render();
 				running=false;
 				break;
 			case ACTION_RIGHT:
@@ -125,7 +122,6 @@ int main(int argc, char *argv[]) {
 					scene_.shiftX-=25;
 					scene_.shiftY-=25;
 
-
 					shift(scene_.shiftX,scene_.shiftY);
 					set_resolution(scene_.width,scene_.height);
 					re_render(scene_.points,true);
@@ -144,10 +140,11 @@ int main(int argc, char *argv[]) {
 					re_render(scene_.points,true);
 				}
 				break;
-			default:
-				break;
 		};
+		refresh();
 	}
+
+	out(INFO,0,"exit","");
 	return EXIT_SUCCESS;
 }
 

@@ -82,6 +82,8 @@ static void solve(){
     bool found;
     int b_val;
 
+    int tmp1;
+    double a1,a2,tmp2;
 
     converted_point converted_points[n_points];
     for(int i=0;i<n_points;++i){
@@ -147,23 +149,30 @@ static void solve(){
                 /* Jsou zde 2 nové (neuvažované) úsečky, každá s tímto bodem */
                 /* je nutné vědět, na jakou pozici obě úsečky vložit, b_tmp nemusí vypovídat */
                 insert_pos=0;
-                while(points[b_val].x>lines_points[insert_pos] && insert_pos<arr_size){++insert_pos;}
-                
-                int c=prev;
-                if(points[prev].x>points[next].x){
+                while(points[b_val].x>lines_points[insert_pos] && insert_pos<arr_size)++insert_pos;
+
+                a1=get_dx(b_val,prev);
+                a2=get_dx(b_val,next);
+                tmp1=prev;
+                if(a1>a2){
+                    /* prohod prev,next: */
                     prev=next;
-                    next=c;
+                    next=tmp1;
+                    /* prohod a1,a2: */
+                    tmp2=a1;
+                    a1=a2;
+                    a2=tmp2;
                 }
                 if(points[prev].y!=points[b_val].y){
                     insert_int(tmp,insert_pos,prev,arr_size);
-                    insert_double(arr_a,insert_pos,get_dx(b_val, prev),arr_size);
+                    insert_double(arr_a,insert_pos,a1,arr_size);
                     insert_double(lines_points,insert_pos,points[b_val].x,arr_size);
                     ++arr_size;
                     ++insert_pos;
                 }
                 if(points[next].y!=points[b_val].y){
                     insert_int(tmp,insert_pos,next,arr_size);
-                    insert_double(arr_a,insert_pos,get_dx(b_val, next),arr_size);
+                    insert_double(arr_a,insert_pos,a2,arr_size);
                     insert_double(lines_points,insert_pos,points[b_val].x,arr_size);
                     ++arr_size;
                 }
@@ -171,7 +180,7 @@ static void solve(){
         }
         b_idx+=init[i];
 
-        for(;row>=converted_points[b_idx].point->y;--row){
+        for(;row>converted_points[b_idx].point->y;--row){
             for(int k=0; k<arr_size;k+=2){
                 Ax=lines_points[k]+=arr_a[k];
                 Bx=lines_points[k+1]+=arr_a[k+1];
@@ -179,7 +188,6 @@ static void solve(){
 
                 /* dochazi k postupne odchylce od realne hodnoty v zavislosti na presnosti arr_a[k] */
                 /* nakonec vzdy bude potreba cislo zaokrouhlit, ale pro neovlivneni vysledku postupnym pricitanim uz tak nepresne hodnoty by stacilo cislo prevest racionalni cislo na podil dvou cisel */  
-
 
 
                 if(Ax>Bx){
