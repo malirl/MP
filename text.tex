@@ -20,6 +20,16 @@
 \usepackage{amsmath, bm}
 \usepackage{index}
 \usepackage{algpseudocode}
+\usepackage{listings}
+
+
+\lstset{
+  basicstyle=\ttfamily,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  language=bash
+}
 
 %\usepackage{paralist}
 %\usepackage{parskip}
@@ -71,12 +81,16 @@ Samostatná kapitola je pak věnovaná rasterizaci Beziérových křivek.
 \section{Úsečka}
 
 
+\begin{lstlisting}
+/.MP line A:x:int,y:int B:x:int,y:int
+\end{lstlisting}
 
 Převedení vstupu\\
 Úsečka je část přímky definovaná dvěma body: $b_1$ a $b_2$.
 Pro následující algoritmy platí, že souřadnice $x$ bodu $b_1$ je menší než $x$ bodu $b_2$, aby se mohly algoritmy posouvat o jeden dílek doprava, tj $x+1$.
 Směrnice úsečky je $a = dy/dx$. 
 Počítá se s vstupem $a\subset<0;1>$, takže úsečka svírá s osou $x$ úhel $0-45$ a $b_2$ je v 1. kvadrantu. Opět pro omezení na jedinou podmínku, zda je potřeba $y$ zvětšit či nikoli.
+
 
 
 Tyto nároky umožňují zvolit efektivní algoritmus, ale současně vyžadují převod vstupu a výsledných souřadnic.\\
@@ -136,6 +150,10 @@ Tím jsme se zbavili nutnosti použití desetinné čárky.
 
 \section{Zrcadlení}
 
+\begin{lstlisting}
+/.MP
+\end{lstlisting}
+
 Zrcadlení je často využívaná operace, například pro rasterizaci kružnice.
 Využívá bod $B$ a vektor $\vec{v}$, přes který $B$ zrcadlíme. Výstupem je zrcadlený bod $B_{z}$.
 Platí, že vektor $\overrightarrow{BB_{z}}$ je kolmý na $\vec{v}$ a jeho délka je dvojnásobná vzdálenosti $B$ od $\vec{v}$.
@@ -153,7 +171,12 @@ $B_z = 2(k*\vec{v}+P)-B) = \bm{(2(k*x+P_x)-B_x;2(k*y+P_y)-B_y)}$
 
 
 
-\section{Kruh} % Obdelník, trojúhelník, kružnice, elipsa, kvádr a koule
+\section{Kružnice} % Obdelník, trojúhelník, kružnice, elipsa, kvádr a koule
+
+
+\begin{lstlisting}
+/.MP ring S:x:int,y:int r:int
+\end{lstlisting}
 
 Pro kužnici rovněž existuje Bresenhamův algoritmus. Algoritmus vykreslí $1/8$ kružnice. V podmínce je tedy ze znalosti přímky svírající s osou $x$ 45 stupnu: $x>=y$. K vykreslení této části víme, že iterativně zvětšujeme $y$. $x$ dekrementujeme, pokud je hodnota $d$ kladná, tj. zajímají nás pouze 2 pixely. %infografika
 Pro vykreslení celku stačí díky symetrii kružnice tuto část 3x zrcadlit.
@@ -177,10 +200,14 @@ Pro vykreslení celku stačí díky symetrii kružnice tuto část 3x zrcadlit.
 \EndWhile
 \end{algorithmic}
 
-Jiný algoritmus se může zakládat na výběru z 3 sousedících pixelů podle toho, který je nejblíž středu. Takové řešení je ale neefektivní, implementací se zde nezabývám.
+Drobná modifikace se může zakládat na výběru z 3 sousedících pixelů podle toho, který je nejblíž středu. Takové řešení je ale neefektivní, implementací se zde nezabývám.
 
 
-
+\section{Kruh}
+\begin{lstlisting}
+/.MP circle S:x:int,y:int r:int
+\end{lstlisting}
+Kruh se vykresluje tak, že se prochází body o souřadnicích od $S-r$ do $S+r$ pro $x$ a $y$, jakoby byl kruh vepsán do čtverce. Bod se přidá, pokud je jeho vzdálenost od středu $<=r$.
 
 
 
@@ -190,8 +217,11 @@ Jiný algoritmus se může zakládat na výběru z 3 sousedících pixelů podle
 
 \section{Vyplňování} % vyplňování jednoduchých tvarů a polygonů
 
-
 Řádkovací metoda
+
+\begin{lstlisting}
+/.MP polygon-fill point* 
+\end{lstlisting}
 
 
 \begin{figure}[H]
@@ -461,6 +491,9 @@ $S_i = (x_1-x_2)*\frac{y_1+y_2}{2}$
 
 \chapter{Rotace}
 
+\begin{lstlisting}
+/.MP cube-example 
+\end{lstlisting}
 
 Otáčet bod vůči středu soustavy souřadné je jako nanášet ho na otočenou soustavu souřadnou, tedy násobit vektory udávájící osy $x$, $y$, atd. takové soustavy.
 Tyto vektory mají délku 1. Lze zapsat takto:
@@ -546,18 +579,28 @@ Vstup: osa otáčení $o$, úhel $\alpha$
 	\item vykreslujeme v A, takže převedeme z B do A
 \end{enumerate}
 
-
-
 \section{Posunutí středu a osy otáčení}
 
 Pro posunutý střed v 2D platí, že vektor $\vec{XS}$, kde $S$ je střed a $X$ bod, má fakticky souřadnice bodu $\vec{p}$. K výpočtu stačí potom přičíst $S$.\\
 
-Stejně u posunuté osy v 3D, je takový vektor vlastně bod $p_a$
-V praxi, grafickém editoru, můžeme osu určit typicky dvěma body. A ten jeden z nich (třeba pro intuici první určený) je totiž tento střed $S$. Nakonec stačí opět přičíst $S$.
+Stejně u posunuté osy v 3D, je takový vektor vlastně bod $p_a-S$.
+V praxi, grafickém editoru, určujeme osu typicky dvěma body. Právě jeden z nich (třeba pro intuici první určený) je totiž tento střed $S$. Nakonec stačí opět přičíst $S$.
+
+
+% TODO: krychle
+
+
+
+
+
+
 
 
 \chapter{Generování tvarů a fraktály}
 
+\begin{lstlisting}
+/.MP polygon polygon-rnd:n:int
+\end{lstlisting}
 
 \begin{figure}[H]
   \centering
@@ -572,7 +615,12 @@ V praxi, grafickém editoru, můžeme osu určit typicky dvěma body. A ten jede
  
 
 
+\chapter{Praktická část}
 
+Výstupem programu je okno a textový výstup terminálu, v kterým program běží.
+Program je psán v jazyce C, tedy je před spuštěním kompilován. Pro kompilace 
+
+Syntax, ovládání, funkce
  
 
 
