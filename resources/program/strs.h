@@ -1,3 +1,5 @@
+#define N_CHARS 100000 
+
 void append_ch(char* s, char c) {
 	size_t len = strlen(s);
 	s[len] = c;
@@ -44,14 +46,14 @@ void replace_str_by(char* in, char out[], int index){
 	}
 }
 
-char res[1000], new_pattern[1000], searched[1000];
+char res[N_CHARS], new_pattern[N_CHARS], searched[N_CHARS];
 void get_from_str(char* pattern, char string[], char** str_to_set,int* idx,int* len) {
 
 	/* strcpy(); */
 
-	memset(res, 0, 1000);
-	memset(new_pattern, 0, 1000);
-	memset(searched, 0, 1000);
+	memset(res, 0, N_CHARS);
+	memset(new_pattern, 0, N_CHARS);
+	memset(searched, 0, N_CHARS);
 	*idx = *len = -1;	
 
 	int match_idx, match_length, i, first_closure = (int)(strchr(pattern, '(') - pattern),

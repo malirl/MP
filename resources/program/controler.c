@@ -9,10 +9,7 @@ bool running = true;
 
 MODE mode;
 
-
 int main(int argc, char *argv[]) {
-
-
 	if(argc>1)
 		mode=MODE_CMD;
 	else
@@ -30,7 +27,7 @@ int main(int argc, char *argv[]) {
 			init_scene(&scene_);
 			if(proc_obj_cmd(argc,argv)){
 				set_resolution(scene_.width,scene_.height);
-				switch(init_render()) {
+				switch(init_render()){
 					case EXIT_FAILURE:
 						out(ERR,0,"initialization render failed","");
 						return EXIT_FAILURE;
@@ -58,6 +55,7 @@ int main(int argc, char *argv[]) {
 						stop_render();
 						return EXIT_SUCCESS;
 				}
+				refresh();
 			}
 			break;
 	}

@@ -141,8 +141,13 @@ void re_render(point *points,bool zoom){
 /* } */
 
 
-int init_render() {
-   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+int init_render(){
+   if(getenv("XDG_RUNTIME_DIR") == NULL){
+      SDL_setenv("XDG_RUNTIME_DIR", "/run/user/$(id -u)", 1);
+      /* system("sudo systemctl restart display-manager"); */
+   }
+
+   if(SDL_Init(SDL_INIT_VIDEO) != 0) {
       fprintf(stderr, "Could not initialize sdl2: %s\n", SDL_GetError());
       return EXIT_FAILURE;
    }
@@ -177,6 +182,6 @@ int init_render() {
    SDL_RenderSetLogicalSize(renderer, width, height);
    pixels = malloc(width*height*4*sizeof(unsigned int));
 
-   return EXIT_SUCCESS;
+   return (SDL_GetError() == NULL);
 }
 

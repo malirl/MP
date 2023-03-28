@@ -1,4 +1,5 @@
 scene scene_;
+point *point_scene;
 
 #define WIDTH 1000
 #define HEIGHT 1000
@@ -38,5 +39,6 @@ void init_scene(scene* scene_to_set){
 	scene_to_set->alpha=0;
 	scene_to_set->sigma=0;
 
+	scene_to_set->points=point_scene=point_new();
 }
 

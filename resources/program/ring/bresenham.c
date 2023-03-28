@@ -48,8 +48,8 @@ static void solve() {
 
 void ring_bresenham(ring *input, point **tracked_point) {
    r = input->r;
-   sx = input->S->x;
-   sy = input->S->y;
+   sx = input->S.x;
+   sy = input->S.y;
 
    x = r;
    y = 0;

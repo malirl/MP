@@ -25,8 +25,8 @@ static void solve() {
 void circle_(circle *input, point **tracked_point) {
    r = input->r;
 
-   sx = input->S->x;
-   sy = input->S->y;
+   sx = input->S.x;
+   sy = input->S.y;
 
    current_point = point_new();
    *tracked_point = current_point;

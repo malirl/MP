@@ -35,12 +35,12 @@ static int is_lines_parallel(line *a, line *b){
 
 
 static intersect* line_intersection(line *a, line *b,bool edges_counted){
-   if(is_lines_parallel(a,b)!=INTERSECTED_LINES)
+   if(is_lines_parallel(a,b)==SAME_LINES)
       return NULL;
 
    /* predpoklada se, ze Ax + a1*t = Bx, kdyz t=1, tedy a1 je Bx-Ax, atd. u dalsich souradnic vektoru */
     double Ax=a->A.x, Ay=a->A.y, 
-           Bx=a->B.y, By=a->B.y,
+           Bx=a->B.x, By=a->B.y,
            Cx=b->A.x, Cy=b->A.y,
            Dx=b->B.x, Dy=b->B.y;
 
@@ -66,9 +66,5 @@ static intersect* line_intersection(line *a, line *b,bool edges_counted){
 
    return res;
 }
-
-
-
-
 #endif
 

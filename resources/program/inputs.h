@@ -66,14 +66,14 @@ typedef struct{
 #ifdef RING_IN
 typedef struct{
 	int r;
-	point *S;
+	point S;
 }ring;
 #endif
 
 #ifdef CIRCLE_IN 
 typedef struct{
 	int r;
-	point *S;
+	point S;
 }circle;
 #endif
 
@@ -102,7 +102,8 @@ typedef struct{
 
 
 #ifdef POLYGON_IN
-#define POLYGON_MAX_NUMBER_POINTS 100
+#define POLYGON_MAX_NUMBER_POINTS 1000
+
 typedef struct{
 	int n_points;
 	point points[POLYGON_MAX_NUMBER_POINTS];
@@ -122,7 +123,7 @@ typedef struct{
 #endif
 
 #ifdef POLYGON_CONVERTED_IN 
-#define POLYGON_MAX_NUMBER_LINES 100
+#define POLYGON_MAX_NUMBER_LINES 1000
 typedef struct{
 	int n_lines;
 	line lines[POLYGON_MAX_NUMBER_LINES];

@@ -1,6 +1,5 @@
 #define EVERYTHING_IN
 
-
 #define INT 1
 #define STR 2 
 
@@ -23,10 +22,8 @@
 #include <math.h>
 #include "tiny-regex-c/re.h"
 #include "inputs.h"
-#include "scene.h"  
 #include "strs.h"
 #include "log.h"
-
 
 point* point_new() {
 	point *new_point=(point*)malloc(sizeof(point)); 
@@ -69,20 +66,20 @@ void obj_sub(obj **current,obj *sub){
 	*current=sub;
 }
 
+#include "scene.h"  
 
 char* obj_input[][7] = {
 	{"example", "\0", "2d"},
 	/* {"line", "n:ax n:ay n:bx n:by", "2d"}, */
 	{"line", "point:A point:B", "2d"},
-	{"circle", "n:Sx n:Sy n:r", "2d"},
-	{"ring", "n:Sx n:Sy n:r", "2d"},
+	{"circle", "point:S n:r", "2d"},
+	{"ring", "point:S n:r", "2d"},
 	{"polygon","point:point* polygon-rnd:polygon-rnd*", "2d"},
 	{"point", "n:x n:y", "2d"},
 	{"cube-example", "\0", "3d"},
 	{"polygon-fill", "point:point* polygon-rnd:polygon-rnd*", "2d"},
 	{"polygon-rnd", "n:n", "2d"}
 };
-
 
 /* //////// */
 struct LIST_OBJS{
@@ -105,6 +102,7 @@ polygon_rnd input_polygon_rnd;
 
 /* pro objekty, které "nevykreslují" přímo, ale vrací výstup pro vstup nadobjektů*/
 polygon output_polygon_rnd;
+/*universal output_uni; */
 
 void copy_line_input(line *input){
 	input_line=*input;
@@ -149,11 +147,7 @@ void set_polygon_rnd(polygon *output,polygon_rnd *input);
 
 /* //////// */
 
-point *point_scene;
-
 static void init_data() {
-	input_ring.S = (point*)malloc(sizeof(point));
-	input_circle.S = (point*)malloc(sizeof(point));
 	input_rot2d.S = (point*)malloc(sizeof(point));
 	input_rot3d.O = (point*)malloc(sizeof(point));
 	input_polygon.n_points=0;
@@ -200,12 +194,11 @@ obj *get_obj(char name[]) {
 	else if(strcmp(name, "polygon") == 0)
 		is_set_success=set_polygon(obj_to_set, &input_polygon);
 	else if(strcmp(name, "polygon-fill") == 0)
-		is_set_success=set_polygon_fill(obj_to_set, &input_polygon);
+		is_set_success=set_polygon_fill(obj_to_set, &input_polygon_fill);
 	else if(strcmp(name, "polygon-rnd") == 0)
 		set_polygon_rnd(&output_polygon_rnd, &input_polygon_rnd);
 	else if(strcmp(name, "cube-example") == 0)
 		set_cube_example(obj_to_set);
-
 
 
 	if(!is_set_success){
@@ -430,7 +423,6 @@ bool set_arg(int obj,int arg,char* val,int type,char* arg_name){
 			break;
 	}
 
-
 	switch(obj){
 		case POINT:
 			switch(arg){
@@ -442,53 +434,16 @@ bool set_arg(int obj,int arg,char* val,int type,char* arg_name){
 					break;
 			}
 			break;
-		case LINE:
-			switch(arg){
-				case 1:
-					input_line.A.x=Z;
-					break;
-				case 2:
-					input_line.A.y=Z;
-					break;
-				case 3:
-					input_line.B.x=Z;
-					break;
-				case 4:
-					input_line.B.y=Z;
-					break;
-			}
-			break;
 		case CIRCLE:
-			switch(arg){
-				case 1:
-					input_circle.S->x=Z;
-					break;
-				case 2:
-					input_circle.S->y=Z;
-					break;
-				case 3:
-					input_circle.r=Z;
-					break;
-			}
+				input_circle.r=Z;
 			break;
 		case RING:
-			switch(arg){
-				case 1:
-					input_ring.S->x=Z;
-					break;
-				case 2:
-					input_ring.S->y=Z;
-					break;
-				case 3:
-					input_ring.r=Z;
-					break;
-			}
+				input_ring.r=Z;
 			break;
 		case POLYGON_RND:
 			input_polygon_rnd.n_points=Z;
 			break;
 	}
-
 	return true;
 }
 
@@ -592,11 +547,9 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 				/* zpracování objektu */
 				get_obj(type);
 
-				/* přiřazení vstupu ze zpracovaného objektu */
+				/* přiřazení vstupu ze zpracovaného objektu (výstupu objektu)*/
 				switch(obj_id){
 					case POLYGON:
-					case POLYGON_FILL:
-						/* printf("\ntype:%s",type); */
 						if(strcmp(type,"point")==0){
 							input_polygon.points[input_polygon.n_points]=input_point;
 							++input_polygon.n_points;
@@ -605,11 +558,26 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 							memcpy(input_polygon.points,output_polygon_rnd.points,(sizeof(point))*input_polygon_rnd.n_points);
 						}
 						break;
+					case POLYGON_FILL:
+						if(strcmp(type,"point")==0){
+							input_polygon_fill.points[input_polygon_fill.n_points]=input_point;
+							++input_polygon_fill.n_points;
+						}else{ //polygon_rnd
+							input_polygon_fill.n_points=output_polygon_rnd.n_points;
+							memcpy(input_polygon_fill.points,output_polygon_rnd.points,(sizeof(point))*input_polygon_rnd.n_points);
+						}
+						break;
 					case LINE:
 						if(n_arg==1)
 							input_line.B=input_point;
 						else
 							input_line.A=input_point;
+						break;
+					case RING:
+						input_ring.S=input_point;
+						break;
+					case CIRCLE:
+						input_circle.S=input_point;
 						break;
 				}
 			}
@@ -632,9 +600,8 @@ bool check_mandatory_args(char* str_input,char* args,int obj_id,bool cmd){
 
 }
 
-
 bool proc_obj_input_cmd(char *argv[],int argc,char* args,int obj_id) {
-	char str_input[1000];
+	char str_input[N_CHARS];
 	size_t n_ch = -1;
 	for(int arg=2;arg<argc;++arg){
 		for(size_t i=0;i<strlen(argv[arg]);++i) {
@@ -647,7 +614,6 @@ bool proc_obj_input_cmd(char *argv[],int argc,char* args,int obj_id) {
 
 	return check_mandatory_args(str_input,args,obj_id,true);
 }
-
 
 bool set_obj(int id){
 	char* obj_name;
@@ -683,10 +649,8 @@ bool set_obj(int id){
 }
 
 
-
 int get_obj_id_by_name(char* name){
 	int obj_id;
-
 
 	if(strcmp(name, "line") == 0)
 		obj_id = LINE;
@@ -706,8 +670,6 @@ int get_obj_id_by_name(char* name){
 		obj_id = POLYGON_FILL;
 	else if(strcmp(name, "polygon-rnd") == 0)
 		obj_id = POLYGON_RND;
-
-
 
 	else{
 		out(ERR,1,"unknown obj: ","'%s'",name);
@@ -739,26 +701,36 @@ bool proc_obj_cmd(int argc,char *argv[]){
 	else
 		scene_.space=_2D;
 
-
 	out(INFO,0,"processing input: ","%s",argv[1]);
 	if(!proc_obj_input_cmd(argv,argc,obj_input[obj_id][1],obj_id)){
 		out(ERR,0,"processing input failed","");
 		return false;
 	}
-
 	out(SUCCESS,0,"input OK","");
 	/* vypiš prosté inputy pro objekty vykreslovaci, které můžou být složeny z dalších objektů*/
-	char* primitive_cmd=argv[1];
+	char* primitive_cmd=malloc(N_CHARS*sizeof(char));
+	strcpy(primitive_cmd,argv[1]);
 	switch(obj_id){
 		case LINE:
 			strfcat(primitive_cmd, " A:x:%d,y:%d B:x:%d,y:%d",(int)input_line.A.x,(int)input_line.A.y,(int)input_line.B.x,(int)input_line.B.y);
 			break;
-		case POLYGON:
-		case POLYGON_FILL:
-			for(int i=0;i<input_polygon.n_points;++i)
+		case RING:
+			strfcat(primitive_cmd, " S:x:%d,y:%d r:%d",(int)input_ring.S.x,(int)input_ring.S.y,(int)input_ring.r);
+			break;
+		case CIRCLE:
+			strfcat(primitive_cmd, " S:x:%d,y:%d r:%d",(int)input_circle.S.x,(int)input_circle.S.y,(int)input_circle.r);
+			break;
+		case POLYGON: 
+			for(int i=0;i<input_polygon.n_points;++i){
 				strfcat(primitive_cmd, " point:x:%d,y:%d",(int)input_polygon.points[i].x,(int)input_polygon.points[i].y);
+			}
+			break;
+		case POLYGON_FILL:
+			for(int i=0;i<input_polygon_fill.n_points;++i){
+				strfcat(primitive_cmd, " point:x:%d,y:%d",(int)input_polygon_fill.points[i].x,(int)input_polygon_fill.points[i].y);}
 			break;
 	}
+
 	out(INFO,0,"->","%s",primitive_cmd);
 	/* */ 
 
@@ -775,7 +747,6 @@ bool proc_obj_cmd(int argc,char *argv[]){
 		points_3d_to_2d(&last_obj);
 		fill(&last_obj);
 	}	
-	scene_.points=point_scene=point_new();
 	add_obj_points_scene(&last_obj,(scene_.space==_3D));
 
 	return true;	
