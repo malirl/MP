@@ -23,13 +23,17 @@
 \usepackage{listings}
 
 
+\newcommand{\cmd}[1]{\textcolor{blue}{\textbf{#1}}}
+
 \lstset{
   basicstyle=\ttfamily,
   breaklines=true,
   frame=single,
   numbers=left,
-  language=bash
+  language=bash,
+  escapechar=€
 }
+
 
 %\usepackage{paralist}
 %\usepackage{parskip}
@@ -82,7 +86,7 @@ Samostatná kapitola je pak věnovaná rasterizaci Beziérových křivek.
 
 
 \begin{lstlisting}
-/.MP line A:x:int,y:int B:x:int,y:int
+./MP €\cmd{line A:x:<int>,y:<int>B:x:<int>,y:<int>}€
 \end{lstlisting}
 
 Převedení vstupu\\
@@ -151,7 +155,7 @@ Tím jsme se zbavili nutnosti použití desetinné čárky.
 \section{Zrcadlení}
 
 \begin{lstlisting}
-/.MP
+./MP
 \end{lstlisting}
 
 Zrcadlení je často využívaná operace, například pro rasterizaci kružnice.
@@ -175,7 +179,7 @@ $B_z = 2(k*\vec{v}+P)-B) = \bm{(2(k*x+P_x)-B_x;2(k*y+P_y)-B_y)}$
 
 
 \begin{lstlisting}
-/.MP ring S:x:int,y:int r:int
+./MP €\cmd{ring S:<point> r:<int>}€
 \end{lstlisting}
 
 Pro kužnici rovněž existuje Bresenhamův algoritmus. Algoritmus vykreslí $1/8$ kružnice. V podmínce je tedy ze znalosti přímky svírající s osou $x$ 45 stupnu: $x>=y$. K vykreslení této části víme, že iterativně zvětšujeme $y$. $x$ dekrementujeme, pokud je hodnota $d$ kladná, tj. zajímají nás pouze 2 pixely. %infografika
@@ -205,7 +209,7 @@ Drobná modifikace se může zakládat na výběru z 3 sousedících pixelů pod
 
 \section{Kruh}
 \begin{lstlisting}
-/.MP circle S:x:int,y:int r:int
+./MP €\cmd{ring S:<point> r:<int>}€
 \end{lstlisting}
 Kruh se vykresluje tak, že se prochází body o souřadnicích od $S-r$ do $S+r$ pro $x$ a $y$, jakoby byl kruh vepsán do čtverce. Bod se přidá, pokud je jeho vzdálenost od středu $<=r$.
 
@@ -220,7 +224,7 @@ Kruh se vykresluje tak, že se prochází body o souřadnicích od $S-r$ do $S+r
 Řádkovací metoda
 
 \begin{lstlisting}
-/.MP polygon-fill point* 
+./MP €\cmd{polygon-fill point:<point>*}
 \end{lstlisting}
 
 
@@ -449,12 +453,25 @@ Pokud je polygon otevřený, žádný bod by správně neměl ležet v polygonu.
 \section{Detekce kolize}
 \section{Oblasti průniku dvou objektů a průřez}
 
+
+
+
+
 Pro jasnost uvádím, že polygon A je polygon, který průnikuje polygon B. Výsledný průnik (polygon) označuju C.
 
-Sutherland–Hodgman algoritmus
+\section{Sutherland–Hodgman a Vattiho algoritmus}
 
+
+\begin{lstlisting}
+./MP €\cmd{polygon-shutherland-hodgman A:<polygon> B:<polygon>}€
+\end{lstlisting}
 
 Pokud pomyslně prodloužíme hrany A, můžeme dělit strany této hrany na stranu, kde se nachází zbytek A a tedy i na stranu, v které se nenachází ani jeden vrchol A. Jakýkoli bod na  druhé straně polygonu není určitě uvnitř A, takže ho nepoužijeme pro C. Pokud je tomu naopak, bod necháme. Postup se totiž opakuje pro každou další stranu A, tz. že na konci zbydou pouze body (vrcholy B), které uvnitř A leží. Mezi body se navíc při procházení zjištuje, jestli průnikují B, v takovém případě se přidává navíc i bod jako průsečík hran. Algoritmus je omezen pouze na konvexní A. V opačném případě nemusí fungovat koncept (nebo by nutně vyžadoval zbytečně náročnou modifikaci), protože bychom mohli vyloučit body, které jinak v polygonu leží. Současně B je nutně konvexní. V opačném případě může dojít k překrytí (tz. overlaping) hran C - v tomto případě by vzniklo výsledků víc jako víc polygonů/samostatných průnikových oblastí. Problém řeší Vattiho algoritmus, který zaznamenává body při vstupu B do A končí při výstupu B z A. Potom přidá body na A mezi $I_{vstup}$ a $I_{vystup}$ ve směru procházení, kterým procházíme vrcholy B.
+
+\begin{lstlisting}
+./MP €\cmd{polygon-vatti A:<polygon> B:<polygon>}€
+\end{lstlisting}
+
 
 %grafika - oba algoritmy
 %algoritmus - vatti
@@ -466,7 +483,7 @@ Pokud pomyslně prodloužíme hrany A, můžeme dělit strany této hrany na str
 
 \begin{figure}[H]
   \centering
-  \includesvg[width=1\textwidth]{fig7}
+  \includesvg[width=.5\textwidth]{fig7}
   \caption{Vatti clipping algoritmus}
 \end{figure}
 
@@ -480,7 +497,7 @@ $S_i = (x_1-x_2)*\frac{y_1+y_2}{2}$
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{fig8.png}
-  \caption{Vatti clipping algoritmus}
+  \caption{Výpočet obsahu polygonu}
 \end{figure}
 
 
@@ -492,7 +509,7 @@ $S_i = (x_1-x_2)*\frac{y_1+y_2}{2}$
 \chapter{Rotace}
 
 \begin{lstlisting}
-/.MP cube-example 
+./MP €\cmd{cube-example}€ 
 \end{lstlisting}
 
 Otáčet bod vůči středu soustavy souřadné je jako nanášet ho na otočenou soustavu souřadnou, tedy násobit vektory udávájící osy $x$, $y$, atd. takové soustavy.
@@ -595,37 +612,93 @@ V praxi, grafickém editoru, určujeme osu typicky dvěma body. Právě jeden z 
 
 
 
-
 \chapter{Generování tvarů a fraktály}
 
-\begin{lstlisting}
-/.MP polygon polygon-rnd:n:int
+\begin{lstlisting}[emph={:}]
+./MP polygon|polygon-fill €\cmd{polygon-rnd:n:<int>}€
 \end{lstlisting}
 
 \begin{figure}[H]
   \centering
-  \subfigure[Caption for first figure]{\includesvg[width=0.3\textwidth]{fig3}}
+  \subfigure[]{\includesvg[width=0.3\textwidth]{fig3}}
   \hfill
-  \subfigure[Caption for second figure]{\includesvg[width=0.3\textwidth]{fig4}}
+  \subfigure[]{\includesvg[width=0.3\textwidth]{fig4}}
     \hfill
-  \subfigure[Caption for second figure]{\includesvg[width=0.3\textwidth]{fig5}}
+  \subfigure[]{\includesvg[width=0.3\textwidth]{fig5}}
   \caption{Schémata generování polygonu}
   \centering
 \end{figure}
  
+Generování náhodných polygonů není to samé co generování náhodných bodů - strany se mohou protínat.
+První přístup je náhodné generování bodů na kružnici a následně vyběr náhodné pozice na pomyslné přímse střed-bod.
+Každý další bod musí ležet v phlovém rozmezí úhlu prvního a posledního bodu.
+
+
+
+\begin{itemize}
+  \item 
+\end{itemize}
+
 
 
 \chapter{Praktická část}
 
-Výstupem programu je okno a textový výstup terminálu, v kterým program běží.
-Program je psán v jazyce C, tedy je před spuštěním kompilován. Pro kompilace 
+Výstupem programu je okno a text v 
 
-Syntax, ovládání, funkce
+terminálu, v kterém program běží.
+Program je psán v jazyce C, tedy je před spuštěním kompilován následovně.
+\begin{lstlisting}
+cd resources/program && sudo make MP
+\end{lstlisting}
+
+
+\section{Syntax, ovládání, funkce}
+
+Program běží ve dvou módech - první příkazový (PM), druhý vývojářský (VM).
+Rozdíl mezi nimi je však jen v datech, které zpracovává.
+Pro uvedení programu do PM je následující syntax:
+\begin{lstlisting}
+./MP nazev_obejktu parametr:hodnota parametr:hodnota ...
+\end{lstlisting}
+Pro uvedení programu do VM stačí čistě spustit:
+\begin{lstlisting}
+./MP
+\end{lstlisting}
+PM zpracovává jeden objekt/problém z příkazu, avšak VM jen volá soubor devtest.c, zdrojový kód, v kterým je možné nastavit příslušné vstupy a volat příslušné 
+funkce.
+
+Toto je věta s poznámkou\footnote{toto je text poznámky}.
+
+\begin{itemize}
+  \item Parametrem může být objekt, jehož parametr:hodnota jsou odděleny čárkami.
+  \item Pořadí parametrů může být libovolné.
+  \item Nadbytečné parametry program ignoruje.
+  \item Nevalidní vstup program vyrozumí a skončí.
+  \item Posouvání šipkami, zoom kolečkem myši/touchpadem.
+  \item Speciální objekt example slouží stejně jako VM, ale vstup podobjektů nastavuje přes pomocné funkce. Nakonec libovolný výstup podobjektů zabaluje do vlastního čili výstupu jednoho objektu.
+\end{itemize}
+
+\section{Požadavky, omezení}
  
+Pro úspěšnou kompilaci je nutná instalace překladače gcc a multimediální knohovny SDL2 na Linuxu (X-window system/Wayland). Jiné platformy nebyly testovány  (stačí pouze přepsat Makefile).
+ 
+ 
+\section{Struktura programu}
+ 
+ SDL2 řeší v programu pouze vytvoření okna, vykreslení bodů na něm a zachytávání uživatelského vstupu. Zpracování regulárních výrazů řeší knihovna (modul) tiny-regex.
+\\
+ 
+\textbf{Klíčové vlastnosti}
+
+ \begin{itemize}
+  \item Projekt se skládá z kontroleru, který validuje typ vstupu, nastavuje scénu, volá jednotlivá řešení v podsložkách jako /polygon ap.
+  \item Dílčí řešení zapisuje do objektu body nebo podobjekty pro vykreslení. V případě, že je objekt součástí řešení a nevykresluje se, zapisuje do výstupu skládajícího se z dalších možných výstupů.
+  \item Správně nastavený vstup objektu pro vykreslení je v syntaxi PM prostého/úplného tvaru vypsán před zpracováním.
+  \item Vstup je předán main.c v podsložce dané úlohy, kde je případně upraven pro účely daného algoritmu.
+\end{itemize}
+
+
 
 
 
 \end{document}
-
-
-

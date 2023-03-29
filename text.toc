@@ -15,11 +15,15 @@
 \contentsline {section}{\numberline {3.2}Konvexní/konkávní}{xiii}{}%
 \contentsline {section}{\numberline {3.3}Detekce kolize}{xiii}{}%
 \contentsline {section}{\numberline {3.4}Oblasti průniku dvou objektů a průřez}{xiii}{}%
-\contentsline {section}{\numberline {3.5}Obsah polygonu}{xv}{}%
-\contentsline {section}{\numberline {3.6}Je A v B?}{xvi}{}%
-\contentsline {chapter}{\numberline {4}Rotace}{xvii}{}%
-\contentsline {section}{\numberline {4.1}2D}{xvii}{}%
-\contentsline {section}{\numberline {4.2}3D}{xvii}{}%
-\contentsline {section}{\numberline {4.3}Posunutí středu a osy otáčení}{xviii}{}%
-\contentsline {chapter}{\numberline {5}Generování tvarů a fraktály}{xx}{}%
-\contentsline {chapter}{\numberline {6}Praktická část}{xxi}{}%
+\contentsline {section}{\numberline {3.5}Sutherland–Hodgman a Vattiho algoritmus}{xiv}{}%
+\contentsline {section}{\numberline {3.6}Obsah polygonu}{xv}{}%
+\contentsline {section}{\numberline {3.7}Je A v B?}{xv}{}%
+\contentsline {chapter}{\numberline {4}Rotace}{xvi}{}%
+\contentsline {section}{\numberline {4.1}2D}{xvi}{}%
+\contentsline {section}{\numberline {4.2}3D}{xvi}{}%
+\contentsline {section}{\numberline {4.3}Posunutí středu a osy otáčení}{xvii}{}%
+\contentsline {chapter}{\numberline {5}Generování tvarů a fraktály}{xix}{}%
+\contentsline {chapter}{\numberline {6}Praktická část}{xx}{}%
+\contentsline {section}{\numberline {6.1}Syntax, ovládání, funkce}{xx}{}%
+\contentsline {section}{\numberline {6.2}Požadavky, omezení}{xxi}{}%
+\contentsline {section}{\numberline {6.3}Struktura programu}{xxi}{}%
