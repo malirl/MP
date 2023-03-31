@@ -1,29 +1,29 @@
-\babel@toc {english}{}\relax 
-\contentsline {chapter}{\numberline {1}Projekce scény}{iii}{}%
-\contentsline {section}{\numberline {1.1}Stínění objektů v 3D}{iii}{}%
-\contentsline {section}{\numberline {1.2}Zoom}{iii}{}%
-\contentsline {chapter}{\numberline {2}Rasterizace}{iv}{}%
-\contentsline {section}{\numberline {2.1}Úsečka}{iv}{}%
-\contentsline {section}{\numberline {2.2}Zrcadlení}{vi}{}%
-\contentsline {section}{\numberline {2.3}Kružnice}{vi}{}%
-\contentsline {section}{\numberline {2.4}Kruh}{vii}{}%
-\contentsline {section}{\numberline {2.5}Ostatní}{vii}{}%
-\contentsline {section}{\numberline {2.6}Bezierova křivka}{vii}{}%
-\contentsline {section}{\numberline {2.7}Vyplňování}{vii}{}%
-\contentsline {chapter}{\numberline {3}Analýza}{xii}{}%
-\contentsline {section}{\numberline {3.1}Bod v polygonu}{xii}{}%
-\contentsline {section}{\numberline {3.2}Konvexní/konkávní}{xiii}{}%
-\contentsline {section}{\numberline {3.3}Detekce kolize}{xiii}{}%
-\contentsline {section}{\numberline {3.4}Oblasti průniku dvou objektů a průřez}{xiii}{}%
-\contentsline {section}{\numberline {3.5}Sutherland–Hodgman a Vattiho algoritmus}{xiv}{}%
-\contentsline {section}{\numberline {3.6}Obsah polygonu}{xv}{}%
-\contentsline {section}{\numberline {3.7}Je A v B?}{xv}{}%
-\contentsline {chapter}{\numberline {4}Rotace}{xvi}{}%
-\contentsline {section}{\numberline {4.1}2D}{xvi}{}%
-\contentsline {section}{\numberline {4.2}3D}{xvi}{}%
-\contentsline {section}{\numberline {4.3}Posunutí středu a osy otáčení}{xvii}{}%
-\contentsline {chapter}{\numberline {5}Generování tvarů a fraktály}{xix}{}%
-\contentsline {chapter}{\numberline {6}Praktická část}{xx}{}%
-\contentsline {section}{\numberline {6.1}Syntax, ovládání, funkce}{xx}{}%
-\contentsline {section}{\numberline {6.2}Požadavky, omezení}{xxi}{}%
-\contentsline {section}{\numberline {6.3}Struktura programu}{xxi}{}%
+\babel@toc {czech}{}\relax 
+\contentsline {chapter}{\numberline {1}Projekce scény}{v}{}%
+\contentsline {chapter}{\numberline {2}Rasterizace}{v}{}%
+\contentsline {section}{\numberline {2.1}Úsečka}{v}{}%
+\contentsline {section}{\numberline {2.2}DDA}{vi}{}%
+\contentsline {section}{\numberline {2.3}Bresenham}{vi}{}%
+\contentsline {section}{\numberline {2.4}Zrcadlení}{vii}{}%
+\contentsline {section}{\numberline {2.5}Kružnice}{vii}{}%
+\contentsline {section}{\numberline {2.6}Kruh}{vii}{}%
+\contentsline {section}{\numberline {2.7}Vyplňování}{viii}{}%
+\contentsline {section}{\numberline {2.8}Řádkovací metoda}{viii}{}%
+\contentsline {section}{\numberline {2.9}Rozbití do trojúhelníků}{x}{}%
+\contentsline {section}{\numberline {2.10}Flood fill}{x}{}%
+\contentsline {chapter}{\numberline {3}Analýza}{xi}{}%
+\contentsline {section}{\numberline {3.1}Bod v polygonu}{xi}{}%
+\contentsline {section}{\numberline {3.2}Konvexní/konkávní polygon}{xii}{}%
+\contentsline {section}{\numberline {3.3}Průnik tvarů}{xii}{}%
+\contentsline {section}{\numberline {3.4}Sutherland–Hodgman a Vattiho algoritmus}{xii}{}%
+\contentsline {section}{\numberline {3.5}Obsah polygonu}{xiii}{}%
+\contentsline {chapter}{\numberline {4}Rotace}{xiv}{}%
+\contentsline {section}{\numberline {4.1}2D}{xiv}{}%
+\contentsline {section}{\numberline {4.2}3D}{xv}{}%
+\contentsline {section}{\numberline {4.3}Posunutí středu a osy otáčení}{xv}{}%
+\contentsline {chapter}{\numberline {5}Generování tvarů}{xvi}{}%
+\contentsline {chapter}{\numberline {6}Praktická část}{xvii}{}%
+\contentsline {section}{\numberline {6.1}Syntax, ovládání, funkce}{xvii}{}%
+\contentsline {section}{\numberline {6.2}Požadavky, omezení}{xviii}{}%
+\contentsline {section}{\numberline {6.3}Struktura programu}{xviii}{}%
+\contentsline {chapter}{\numberline {7}Závěr}{xix}{}%

@@ -2,56 +2,79 @@
 \providecommand{\transparent@use}[1]{}
 \providecommand\babel@aux[2]{}
 \@nameuse{bbl@beforestart}
-\babel@aux{english}{}
-\@writefile{toc}{\contentsline {chapter}{\numberline {1}Projekce scény}{iii}{}\protected@file@percent }
+\catcode `"\active 
+\catcode `-\active 
+\babel@aux{czech}{}
+\@writefile{toc}{\contentsline {chapter}{\numberline {1}Projekce scény}{v}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {1.1}Stínění objektů v 3D}{iii}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {1.2}Zoom}{iii}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {2}Rasterizace}{iv}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}Rasterizace}{v}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {2.1}Úsečka}{iv}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Převod souřadnic podle směrnice úsečky.\relax }}{v}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Zrcadlení}{vi}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Kružnice}{vi}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.4}Kruh}{vii}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.5}Ostatní}{vii}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.6}Bezierova křivka}{vii}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.7}Vyplňování}{vii}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Vyplňování řádkováním ze shora dolů. Červené vrcholy nevedou na žádnou další úsečku, zelené vedou na 2 úsečky a modré vedou na druhou přiléhající úsečku.\relax }}{viii}{}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Řádkovací metoda\relax }}{ix}{}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Solve\relax }}{x}{}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Vyplňování rozbitím do trojúhelníků\relax }}{x}{}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Vyplnění trojúhelníka\relax }}{xi}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Analýza}{xii}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Úsečka}{v}{}\protected@file@percent }
+\citation{usecka_bresenham}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Převod souřadnic podle směrnice úsečky.\relax }}{vi}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}DDA}{vi}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Bresenham}{vi}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Bresenhamův algoritmus\relax }}{vi}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}Zrcadlení}{vii}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.5}Kružnice}{vii}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Kružnice\relax }}{vii}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.6}Kruh}{vii}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Kruh\relax }}{viii}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.7}Vyplňování}{viii}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.8}Řádkovací metoda}{viii}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Vyplňování řádkováním ze shora dolů. Červené vrcholy nejsou součástí žádné další nezpracované hrany, zelené vedou na 2 hrany k zpracování a modré vedou na právě jednu vedlejší/přiléhající nezpracovanou hranu.\relax }}{viii}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Řádkovací metoda\relax }}{ix}{}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{alg:radkovani}{{4}{ix}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.9}Rozbití do trojúhelníků}{x}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {5}{\ignorespaces Vyplňování rozbitím do trojúhelníků\relax }}{x}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {5}{\ignorespaces Vyplnění trojúhelníka\relax }}{x}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.10}Flood fill}{x}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {6}{\ignorespaces Flood Fill\relax }}{xi}{}\protected@file@percent }
+\newlabel{alg:floodfill}{{6}{xi}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Analýza}{xi}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}Bod v polygonu}{xii}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}Konvexní/konkávní}{xiii}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Identifikace konvexního/konkávního polygonu\relax }}{xiii}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}Detekce kolize}{xiii}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.4}Oblasti průniku dvou objektů a průřez}{xiii}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.5}Sutherland–Hodgman a Vattiho algoritmus}{xiv}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Vatti clipping algoritmus\relax }}{xiv}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.6}Obsah polygonu}{xv}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Výpočet obsahu polygonu\relax }}{xv}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.7}Je A v B?}{xv}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Rotace}{xvi}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Bod v polygonu}{xi}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Rozhodnout, zda se bod nachází v polygonu, můžeme toutou vizualizací. Podle počtu průniků vodorvné přímky $x=B_x$ s hranami polygonu v nějakém směru. Lichý počet znamená, že leží uvnitř.\relax }}{xi}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Konvexní/konkávní polygon}{xii}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {7}{\ignorespaces Určení konvexnosti polygonu\relax }}{xii}{}\protected@file@percent }
+\newlabel{konvexni/konkavni}{{7}{xii}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Identifikace konvexního/konkávního polygonu\relax }}{xii}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Průnik tvarů}{xii}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Sutherland–Hodgman a Vattiho algoritmus}{xii}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Shutherland-hodgman algoritmus\relax }}{xiii}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Obsah polygonu}{xiii}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Vizualizace vzorce obsahu polygonu.\relax }}{xiii}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Rotace}{xiv}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}2D}{xvi}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}3D}{xvi}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Posunutí středu a osy otáčení}{xvii}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Generování tvarů a fraktály}{xix}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces 3D rotace a projekce funguje v programu jako na obrázku. Pozorovatel (ohnisko) se pohybuje na sféře (převod souřadnic z jedné báze do druhé a rotace) a současně se dívá do středu souřadnic. 2D souřadnice se promítají na rovinu kolmou k spojnici střed-pozorovatel, která je posunuta dál od středu.\relax }}{xiv}{}\protected@file@percent }
+\newlabel{fig:rotace_pozorovatel}{{4.1}{xiv}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}2D}{xiv}{}\protected@file@percent }
+\citation{rotace}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}3D}{xv}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Posunutí středu a osy otáčení}{xv}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Generování tvarů}{xvi}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Schémata generování polygonu\relax }}{xix}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Praktická část}{xx}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Metody generování polygonu\relax }}{xvi}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Praktická část}{xvii}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Syntax, ovládání, funkce}{xx}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Požadavky, omezení}{xxi}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Struktura programu}{xxi}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Syntax, ovládání, funkce}{xvii}{}\protected@file@percent }
+\citation{sdl2}
+\bibdata{text}
+\bibcite{usecka_bresenham}{1}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Požadavky, omezení}{xviii}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Struktura programu}{xviii}{}\protected@file@percent }
+\bibcite{sdl2}{2}
+\bibcite{rotace}{3}
+\bibstyle{plain}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Závěr}{xix}{}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
 \gdef\svg@ink@ver@settings{{\m@ne }{inkscape}{1}}
-\gdef \@abspage@last{22}
+\gdef \@abspage@last{20}

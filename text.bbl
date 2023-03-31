@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+
+\bibitem{usecka_bresenham}
+Tom Carter.
+\newblock The bresenham line algorithm, computer science csu stanislaus.
+\newblock 2014.
+
+\bibitem{sdl2}
+Benedict HENSHAW.
+\newblock Intro to software rendering with sdl2.
+\newblock 2023.
+
+\bibitem{rotace}
+Rostislav HORCIK.
+\newblock Výpočet matice rotace, http://uivty.cs.cas.sz.
+\newblock 2009.
+
+\end{thebibliography}
